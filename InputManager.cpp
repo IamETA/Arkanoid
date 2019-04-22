@@ -2,11 +2,11 @@
 
 namespace InputUtils {
 
-	InputManager* InputManager::sInstance = NULL;
+	InputManager* InputManager::sInstance = nullptr;
 
 	InputManager* InputManager::Instance() 
 	{
-		if (sInstance == NULL)
+		if (sInstance == nullptr)
 		{
 			sInstance = new InputManager();
 		}
@@ -18,7 +18,7 @@ namespace InputUtils {
 	void InputManager::Release() 
 	{
 		delete sInstance;
-		sInstance = NULL;
+		sInstance = nullptr;
 	}
 
 

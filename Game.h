@@ -14,10 +14,10 @@ namespace Game {
 
     class Game {
     private:
-        SDL_Window *window;
-        SDL_Renderer *renderer;
-        SDL_Event event;
-        bool is_running;
+		SDL_Window* window{ NULL };
+		SDL_Renderer* renderer{ NULL };
+		SDL_Event event{ NULL };
+		bool is_running{};
         int counter{0};
 
     public:

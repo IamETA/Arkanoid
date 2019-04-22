@@ -8,7 +8,7 @@ namespace InputUtils {
 	{
 	private:
 		static InputManager* sInstance;
-		const Uint8* mKeyBoardStates;
+		const Uint8* mKeyBoardStates{ NULL };
 
 
 	public:

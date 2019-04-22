@@ -1,12 +1,15 @@
 #include "SDL.h"
 #include "Timer.h"
 #include "Game.h"
+#include "InputManager.h"
 
 int main(int argc, char* argv[])
 {
 
 	//Burde ha opprettelse av klasser i en GameManager ???
 	TimerUtils::Timer* timer = TimerUtils::Timer::Instance();
+	InputUtils::InputManager* input = InputUtils::InputManager::Instance();
+
 	Game::Game* game = nullptr;
 
 	game = new Game::Game();
@@ -30,6 +33,9 @@ int main(int argc, char* argv[])
 	}
 
 	game->clean();
-	TimerUtils::Timer::Release();
+	input->Release();
+	timer->Release();
+
+//	TimerUtils::Timer::Release();
 	return 0;
 }
