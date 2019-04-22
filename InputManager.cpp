@@ -2,9 +2,10 @@
 
 namespace InputUtils {
 
-	InputManager* InputUtils::InputManager::sInstance = NULL;
+	InputManager* InputManager::sInstance = NULL;
 
-	InputManager* InputUtils::InputManager::Instance() {
+	InputManager* InputManager::Instance() 
+	{
 		if (sInstance == NULL)
 		{
 			sInstance = new InputManager();
@@ -14,7 +15,8 @@ namespace InputUtils {
 
 	}
 
-	void InputUtils::InputManager::Release() {
+	void InputManager::Release() 
+	{
 		delete sInstance;
 		sInstance = NULL;
 	}
@@ -27,6 +29,17 @@ namespace InputUtils {
 
 	InputManager::~InputManager()
 	{
+	}
+
+	bool InputManager::KeyDown(SDL_Scancode scanCode) 
+	{
+		return mKeyBoardStates[scanCode];
+	}
+
+	void InputManager::Update() 
+	{
+		mKeyBoardStates = SDL_GetKeyboardState(NULL);
+
 	}
 
 

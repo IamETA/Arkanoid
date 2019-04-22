@@ -124,7 +124,6 @@
   <ItemGroup>
     <ClInclude Include="Game.h" />
     <ClInclude Include="InputManager.h" />
-    <ClInclude Include="main.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
