@@ -120,19 +120,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Ball.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="InputManager.h" />
-    <ClInclude Include="TextureManager.h" />
-    <ClInclude Include="Timer.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TextureManager.cpp" />
-    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

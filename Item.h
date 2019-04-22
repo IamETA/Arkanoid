@@ -1,7 +1,7 @@
 #ifndef ITEM_H_
 #define ITEM_H_
 
-#include "SDL.h"
+#include <sdl.h>
 #include "SDL_image.h"
 
 class Item {
