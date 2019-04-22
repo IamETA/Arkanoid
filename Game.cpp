@@ -73,6 +73,12 @@ namespace Game {
 
 	void Game::update() 
 	{
+
+		/*
+		
+		Foreløpig dette som gjør at bildet nå flytter på seg...
+		
+		*/
 		counter++;
 		destR.w = 64;
 		destR.h = 64;
