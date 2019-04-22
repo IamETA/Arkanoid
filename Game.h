@@ -8,7 +8,7 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
-#include <iosfwd>
+#include <iostream>
 
 namespace Game {
 
@@ -19,6 +19,8 @@ namespace Game {
 		SDL_Event event{ NULL };
 		bool is_running{};
         int counter{0};
+		
+		//std::unique_ptr<SDL_Window, void(*)(SDL_Window*)> window;
 
 		
     public:
