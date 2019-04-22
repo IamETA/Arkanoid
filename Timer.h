@@ -9,7 +9,7 @@
 #include <iosfwd>
 
 
-namespace EngineUtils {
+namespace TimerUtils {
 
     class Timer {
 

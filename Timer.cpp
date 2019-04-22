@@ -5,7 +5,7 @@
 #include "Timer.h"
 #include <iostream>
 
-namespace EngineUtils {
+namespace TimerUtils {
     Timer *Timer::sInstance = nullptr;
 
     Timer *Timer::Instance() {

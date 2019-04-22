@@ -4,7 +4,7 @@
 
 int main(int argc, char* argv[])
 {
-	EngineUtils::Timer* timer = EngineUtils::Timer::Instance();
+	TimerUtils::Timer* timer = TimerUtils::Timer::Instance();
 	Game::Game* game = nullptr;
 
 	game = new Game::Game();
@@ -27,6 +27,6 @@ int main(int argc, char* argv[])
 	}
 
 	game->clean();
-	EngineUtils::Timer::Release();
+	TimerUtils::Timer::Release();
 	return 0;
 }
