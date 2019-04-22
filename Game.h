@@ -27,7 +27,7 @@ namespace Game {
 
         void handle_exit_event();
 
-        void init_window(const char *title, int xpos, int ypos, int width, int height, bool fullscreen);
+        void init_window(const char *title, int xpos, int ypos, int height, int width, bool fullscreen);
 
         void update();
 

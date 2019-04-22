@@ -3,6 +3,9 @@
 #include "Game.h"
 #include "InputManager.h"
 
+#define SCREEN_HEIGHT 800
+#define SCREEN_WIDTH 600
+
 int main(int argc, char* argv[])
 {
 
@@ -14,7 +17,7 @@ int main(int argc, char* argv[])
 
 	game = new Game::Game();
 
-	game->init_window("Arkanoid", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
+	game->init_window("Arkanoid", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_HEIGHT, SCREEN_WIDTH, false);
 
 	while (game->running()) {
 
