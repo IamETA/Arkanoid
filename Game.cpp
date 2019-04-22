@@ -71,11 +71,13 @@ void Game::render() {
 
     /*This is where to  add stuff to render.
     First to get rendered is the background, then whatever comes after will be rendered on top*/
-    playerTexture = TextureUtils::TextureManager::load_texture("textures/mario.png", renderer);
+    playerTexture = TextureUtils::TextureManager::load_texture("textures/paddlev.png", renderer);
     SDL_RenderCopy(renderer, playerTexture, NULL, &destR);
     // --- End of rendering textures ------
 
+
     SDL_RenderPresent(renderer);
+
 }
 
 void Game::clean() {
