@@ -10,11 +10,8 @@
 int main(int argc, char* argv[])
 {
 
-	//Burde ha opprettelse av klasser i en GameManager ???
-	TimerUtils::Timer* timer = TimerUtils::Timer::Instance();
-	InputUtils::InputManager* input = InputUtils::InputManager::Instance();
-
-
+	std::unique_ptr<InputUtils::InputManager> input(InputUtils::InputManager::Instance());
+	std::unique_ptr<TimerUtils::Timer> timer(TimerUtils::Timer::Instance());
 	std::unique_ptr<Game::Game> game(new Game::Game());
 
 
@@ -40,6 +37,5 @@ int main(int argc, char* argv[])
 	input->Release();
 	timer->Release();
 
-//	TimerUtils::Timer::Release();
 	return 0;
 }

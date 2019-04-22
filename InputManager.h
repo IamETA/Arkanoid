@@ -20,10 +20,9 @@ namespace InputUtils {
 
 		void Update();
 
-
-	private:
 		explicit InputManager();
 		~InputManager();
+
 	};
 
 }

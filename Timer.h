@@ -40,11 +40,9 @@ namespace TimerUtils {
 
         float get_frame_rate();
 
+		explicit Timer();
+		~Timer();
 
-
-    private:
-        explicit Timer();
-        ~Timer();
 
     };
 
