@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "InputManager.h"
 #include <iostream>
+#include <memory>
 
 #define SCREEN_HEIGHT 800
 #define SCREEN_WIDTH 600
@@ -33,9 +34,9 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	game->clean();
-	input->Release();
-	timer->Release();
+	//game->clean();
+	//input->Release();
+	//timer->Release();
 
 	return 0;
 }

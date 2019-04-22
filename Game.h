@@ -36,8 +36,6 @@ namespace Game {
 
         void render();
 
-        void clean();
-
         bool running() { return is_running; }
 
     };

@@ -14,7 +14,13 @@ namespace Game {
 
 	Game::Game() {};
 
-	Game::~Game() {};
+	Game::~Game() {
+		
+		SDL_DestroyWindow(window);
+		SDL_DestroyRenderer(renderer);
+		SDL_Quit();
+		std::cout << "Game cleaned" << std::endl;
+	};
 
 	void Game::init_window(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) 
 	{
@@ -75,7 +81,7 @@ namespace Game {
 		destR.x = counter;
 
 
-		std::cout << counter << std::endl;
+		//std::cout << counter << std::endl;
 	}
 
 	//Legges i TextureManager 
@@ -95,11 +101,5 @@ namespace Game {
 
 	}
 
-	void Game::clean() 
-	{
-		SDL_DestroyWindow(window);
-		SDL_DestroyRenderer(renderer);
-		SDL_Quit();
-		std::cout << "Game cleaned" << std::endl;
-	}
+
 }
