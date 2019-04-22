@@ -1,47 +1,58 @@
-//
-// Created by mynewdog on 11.03.19.
-//
+#ifndef GAME_H_
+#define GAME_H_
 
-#ifndef ARCADEGAME_GAME_H
-#define ARCADEGAME_GAME_H
-
-
-#include <SDL.h>
-#include <SDL_image.h>
+#include "SDL.h"
+#include "SDL_image.h"
 #include <iostream>
+#include <stdio.h>
 
-namespace Game {
+#include "Level.h"
+#include "Player.h"
+#include "Ball.h"
 
-    class Game {
-    private:
-		SDL_Window* window{ NULL };
-		SDL_Renderer* renderer{ NULL };
-		SDL_Event event{ NULL };
-		bool is_running{};
-        int counter{0};
-		
-		//std::unique_ptr<SDL_Window, void(*)(SDL_Window*)> window;
+#define FPS_DELAY 500
 
-		
-    public:
-        explicit Game();
+class Game {
+public:
+	Game();
+	~Game();
 
-        ~Game();
+	bool Init();
+	void Run();
 
-        void handle_exit_event();
+private:
+	SDL_Window* window;
+	SDL_Renderer* renderer;
 
-        void init_window(const char *title, int xpos, int ypos, int height, int width, bool fullscreen);
+	SDL_Texture* texture;
 
-        void update();
+	// Timing
+	unsigned int lasttick, fpstick, fps, framecount;
 
-        void render();
+	// Test
+	float testx, testy;
 
-        void clean();
+	Level* level;
+	Player* player;
+	Ball* ball;
+	bool paddlestick;
 
-        bool running() { return is_running; }
+	void Clean();
+	void Update(float delta);
+	void Render(float delta);
 
-    };
-}
+	void NewGame();
+	void ResetPlayer();
+	void StickBall();
 
+	void SetPlayerX(float x);
+	void CheckBoardCollisions();
+	float GetReflection(float hitx);
+	void CheckPaddleCollisions();
+	void CheckBrickCollisions();
+	void CheckBrickCollisions2();
+	void BallBrickResponse(int dirindex);
+	int GetBrickCount();
+};
 
-#endif //ARCADEGAME_GAME_H
+#endif
