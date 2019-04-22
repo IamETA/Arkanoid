@@ -14,11 +14,13 @@ namespace Game {
 
     class Game {
     private:
-		SDL_Window* window{ NULL };
-		SDL_Renderer* renderer{ NULL };
+		SDL_Window* window{ nullptr };
+		SDL_Renderer* renderer{ nullptr };
 		SDL_Event event{ NULL };
-		bool is_running{};
+		bool game_running{};
         int counter{0};
+
+	
 		
 		//std::unique_ptr<SDL_Window, void(*)(SDL_Window*)> window;
 
@@ -36,7 +38,7 @@ namespace Game {
 
         void render();
 
-        bool running() { return is_running; }
+        bool running() { return game_running; }
 
     };
 }

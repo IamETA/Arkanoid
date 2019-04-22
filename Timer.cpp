@@ -20,7 +20,6 @@ namespace TimerUtils {
     void Timer::Release() 
 	{
         delete sInstance;
-        //No dangling pointer
         sInstance = nullptr;
     }
 
@@ -32,7 +31,7 @@ namespace TimerUtils {
     }
 
     Timer::~Timer() 
-	{
+	{	
         std::cout << "Timer destroyed" << std::endl;
     }
 

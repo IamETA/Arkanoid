@@ -47,12 +47,12 @@ namespace Game {
 				std::cout << "Renderer created" << std::endl;
 			}
 
-			is_running = true;
+			game_running = true;
 		}
 		else 
 		{
 			std::cout << "Unable to initialize SDL: " << SDL_GetError() << std::endl;
-			is_running = false;
+			game_running = false;
 		}
 
 	}
@@ -62,7 +62,7 @@ namespace Game {
 		SDL_PollEvent(&event);
 		switch (event.type) {
 		case SDL_QUIT:
-			is_running = false;
+			game_running = false;
 			break;
 
 		default:
@@ -70,8 +70,6 @@ namespace Game {
 		}
 	}
 
-
-	// Burde fjernes
 
 	void Game::update() 
 	{
@@ -81,10 +79,8 @@ namespace Game {
 		destR.x = counter;
 
 
-		//std::cout << counter << std::endl;
 	}
 
-	//Legges i TextureManager 
 
 	void Game::render() 
 	{

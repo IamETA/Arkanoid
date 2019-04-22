@@ -34,7 +34,6 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	//game->clean();
 	//input->Release();
 	//timer->Release();
 
