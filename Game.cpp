@@ -64,6 +64,9 @@ namespace Game {
 		}
 	}
 
+
+	// Burde fjernes
+
 	void Game::update() 
 	{
 		counter++;
@@ -74,6 +77,8 @@ namespace Game {
 
 		std::cout << counter << std::endl;
 	}
+
+	//Legges i TextureManager 
 
 	void Game::render() 
 	{

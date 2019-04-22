@@ -20,6 +20,7 @@ namespace Game {
 		bool is_running{};
         int counter{0};
 
+		
     public:
         explicit Game();
 
