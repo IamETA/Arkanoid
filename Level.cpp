@@ -1,6 +1,6 @@
 #include "Level.h"
 
-Level::Level(SDL_Renderer* renderer) : Entity(renderer) {
+Level::Level(SDL_Renderer* renderer) : Item(renderer) {
 	SDL_Surface* surface = IMG_Load("bricks.png"); // Endre til BMP fil
 	bricktexture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
@@ -32,8 +32,8 @@ void Level::Update(float delta) {
 
 void Level::Render(float delta) {
 	// Render bricks
-	for (int i = 0; i < Level_WIDTH; i++) {
-		for (int j = 0; j < Level_HEIGHT; j++) {
+	for (int i = 0; i < LEVEL_WIDTH; i++) {
+		for (int j = 0; j < LEVEL_HEIGHT; j++) {
 			Brick brick = bricks[i][j];
 
 			// Check if the brick exists
@@ -42,16 +42,16 @@ void Level::Render(float delta) {
 
 			SDL_Rect srcrect;
 
-			srcrect.x = (brick.type % 2) * Level_BRWIDTH;
-			srcrect.y = (brick.type / 2) * Level_BRHEIGHT;
-			srcrect.w = Level_BRWIDTH;
-			srcrect.h = Level_BRHEIGHT;
+			srcrect.x = (brick.type % 2) * LEVEL_BRWIDTH;
+			srcrect.y = (brick.type / 2) * LEVEL_BRHEIGHT;
+			srcrect.w = LEVEL_BRWIDTH;
+			srcrect.h = LEVEL_BRHEIGHT;
 
 			SDL_Rect dstrect;
-			dstrect.x = brickoffsetx + x + i * Level_BRWIDTH;
-			dstrect.y = brickoffsety + y + j * Level_BRHEIGHT;
-			dstrect.w = Level_BRWIDTH;
-			dstrect.h = Level_BRHEIGHT;
+			dstrect.x = brickoffsetx + x + i * LEVEL_BRWIDTH;
+			dstrect.y = brickoffsety + y + j * LEVEL_BRHEIGHT;
+			dstrect.w = LEVEL_BRWIDTH;
+			dstrect.h = LEVEL_BRHEIGHT;
 
 			SDL_RenderCopy(renderer, bricktexture, &srcrect, &dstrect);
 		}
@@ -73,12 +73,12 @@ void Level::Render(float delta) {
 }
 
 void Level::CreateLevel() {
-	for (int i = 0; i < Level_WIDTH; i++) {
-		for (int j = 0; j < Level_HEIGHT; j++) {
+	for (int i = 0; i < LEVEL_WIDTH; i++) {
+		for (int j = 0; j < LEVEL_HEIGHT; j++) {
 			Brick brick;
 
-			//brick.type = rand() % 4;    // Random color
-			brick.type = (i ^ j) % 4; // Example of a fixed pattern using xor
+			brick.type = rand() % 4;    // Random color
+			//brick.type = (i ^ j) % 4; // Example of a fixed pattern using xor
 			brick.state = true;         // Brick is present
 			bricks[i][j] = brick;
 		}

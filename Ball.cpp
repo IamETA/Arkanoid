@@ -1,6 +1,6 @@
 #include "Ball.h"
 
-Ball::Ball(SDL_Renderer* renderer) : Entity(renderer) {
+Ball::Ball(SDL_Renderer* renderer) : Item(renderer) {
 	SDL_Surface* surface = IMG_Load("ball.png"); // Endre til bmp fil.
 	texture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);

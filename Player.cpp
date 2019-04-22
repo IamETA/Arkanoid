@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(SDL_Renderer* renderer) : Entity(renderer) {
+Player::Player(SDL_Renderer* renderer) : Item(renderer) {
 	SDL_Surface* surface = IMG_Load("Player.png"); // Bytte til paddle.bmp
 	texture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);

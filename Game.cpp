@@ -189,10 +189,10 @@ void Game::CheckBoardCollisions() {
 		ball->x = level->x;
 		ball->dirx *= -1;
 	}
-	else if (ball->x + ball->width >= board->x + board->width) {
+	else if (ball->x + ball->width >= level->x + level->width) {
 		// Right
 		// Keep the ball within the level and reflect the x-direction
-		ball->x = board->x + board->width - ball->width;
+		ball->x = level->x + level->width - ball->width;
 		ball->dirx *= -1;
 	}
 }
