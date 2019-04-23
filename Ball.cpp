@@ -2,10 +2,11 @@
 
 
 
-Ball::Ball(SDL_Renderer* renderer) : GameObject(renderer)
+Ball::Ball(const char* texturesheet) : GameObject(m_renderer)
 {
+
 	SDL_Surface* surface = IMG_Load("transparentball.png");
-	m_texture = SDL_CreateTextureFromSurface(renderer, surface);
+	m_texture = SDL_CreateTextureFromSurface(m_renderer, surface);
 	SDL_FreeSurface(surface);
 
 	x = 0;

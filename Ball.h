@@ -4,7 +4,7 @@ class Ball :
 	public GameObject
 {
 public:
-	Ball(SDL_Renderer* renderer);
+	Ball(const char* texturesheet);
 	~Ball();
 
 	void update(float delta);
