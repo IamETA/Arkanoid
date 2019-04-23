@@ -247,7 +247,12 @@ void Game::CheckBrickCollisions() {
 
 				if (fabs(dx) <= w && fabs(dy) <= h) {
 					// Collision detected
-					level->bricks[i][j].state = false;
+					if (brick.HP == 0) {
+						level->bricks[i][j].state = false;
+					}
+					else {
+						level->bricks[i][j].HP -= 1;
+					}
 
 					float wy = w * dy;
 					float hx = h * dx;
@@ -300,7 +305,12 @@ void Game::CheckBrickCollisions2() {
 
 				if (ball->x <= brickx + LEVEL_BRWIDTH && ball->x + ball->width >= brickx && ball->y <= bricky + LEVEL_BRHEIGHT && ball->y + ball->height >= bricky) {
 					// Collision detected, remove the brick
-					level->bricks[i][j].state = false;
+					if (brick.HP == 0) {
+						level->bricks[i][j].state = false;
+					}
+					else {
+						level->bricks[i][j].HP -= 1;
+					}
 
 					// Asume the ball goes slow enough to not skip through the bricks TODO:: Change with more powerups
 
@@ -445,7 +455,6 @@ int Game::GetBrickCount() {
 			}
 		}
 	}
-
 	return brickcount;
 }
 

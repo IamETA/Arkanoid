@@ -6,15 +6,16 @@
 #include <time.h>
 
 // Define the dimensions of the board and bricks
-#define LEVEL_WIDTH 12
-#define LEVEL_HEIGHT 12
+#define LEVEL_WIDTH 10
+#define LEVEL_HEIGHT 10
 #define LEVEL_BRWIDTH 64
 #define LEVEL_BRHEIGHT 24
 
-class Brick {
+class Brick { //Brick 1
 public:
 	int type;
 	bool state;
+	int HP;
 };
 
 class Level : public Item {

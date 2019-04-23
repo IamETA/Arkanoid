@@ -11,13 +11,13 @@ Level::Level(SDL_Renderer* renderer) : Item(renderer) {
 
 	srand(time(0));
 
-	x = 16;
-	y = 0;
+	x = 10;
+	y = 10;
 	width = 768;
 	height = 600;
 
-	brickoffsetx = 0;
-	brickoffsety = 16;
+	brickoffsetx = 10;
+	brickoffsety = 10;
 }
 
 Level::~Level() {
@@ -73,14 +73,34 @@ void Level::Render(float delta) {
 }
 
 void Level::CreateLevel() {
-	for (int i = 0; i < LEVEL_WIDTH; i++) {
-		for (int j = 0; j < LEVEL_HEIGHT; j++) {
-			Brick brick;
+	for (int i = 1; i < LEVEL_WIDTH; i++) {
+		for (int j = 1; j < LEVEL_HEIGHT; j++) {
+			
+			if (i == 1 || i == LEVEL_WIDTH - 2 || j == 1 || j == LEVEL_HEIGHT - 2) {
+				Brick brick;
 
-			brick.type = rand() % 4;    // Random color
-			//brick.type = (i ^ j) % 4; // Example of a fixed pattern using xor
-			brick.state = true;         // Brick is present
-			bricks[i][j] = brick;
+				//brick.type = rand() % 4;    // Random color
+				brick.type = 0; // Example of a fixed pattern using xor
+				brick.state = true;         // Brick is present
+				brick.HP = 1;
+				bricks[i][j] = brick;
+			}
+			else {
+				Brick brick;
+				//brick.type = rand() % 4;    // Random color
+				brick.type = 2; // Example of a fixed pattern using xor
+				brick.state = true;         // Brick is present
+				brick.HP = 0;
+				bricks[i][j] = brick;
+			}
+			if (j == 9) {
+				Brick brick;
+				//brick.type = rand() % 4;    // Random color
+				brick.type = 3; // Example of a fixed pattern using xor
+				brick.state = true;         // Brick is present
+				brick.HP = -1;
+				bricks[i][j] = brick;
+			}
 		}
 	}
 }
