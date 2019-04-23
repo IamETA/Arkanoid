@@ -34,6 +34,7 @@ namespace TimerUtils {
 	{	
         std::cout << "Timer destroyed" << std::endl;
     }
+
 	std::chrono::steady_clock::time_point Timer::start_time() {
 		return m_start_time;
 	}

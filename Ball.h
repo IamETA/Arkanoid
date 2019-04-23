@@ -13,7 +13,7 @@ public:
 
 	void change_ball_color();
 	
-	float m_dirY{ 0 }, m_dirx{ 0 };
+	float m_dirY{ 0 }, m_dirX{ 0 };
 
 private: 
 	SDL_Rect m_rect{ 0 };

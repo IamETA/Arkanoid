@@ -10,6 +10,8 @@ namespace InputUtils {
 		static InputManager* sInstance;
 		const Uint8* mKeyBoardStates{ NULL };
 
+		int mx{ 0 }, my{ 0 };
+
 		const Uint8 mouseState = SDL_GetMouseState(&mx, &my);
 
 

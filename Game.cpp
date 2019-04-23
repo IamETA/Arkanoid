@@ -8,10 +8,8 @@
 #include <iostream>
 #include "Scene.h"
 #include "MenuScene.h"
+#include "GameScene.h"
 
-SDL_Texture* playerTexture;
-SDL_Texture* enemyTexture;
-SDL_Rect srcR, destR;
 
 namespace Game {
 
@@ -26,51 +24,19 @@ namespace Game {
 	};
 	void Game::run() {
 
-
+		//Use chronos time library to control updates
 		timer = TimerUtils::Timer::Instance();
 		timer->Reset();
 		float fps{ 0 };
+
+		//Used to calculate fps
 		int framecount{ 0 };
-		/*
-		unsigned int lasttick = SDL_GetTicks();
-		// Calculate delta and fps
-		unsigned int curtick = SDL_GetTicks();
-		float delta = (curtick - lasttick) / 1000.0f;
-
-		Gamle stabile måten:
-		while (game_running)
-		{
-			handle_exit_event();
-			// Calculate delta and fps
-			unsigned int curtick = SDL_GetTicks();
-			float delta = (curtick - lasttick) / 1000.0f;
-			if (curtick - fpstick >= FPS_DELAY) {
-				fps = framecount * (1000.0f / (curtick - fpstick));
-				fpstick = curtick;
-				framecount = 0;
-				//std::cout << "FPS: " << fps << std::endl;
-				char buf[100];
-				snprintf(buf, 100, "Arkanoid copy (fps: %u)", fps);
-				SDL_SetWindowTitle(window, buf);
-			}
-			else {
-				framecount++;
-			}
-			lasttick = curtick;
-
-			// Update and render the game
-			update(delta);
-			render(delta)
-		}*/
-	
 
 		// set the initial scene for the game.
-		enterScene(std::make_shared<MenuScene>(*this));
+		enterScene(std::make_shared<GameScene>(*this));
 
 		while (game_running) {
 			timer->Tick();
-			//if (timer->delta_time() >= 1 / timer->get_frame_rate())
-			//{
 			if (timer->Delay() >= 500) {
 				timer->Reset();
 				framecount = 0;
@@ -81,8 +47,6 @@ namespace Game {
 			else {
 				framecount++;	
 			}
-			
-			//}
 		}
 		timer->Release();
 	}
@@ -102,6 +66,8 @@ namespace Game {
 			return;
 		}
 	}
+
+	//initialize sdl window 
 	bool Game::init_window(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) 
 	{
 		Uint32 flags = 0;
@@ -151,34 +117,31 @@ namespace Game {
 
 	void Game::update(unsigned int delta)
 	{
-
-		/*
-		
-		Foreløpig dette som gjør at bildet nå flytter på seg...
-		
-		*/
-		counter++;
-		destR.w = 64;
-		destR.h = 64;
-		destR.x = counter;
-
+		mScene->update(delta);
 
 	}
 
 
-	void Game::render(unsigned int delta) 
+	void Game::render() 
 	{
 		SDL_RenderClear(renderer);
+		mScene->render();
+		/*
+		Ender opp typisk med å se ut:
+
+		paddle->render();
+		level->render();
+		ball->render();
+
+
+		*/
 
 		/*This is where to  add stuff to render.
 		First to get rendered is the background, then whatever comes after will be rendered on top*/
-		playerTexture = TextureManager::load_texture("textures/paddlev.png", renderer);
-		SDL_RenderCopy(renderer, playerTexture, NULL, &destR);
+		//playerTexture = TextureManager::load_texture("textures/paddlev.png", renderer);
+		//SDL_RenderCopy(renderer, playerTexture, NULL, &destR);
 		// --- End of rendering textures ------
-
-
 		SDL_RenderPresent(renderer);
-
 	}
 
 	void Game::enterScene(std::shared_ptr<Scene> scene)

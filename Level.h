@@ -1,10 +1,38 @@
 #pragma once
 #include "GameObject.h"
-class Level :
-	public GameObject
-{
+#include <stdlib.h>
+#include <time.h>
+
+// Define the dimensions of the level and bricks
+#define LEVEL_WIDTH 10
+#define LEVEL_HEIGHT 10
+#define LEVEL_BRWIDTH 64
+#define LEVEL_BRHEIGHT 24
+
+class Brick {
 public:
-	Level();
+	int type;
+	bool state;
+	int hp;
+};
+
+class Level : public GameObject {
+public:
+	Level(SDL_Renderer* renderer);
 	~Level();
+
+	void Update(float delta);
+	void Render(float delta);
+	void CreateRound1();
+	void CreateRound2();
+
+	float brickoffsetx, brickoffsety;
+
+	// Define the two-dimensional array of bricks
+	Brick bricks[LEVEL_WIDTH][LEVEL_HEIGHT];
+
+private:
+	SDL_Texture* bricktexture;
+	SDL_Texture* sidetexture;
 };
 

@@ -12,7 +12,6 @@ Ball::Ball(std::string texture, SDL_Renderer* renderer) : GameObject(m_renderer,
 	width = 24;
 	height = 24;
 
-
 }
 
 
@@ -22,7 +21,7 @@ Ball::~Ball()
 }
 
 void Ball::update(float delta) {
-	x += (m_dirx * delta);
+	x += (m_dirX * delta);
 	y += (m_dirY * delta);
 }
 
@@ -38,7 +37,7 @@ void Ball::render() {
 void Ball::set_direction(float diry, float dirx) {
 
 	float length = sqrt((dirx * dirx) + (diry * diry));
-	this->m_dirx = EASY_BALL_SPEED * (dirx / length);
+	this->m_dirX = EASY_BALL_SPEED * (dirx / length);
 	this->m_dirY = EASY_BALL_SPEED * (diry / length);
 
 

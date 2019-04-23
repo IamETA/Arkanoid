@@ -7,13 +7,16 @@
 #include "TextureManager.h"
 #include "Ball.h"
 #include "Level.h"
+#include "Paddle.h"
+
 namespace Game {
 	class GameScene final : public Scene
 	{
 	private:
+		int Life { 3 }
 		Ball* ball{ nullptr };
-		Ball* ball{ nullptr };
-		Ball* ball{ nullptr };
+		Level* level{ nullptr };
+		Paddle* paddle{ nullptr };
 
 	public:
 		GameScene(Game& game);

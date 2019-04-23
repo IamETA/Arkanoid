@@ -40,6 +40,7 @@ namespace InputUtils {
 	{
 		mKeyBoardStates = SDL_GetKeyboardState(NULL);
 
+
 	}
 
 
