@@ -1,13 +1,13 @@
 #pragma once
 #include "Level.h"
 
-Level::Level(SDL_Renderer* renderer) : GameObject(".\\texture\\bricks.png",renderer) {
+Level::Level(SDL_Renderer* renderer) : GameObject(".\\textures\\bricks.png",renderer) {
 	// Endre til mer dynamisk bricks, med background color
-	SDL_Surface* surface = IMG_Load("bricks.png");
+	SDL_Surface* surface = IMG_Load(".\\textures\\bricks.png");
 	bricktexture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
-	surface = IMG_Load("side.png");
+	surface = IMG_Load(".\\textures\\side.png");
 	sidetexture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
@@ -28,11 +28,11 @@ Level::~Level() {
 	SDL_DestroyTexture(sidetexture);
 }
 
-void Level::Update(float delta) {
+void Level::update(float delta) {
 
 }
 
-void Level::Render(float delta) {
+void Level::render() {
 	// Render bricks
 	for (int i = 0; i < LEVEL_WIDTH; i++) {
 		for (int j = 0; j < LEVEL_HEIGHT; j++) {

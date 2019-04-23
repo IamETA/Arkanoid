@@ -22,6 +22,11 @@ Paddle::~Paddle()
 void Paddle::update(float delta) {}
 
 void Paddle::render() {
+	// Input TODO:: move to inputmanager class
+	int px, py;
+	Uint8 mouseState = SDL_GetMouseState(&px, &py);
+	x = px - width / 2.0f;
+
 
 	m_rect.x = (int)(x + 0.5f);
 	m_rect.y = (int)(y + 0.5f);
