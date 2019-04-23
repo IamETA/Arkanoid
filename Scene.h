@@ -11,7 +11,7 @@
  // global namespace forward declarations.
 struct SDL_KeyboardEvent;
 
-namespace Scene
+namespace Game
 {
 	class Game;
 	class Scene
@@ -31,5 +31,3 @@ namespace Scene
 		Game& mGame;
 	};
 }
-
-#endif

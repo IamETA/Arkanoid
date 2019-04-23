@@ -3,31 +3,23 @@
 #include "TextureManager.h"
 #include <SDL.h>
 
-using namespace breakout;
+using namespace Game;
 
-WelcomeScene::WelcomeScene(Game& game)
-	: Scene(game),
-	mExitGameScene(nullptr),
+MenuScene::MenuScene(Game& game) : Scene(game),
+	mExitText(nullptr),
 	mHighscoresText(nullptr),
 	mPlayText(nullptr)
 {
 	// construct text textures used to render textual contents.
-	mTopicText = mGame.createText("SDL2 BREAKOUT");
-	mControlsText = mGame.createText("Controls:");
-	mSpacebarText = mGame.createText("[spacebar] launch a ball");
-	mLeftArrowText = mGame.createText("[left-arrow] move left");
-	mRightArrowText = mGame.createText("[right-arrow] move right");
-	mOnePlayerGameText = mGame.createText("Press [1] to start a 1 player game");
-	mTwoPlayerGameText = mGame.createText("Press [2] to start a 2 player game");
+	
+	mExitText = mGame.createText("Exit game");
+	mHighscoresText = mGame.createText("Highscores");
+	mPlayText = mGame.createText("Play");
 
 	// query texture dimensions for each text texture.
 	SDL_QueryTexture(mTopicText, nullptr, nullptr, &mTopicTextPosition.w, &mTopicTextPosition.h);
 	SDL_QueryTexture(mControlsText, nullptr, nullptr, &mControlTextPosition.w, &mControlTextPosition.h);
 	SDL_QueryTexture(mSpacebarText, nullptr, nullptr, &mSpacebarTextPosition.w, &mSpacebarTextPosition.h);
-	SDL_QueryTexture(mLeftArrowText, nullptr, nullptr, &mLeftArrowTextPosition.w, &mLeftArrowTextPosition.h);
-	SDL_QueryTexture(mRightArrowText, nullptr, nullptr, &mRightArrowTextPosition.w, &mRightArrowTextPosition.h);
-	SDL_QueryTexture(mOnePlayerGameText, nullptr, nullptr, &mOnePlayerGameTextPosition.w, &mOnePlayerGameTextPosition.h);
-	SDL_QueryTexture(mTwoPlayerGameText, nullptr, nullptr, &mTwoPlayerGameTextPosition.w, &mTwoPlayerGameTextPosition.h);
 
 	// get the rendering window size and calculate the center position.
 	int windowWidth = 0, windowHeight = 0;
@@ -55,7 +47,7 @@ WelcomeScene::WelcomeScene(Game& game)
 	mTwoPlayerGameTextPosition.y = (7 * slotHeight);
 }
 
-WelcomeScene::~WelcomeScene()
+MenuScene::~MenuScene()
 {
 	// define a helper function to be used to release textures.
 #define RELEASE_TEXTURE(x) if (x != nullptr) { SDL_DestroyTexture(x); }
@@ -70,12 +62,12 @@ WelcomeScene::~WelcomeScene()
 	RELEASE_TEXTURE(mTwoPlayerGameText);
 }
 
-void WelcomeScene::update(float dt)
+void MenuScene::update(float dt)
 {
 	// ...
 }
 
-void WelcomeScene::render()
+void MenuScene::render()
 {
 	// get a reference to the SDL renderer.
 	auto& renderer = mGame.getRenderer();
@@ -90,26 +82,21 @@ void WelcomeScene::render()
 	SDL_RenderCopy(&renderer, mTwoPlayerGameText, nullptr, &mTwoPlayerGameTextPosition);
 }
 
-void WelcomeScene::enter()
+void MenuScene::enter()
 {
 	// ...
 }
 
-void WelcomeScene::exit()
+void MenuScene::exit()
 {
 	// ...
 }
 
-void WelcomeScene::keyUp(SDL_KeyboardEvent& event)
+void MenuScene::keyUp(SDL_KeyboardEvent& event)
 {
 	switch (event.keysym.sym) {
 	case SDLK_1:
-		mGame.setPlayMode(Game::PlayMode::SINGLE_PLAYER);
-		mGame.setScene(std::make_shared<CourtScene>(mGame));
-		break;
-	case SDLK_2:
-		mGame.setPlayMode(Game::PlayMode::TWO_PLAYERS);
-		mGame.setScene(std::make_shared<CourtScene>(mGame));
+		mGame.enterScene(std::make_shared<GameScene>(mGame));
 		break;
 	}
 }

@@ -63,7 +63,7 @@ namespace Game {
 	
 
 		// set the initial scene for the game.
-		enterScene(std::make_shared<MenuScene>(*this));
+		enterScene(std::make_shared<Scenes::MenuScene>(*this));
 
 		while (game_running) {
 			timer->Tick();
@@ -147,7 +147,7 @@ namespace Game {
 	}
 
 
-	void Game::render(usigned int delta) 
+	void Game::render(unsigned int delta) 
 	{
 		SDL_RenderClear(renderer);
 
@@ -162,7 +162,7 @@ namespace Game {
 
 	}
 
-	void Game::enterScene(std::shared_ptr<Scene> scene)
+	void Game::enterScene(std::shared_ptr<Scenes::Scene> scene)
 	{
 		if (scene) {
 			// perform a cleanup from the old scene (if any).

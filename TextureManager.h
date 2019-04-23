@@ -1,22 +1,20 @@
-//
-// Created by mynewdog on 11.03.19.
-//
+#pragma once
 
-#ifndef ARCADEGAME_TEXTUREMANAGER_H
-#define ARCADEGAME_TEXTUREMANAGER_H
 #include <string>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <iosfwd>
 
-namespace TextureUtils {
+namespace Game {
+	class TextureManager final {
 
-    class TextureManager {
     public:
+		explicit TextureManager();
+		~TextureManager();
         static SDL_Texture *load_texture(std::string texture, SDL_Renderer *ren);
+		SDL_Texture* CreateText(const std::string& text);
 
+	private: 
+		TTF_Font& mFont;
     };
 }
-
-
-#endif //ARCADEGAME_TEXTUREMANAGER_H

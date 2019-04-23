@@ -16,25 +16,28 @@
 namespace Game {
 
     class Game {
-    private:
-		SDL_Window* window{ nullptr };
-		SDL_Renderer* renderer{ nullptr };
-		SDL_Event event{ NULL };
-		bool game_running{};
-        int counter{0};
-		//Use chronos to keep track of time
-		TimerUtils::Timer *timer;
     public:
         explicit Game();
         ~Game();
         void handle_exit_event();
         bool init_window(const char *title, int xpos, int ypos, int height, int width, bool fullscreen);
-        void update();
-        void render();
+		void update(unsigned int delta);
+        void render(unsigned int delta);
 		void run();
         bool running() { return game_running; }
-		void Game::enterScene(std::shared_ptr<Scene> scene);
+		void enterScene(std::shared_ptr<Scene> scene);
 
+	private:
+		SDL_Window* window{ nullptr };
+		SDL_Renderer* renderer{ nullptr };
+		SDL_Event event{ NULL };
+		std::shared_ptr<Scene> mScene{ nullptr };
+		//Use chronos to keep track of time
+		TimerUtils::Timer *timer;
+
+		//Other definitions
+		bool game_running{};
+		int counter{ 0 };
     };
 }
 
