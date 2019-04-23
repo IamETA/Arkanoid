@@ -2,45 +2,44 @@
 
 
 
-Ball::Ball(const char* texturesheet) : GameObject(m_renderer)
+Ball::Ball(std::string texture, SDL_Renderer* renderer) : GameObject(m_renderer, m_object_texture)
 {
 
-	SDL_Surface* surface = IMG_Load("transparentball.png");
-	m_texture = SDL_CreateTextureFromSurface(m_renderer, surface);
-	SDL_FreeSurface(surface);
+	m_object_texture = Game::TextureManager::load_texture(texture, renderer);
 
 	x = 0;
 	y = 0;
 	width = 24;
 	height = 24;
 
+
 }
 
 
 Ball::~Ball()
 {
-	SDL_DestroyTexture(m_texture);
+	SDL_DestroyTexture(m_object_texture);
 }
 
 void Ball::update(float delta) {
 	x += (m_dirx * delta);
-	y += (m_diry * delta);
+	y += (m_dirY * delta);
 }
 
-void Ball::render(float delta) {
+void Ball::render() {
 	m_rect.x = (int)(x + 0.5f);
 	m_rect.y = (int)(y + 0.5f);
 	m_rect.w = width;
 	m_rect.h = height;
 
-	SDL_RenderCopy(renderer, m_texture, 0, &m_rect);
+	SDL_RenderCopy(m_renderer, m_object_texture, 0, &m_rect);
 }
 
 void Ball::set_direction(float diry, float dirx) {
 
 	float length = sqrt((dirx * dirx) + (diry * diry));
 	this->m_dirx = EASY_BALL_SPEED * (dirx / length);
-	this->m_diry = EASY_BALL_SPEED * (diry / length);
+	this->m_dirY = EASY_BALL_SPEED * (diry / length);
 
 
 }

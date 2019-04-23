@@ -4,22 +4,19 @@ class Ball :
 	public GameObject
 {
 public:
-	Ball(const char* texturesheet);
+	Ball(std::string texture, SDL_Renderer* renderer);
 	~Ball();
 
 	void update(float delta);
-	void render(float delta);
+	void render();
 	void set_direction(float diry, float dirx);
 
 	void change_ball_color();
 	
-	float m_diry{ 0 }, m_dirx{ 0 };
+	float m_dirY{ 0 }, m_dirx{ 0 };
 
 private: 
-	SDL_Texture* m_texture{ nullptr };
-	SDL_Rect m_rect;
-
-
+	SDL_Rect m_rect{ 0 };
 	//Variabler for å endre hastigheten til ballen -
 
 	const float EASY_BALL_SPEED = 550;
