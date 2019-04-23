@@ -16,11 +16,10 @@ namespace TimerUtils {
     private:
         static Timer *sInstance;
 
-        std::chrono::system_clock::time_point m_start_time;
+        std::chrono::steady_clock::time_point m_start_time;
         std::chrono::duration<float> m_delta_time;
         float m_time_scale;
         float frame_rate = 60.0f;
-
     public:
         static Timer *Instance();
 
@@ -37,9 +36,9 @@ namespace TimerUtils {
         float time_scale();
 
         void Tick();
-
+		std::chrono::steady_clock::time_point start_time();
         float get_frame_rate();
-
+		float Delay();
 		explicit Timer();
 		~Timer();
 

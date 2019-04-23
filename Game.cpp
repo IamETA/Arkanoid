@@ -21,18 +21,60 @@ namespace Game {
 		std::cout << "Game cleaned" << std::endl;
 	};
 	void Game::run() {
-		timer->Tick();
-		if (timer->delta_time() >= 1 / timer->get_frame_rate())
+		timer = TimerUtils::Timer::Instance();
+		timer->Reset();
+		float fps{ 0 };
+		int framecount{ 0 };
+		unsigned int lasttick = SDL_GetTicks();
+		// Calculate delta and fps
+		unsigned int curtick = SDL_GetTicks();
+		float delta = (curtick - lasttick) / 1000.0f;
+		/*
+		while (game_running)
 		{
-			timer->Reset();
 			handle_exit_event();
-			update();
-			render();
+			// Calculate delta and fps
+			unsigned int curtick = SDL_GetTicks();
+			float delta = (curtick - lasttick) / 1000.0f;
+			if (curtick - fpstick >= FPS_DELAY) {
+				fps = framecount * (1000.0f / (curtick - fpstick));
+				fpstick = curtick;
+				framecount = 0;
+				//std::cout << "FPS: " << fps << std::endl;
+				char buf[100];
+				snprintf(buf, 100, "Arkanoid copy (fps: %u)", fps);
+				SDL_SetWindowTitle(window, buf);
+			}
+			else {
+				framecount++;
+			}
+			lasttick = curtick;
+
+			// Update and render the game
+			update(delta);
+			render(delta)
+		}*/
+		
+		while (game_running) {
+			timer->Tick();
+			//if (timer->delta_time() >= 1 / timer->get_frame_rate())
+			//{
+			if (timer->Delay() >= 500) {
+				timer->Reset();
+				handle_exit_event();
+				update();
+				render();
+			}
+			else {
+				framecount++;
+			}
+			
+			//}
 		}
+		timer->Release();
 	}
 	bool Game::init_window(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) 
 	{
-		timer = TimerUtils::Timer::Instance();
 		Uint32 flags = 0;
 		if (fullscreen)
 		{

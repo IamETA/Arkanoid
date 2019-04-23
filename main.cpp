@@ -22,13 +22,10 @@ int main(int argc, char* argv[])
 		SCREEN_WIDTH,
 		false)) 
 	{
-		while (game->running) {
-			game->run();
-		}
+		game->run();
 	}
 
 	input->Release();
-	timer->Release();
 
 	return 0;
 }

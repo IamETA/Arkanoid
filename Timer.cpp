@@ -34,10 +34,12 @@ namespace TimerUtils {
 	{	
         std::cout << "Timer destroyed" << std::endl;
     }
-
+	std::chrono::steady_clock::time_point Timer::start_time() {
+		return m_start_time;
+	}
     void Timer::Reset() 
 	{
-        m_start_time = std::chrono::system_clock::now();
+        m_start_time = std::chrono::high_resolution_clock::now();
     }
 
     float Timer::delta_time()
@@ -57,8 +59,12 @@ namespace TimerUtils {
 
     void Timer::Tick()
 	{
-        m_delta_time = std::chrono::system_clock::now() - m_start_time;
+        m_delta_time = std::chrono::high_resolution_clock::now() - m_start_time;
     }
+	float Timer::Delay() {
+		auto delay = std::chrono::high_resolution_clock::now() - m_start_time;
+		return delay.count();
+	}
 
     float Timer::get_frame_rate()
 	{

@@ -21,6 +21,7 @@ namespace Game {
 		SDL_Event event{ NULL };
 		bool game_running{};
         int counter{0};
+		//Use chronos to keep track of time
 		TimerUtils::Timer *timer;
     public:
         explicit Game();
