@@ -1,8 +1,5 @@
 #include "MenuScene.h"
 #include "game.h"
-#include "TextureManager.h"
-#include <SDL.h>
-
 using namespace Game;
 
 MenuScene::MenuScene(Game& game) : Scene(game),
@@ -17,13 +14,13 @@ MenuScene::MenuScene(Game& game) : Scene(game),
 
 	// construct text textures used to render textual contents.
 	mExitText = TextureManager::create_text("Exit game",renderer,font);
-	mHighscoresText = TextureManager::createText("Highscores",renderer,font);
-	mPlayText = TextureManager::createText("Play",renderer,font);
+	mHighscoresText = TextureManager::create_text("Highscores",renderer,font);
+	mPlayText = TextureManager::create_text("Play",renderer,font);
 
 	// query texture dimensions for each text texture.
-	SDL_QueryTexture(mTopicText, nullptr, nullptr, &mTopicTextPosition.w, &mTopicTextPosition.h);
-	SDL_QueryTexture(mControlsText, nullptr, nullptr, &mControlTextPosition.w, &mControlTextPosition.h);
-	SDL_QueryTexture(mSpacebarText, nullptr, nullptr, &mSpacebarTextPosition.w, &mSpacebarTextPosition.h);
+	SDL_QueryTexture(mExitText, nullptr, nullptr, &mExitTextPosition.w, &mExitTextPosition.h);
+	SDL_QueryTexture(mHighscoresText, nullptr, nullptr, &mHighscoresTextPosition.w, &mHighscoresTextPosition.h);
+	SDL_QueryTexture(mPlayText, nullptr, nullptr, &mPlayTextPosition.w, &mPlayTextPosition.h);
 
 	// get the rendering window size and calculate the center position.
 	int windowWidth = 0, windowHeight = 0;
@@ -32,23 +29,16 @@ MenuScene::MenuScene(Game& game) : Scene(game),
 
 	// assign texts at the center of the screen.
 #define CENTER(rect) (rect.x = windowCenterX - (rect.w / 2));
-	CENTER(mTopicTextPosition);
-	CENTER(mControlTextPosition);
-	CENTER(mSpacebarTextPosition);
-	CENTER(mLeftArrowTextPosition);
-	CENTER(mRightArrowTextPosition);
-	CENTER(mOnePlayerGameTextPosition);
-	CENTER(mTwoPlayerGameTextPosition);
+	CENTER(mExitTextPosition);
+	CENTER(mHighscoresTextPosition);
+	CENTER(mPlayTextPosition);
 
 	// assign vertical positions for each texture.
 	int slotHeight = (windowHeight / 10);
-	mTopicTextPosition.y = slotHeight;
-	mControlTextPosition.y = static_cast<int>(2.5 * slotHeight);
-	mSpacebarTextPosition.y = (3 * slotHeight);
-	mLeftArrowTextPosition.y = static_cast<int>(3.5 * slotHeight);
-	mRightArrowTextPosition.y = (4 * slotHeight);
-	mOnePlayerGameTextPosition.y = (6 * slotHeight);
-	mTwoPlayerGameTextPosition.y = (7 * slotHeight);
+	mPlayTextPosition.y = slotHeight;
+	//mControlTextPosition.y = static_cast<int>(2.5 * slotHeight);
+	mHighscoresTextPosition.y = (3 * slotHeight);
+	mExitTextPosition.y = (6 * slotHeight);
 }
 
 MenuScene::~MenuScene()
@@ -57,13 +47,9 @@ MenuScene::~MenuScene()
 #define RELEASE_TEXTURE(x) if (x != nullptr) { SDL_DestroyTexture(x); }
 
 // release all reserved textures.
-	RELEASE_TEXTURE(mTopicText);
-	RELEASE_TEXTURE(mControlsText);
-	RELEASE_TEXTURE(mSpacebarText);
-	RELEASE_TEXTURE(mLeftArrowText);
-	RELEASE_TEXTURE(mRightArrowText);
-	RELEASE_TEXTURE(mOnePlayerGameText);
-	RELEASE_TEXTURE(mTwoPlayerGameText);
+	RELEASE_TEXTURE(mExitText);
+	RELEASE_TEXTURE(mHighscoresText);
+	RELEASE_TEXTURE(mPlayText);
 }
 
 void MenuScene::update(float dt)
@@ -74,16 +60,12 @@ void MenuScene::update(float dt)
 void MenuScene::render()
 {
 	// get a reference to the SDL renderer.
-	auto& renderer = mGame.getRenderer();
+	SDL_Renderer* renderer = mGame.getRenderer();
 
 	// draw all texts on the buffer.
-	SDL_RenderCopy(&renderer, mTopicText, nullptr, &mTopicTextPosition);
-	SDL_RenderCopy(&renderer, mControlsText, nullptr, &mControlTextPosition);
-	SDL_RenderCopy(&renderer, mSpacebarText, nullptr, &mSpacebarTextPosition);
-	SDL_RenderCopy(&renderer, mLeftArrowText, nullptr, &mLeftArrowTextPosition);
-	SDL_RenderCopy(&renderer, mRightArrowText, nullptr, &mRightArrowTextPosition);
-	SDL_RenderCopy(&renderer, mOnePlayerGameText, nullptr, &mOnePlayerGameTextPosition);
-	SDL_RenderCopy(&renderer, mTwoPlayerGameText, nullptr, &mTwoPlayerGameTextPosition);
+	SDL_RenderCopy(renderer, mExitText, nullptr, &mExitTextPosition);
+	SDL_RenderCopy(renderer, mHighscoresText, nullptr, &mHighscoresTextPosition);
+	SDL_RenderCopy(renderer, mPlayText, nullptr, &mPlayTextPosition);
 }
 
 void MenuScene::enter()

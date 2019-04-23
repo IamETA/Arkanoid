@@ -1,12 +1,30 @@
 #include "GameScene.h"
 
 
+using namespace Game;
 
-GameScene::GameScene()
+GameScene::GameScene(Game& game) : Scene(game)
+{
+
+}
+
+GameScene::~GameScene()
 {
 }
 
+void GameScene::update(float dt)
+{
 
-GameScene::~GameScene()
+}
+
+void GameScene::render()
+{
+}
+
+void GameScene::enter()
+{
+}
+
+void GameScene::exit()
 {
 }

@@ -2,7 +2,10 @@
 
 #include "scene.h"
 #include "Game.h"
+#include <memory>
 #include <SDL.h>
+#include "TextureManager.h"
+
 namespace Game
 {
 	class MenuScene final : public Scene

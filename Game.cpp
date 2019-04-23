@@ -205,5 +205,10 @@ namespace Game {
 		return mFont;
 	}
 
+	SDL_Window * Game::getWindow()
+	{
+		return window;
+	}
+
 
 }
