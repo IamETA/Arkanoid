@@ -1,7 +1,6 @@
 #pragma once
 #include "GameObject.h"
-class Ball :
-	public GameObject
+class Ball : public GameObject
 {
 public:
 	Ball(std::string texture, SDL_Renderer* renderer);

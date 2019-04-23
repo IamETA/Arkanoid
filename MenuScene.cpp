@@ -1,6 +1,6 @@
 #include "MenuScene.h"
+#include "GameScene.h"
 #include "game.h"
-using namespace Game;
 
 MenuScene::MenuScene(Game& game) : Scene(game),
 	mExitText(nullptr),
@@ -78,11 +78,23 @@ void MenuScene::exit()
 	// ...
 }
 
+void MenuScene::keyEnter(SDL_KeyboardEvent & event)
+{
+}
+
 void MenuScene::keyUp(SDL_KeyboardEvent& event)
 {
 	switch (event.keysym.sym) {
 	case SDLK_1:
-		mGame.enterScene(std::make_shared<GameScene>(mGame));
+		///mGame.enterScene(std::make_shared<GameScene>(mGame));
+		break;
+	}
+}
+void MenuScene::keyDown(SDL_KeyboardEvent& event)
+{
+	switch (event.keysym.sym) {
+	case SDLK_1:
+		///mGame.enterScene(std::make_shared<GameScene>(mGame));
 		break;
 	}
 }

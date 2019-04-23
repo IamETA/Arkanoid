@@ -1,13 +1,10 @@
 #include "GameScene.h"
 
-
-using namespace Game;
-
 GameScene::GameScene(Game& game) : Scene(game)
 {
-	SDL_Renderer renderer* = game->getRenderer();
+	SDL_Renderer *renderer = game.getRenderer();
 	paddle = new Paddle(renderer);
-	ball = new Ball(renderer);
+	ball = new Ball(".\\textures\\blueBox.png",renderer);
 	level = new Level(renderer);
 
 	//Create start level

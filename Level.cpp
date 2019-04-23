@@ -1,7 +1,7 @@
 #pragma once
 #include "Level.h"
 
-Level::Level(SDL_Renderer* renderer) : GameObject(renderer) {
+Level::Level(SDL_Renderer* renderer) : GameObject(".\\texture\\bricks.png",renderer) {
 	// Endre til mer dynamisk bricks, med background color
 	SDL_Surface* surface = IMG_Load("bricks.png");
 	bricktexture = SDL_CreateTextureFromSurface(renderer, surface);
@@ -55,7 +55,7 @@ void Level::Render(float delta) {
 			dstrect.w = LEVEL_BRWIDTH;
 			dstrect.h = LEVEL_BRHEIGHT;
 
-			SDL_RenderCopy(renderer, bricktexture, &srcrect, &dstrect);
+			SDL_RenderCopy(m_renderer, bricktexture, &srcrect, &dstrect);
 		}
 	}
 
@@ -65,13 +65,13 @@ void Level::Render(float delta) {
 	dstrect.y = 0;
 	dstrect.w = 16;
 	dstrect.h = 600;
-	SDL_RenderCopy(renderer, sidetexture, 0, &dstrect);
+	SDL_RenderCopy(m_renderer, sidetexture, 0, &dstrect);
 
 	dstrect.x = 800 - 16;
 	dstrect.y = 0;
 	dstrect.w = 16;
 	dstrect.h = 600;
-	SDL_RenderCopy(renderer, sidetexture, 0, &dstrect);
+	SDL_RenderCopy(m_renderer, sidetexture, 0, &dstrect);
 }
 
 void Level::CreateRound1() {
@@ -83,14 +83,14 @@ void Level::CreateRound1() {
 
 				brick.type = 0;
 				brick.state = true;
-				brick.HP = 1;
+				brick.hp = 1;
 				bricks[i][j] = brick;
 			}
 			else {
 				Brick brick;
 				brick.type = 2;
 				brick.state = true;
-				brick.HP = 0;
+				brick.hp = 0;
 				bricks[i][j] = brick;
 			}
 		}
@@ -106,21 +106,21 @@ void Level::CreateRound2() {
 
 				brick.type = 0;
 				brick.state = true;
-				brick.HP = 1;
+				brick.hp = 1;
 				bricks[i][j] = brick;
 			}
 			else {
 				Brick brick;
 				brick.type = 2;
 				brick.state = true;
-				brick.HP = 0;
+				brick.hp = 0;
 				bricks[i][j] = brick;
 			}
 			if (j == 9) {
 				Brick brick;
 				brick.type = 3;
 				brick.state = true;
-				brick.HP = -1;
+				brick.hp = -1;
 				bricks[i][j] = brick;
 			}
 		}

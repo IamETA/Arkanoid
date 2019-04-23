@@ -1,19 +1,14 @@
 #include "Ball.h"
 
-
-
-Ball::Ball(std::string texture, SDL_Renderer* renderer) : GameObject(m_renderer, m_object_texture)
+Ball::Ball(std::string texture, SDL_Renderer* renderer) : GameObject(texture, m_renderer)
 {
-
-	m_object_texture = Game::TextureManager::load_texture(texture, renderer);
-
-	x = 0;
-	y = 0;
+	m_object_texture = TextureManager::load_texture(texture, renderer);
+	
+	x = 50;
+	y = 50;
 	width = 24;
 	height = 24;
-
 }
-
 
 Ball::~Ball()
 {

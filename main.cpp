@@ -9,7 +9,7 @@
 
 int main(int argc, char* argv[])
 {
-	std::unique_ptr<Game::Game> game(new Game::Game());
+	std::unique_ptr<Game> game(new Game());
 
 	const std::string fontPath = ".\\fonts\\default.ttf";
 
@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
 		game->run();
 	}
 
-	input->Release();
+	//input->Release();
 
 	return 0;
 }

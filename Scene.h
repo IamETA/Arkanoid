@@ -8,16 +8,12 @@
  *  is being entered or exited from.
  */
 
- // global namespace forward declarations.
 struct SDL_KeyboardEvent;
-
-namespace Game
+class Game;
+class Scene
 {
-	class Game;
-	class Scene
-	{
 	public:
-		Scene(Game& game) : mGame(game) {}
+		Scene(Game& game) : mGame(game) {};
 
 		virtual ~Scene() = default;
 
@@ -25,9 +21,9 @@ namespace Game
 		virtual void render() {}
 		virtual void enter() {}
 		virtual void exit() {}
+		virtual void keyEnter(SDL_KeyboardEvent& event) {}
 		virtual void keyDown(SDL_KeyboardEvent& event) {}
 		virtual void keyUp(SDL_KeyboardEvent& event) {}
 	protected:
 		Game& mGame;
-	};
-}
+};

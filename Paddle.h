@@ -8,9 +8,10 @@ public:
 	~Paddle();
 
 	void update(float delta);
-	void render(float delta);
+	void render();
 
 private: 
+
 	SDL_Texture* m_texture{ nullptr };
 	SDL_Rect m_rect;
 
