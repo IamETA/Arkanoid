@@ -124,9 +124,6 @@
     <Image Include="textures\greyBox.png">
       <Filter>Resource Files\textures</Filter>
     </Image>
-    <Image Include="textures\paddlev.png">
-      <Filter>Resource Files\textures</Filter>
-    </Image>
     <Image Include="textures\purpleBox.png">
       <Filter>Resource Files\textures</Filter>
     </Image>
@@ -134,6 +131,12 @@
       <Filter>Resource Files\textures</Filter>
     </Image>
     <Image Include="textures\yellowBox.png">
+      <Filter>Resource Files\textures</Filter>
+    </Image>
+    <Image Include="textures\transparentball.png">
+      <Filter>Resource Files\textures</Filter>
+    </Image>
+    <Image Include="textures\paddle.png">
       <Filter>Resource Files\textures</Filter>
     </Image>
   </ItemGroup>

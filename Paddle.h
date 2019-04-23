@@ -4,7 +4,15 @@ class Paddle :
 	public GameObject
 {
 public:
-	Paddle();
+	Paddle(SDL_Renderer* renderer);
 	~Paddle();
+
+	void update(float delta);
+	void render(float delta);
+
+private: 
+	SDL_Texture* m_texture{ nullptr };
+	SDL_Rect m_rect;
+
 };
 
