@@ -6,9 +6,11 @@
 #define ARCADEGAME_GAME_H
 
 
+#include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
-#include <iostream>
+#include "TextureManager.h"
+#include "Timer.h"
 
 namespace Game {
 
@@ -19,25 +21,15 @@ namespace Game {
 		SDL_Event event{ NULL };
 		bool game_running{};
         int counter{0};
-
-	
-		
-		//std::unique_ptr<SDL_Window, void(*)(SDL_Window*)> window;
-
-		
+		TimerUtils::Timer *timer;
     public:
         explicit Game();
-
         ~Game();
-
         void handle_exit_event();
-
-        void init_window(const char *title, int xpos, int ypos, int height, int width, bool fullscreen);
-
+        bool init_window(const char *title, int xpos, int ypos, int height, int width, bool fullscreen);
         void update();
-
         void render();
-
+		void run();
         bool running() { return game_running; }
 
     };
