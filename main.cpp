@@ -13,6 +13,7 @@ int main(int argc, char* argv[])
 	std::unique_ptr<InputUtils::InputManager> input(InputUtils::InputManager::Instance());
 	std::unique_ptr<Game::Game> game(new Game::Game());
 
+	const std::string fontPath = ".\\fonts\\default.ttf";
 
 	if (game->init_window(
 		"Arkanoid",
@@ -20,7 +21,7 @@ int main(int argc, char* argv[])
 		SDL_WINDOWPOS_CENTERED,
 		SCREEN_HEIGHT,
 		SCREEN_WIDTH,
-		false)) 
+		false) && game->init_font(fontPath))
 	{
 		game->run();
 	}

@@ -25,6 +25,8 @@ namespace Game {
 		std::cout << "Game cleaned" << std::endl;
 	};
 	void Game::run() {
+
+
 		timer = TimerUtils::Timer::Instance();
 		timer->Reset();
 		float fps{ 0 };
@@ -83,6 +85,22 @@ namespace Game {
 			//}
 		}
 		timer->Release();
+	}
+	bool Game::init_font(const std::string fontPath) {
+
+		// initialize TTF system for text rendering.
+		if (TTF_Init() == -1) {
+			std::cerr << "Unable to initialize TTF: " << TTF_GetError() << std::endl;
+			return;
+		}
+
+
+		// initialize the selected font for the application.
+		mFont = TTF_OpenFont(fontPath.c_str(), 28);
+		if (mFont == nullptr) {
+			std::cerr << "Unable to load font: " << TTF_GetError() << std::endl;
+			return;
+		}
 	}
 	bool Game::init_window(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) 
 	{
@@ -163,7 +181,7 @@ namespace Game {
 
 	}
 
-	void Game::enterScene(std::shared_ptr<Scenes::Scene> scene)
+	void Game::enterScene(std::shared_ptr<Scene> scene)
 	{
 		if (scene) {
 			// perform a cleanup from the old scene (if any).
