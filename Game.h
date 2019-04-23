@@ -28,6 +28,7 @@ namespace Game {
 		SDL_Renderer* renderer{ nullptr };
 		SDL_Event event{ NULL };
 		std::shared_ptr<Scene> mScene{ nullptr };
+		TextureManager* textureManager{ nullptr };
 		//Use chronos to keep track of time
 		TimerUtils::Timer *timer;
 

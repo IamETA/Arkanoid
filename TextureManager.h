@@ -10,13 +10,9 @@ namespace Game {
 	class TextureManager final {
 
     public:
-		explicit TextureManager();
 		~TextureManager();
-        static SDL_Texture *load_texture(std::string texture, SDL_Renderer *ren);
-		SDL_Texture* CreateText(const std::string& text);
+        static SDL_Texture *load_texture(std::string texture, SDL_Renderer *ren); 
+		static SDL_Texture* create_text(const std::string& text, SDL_Renderer* ren, TTF_Font* font);
 
-	private: 
-		TTF_Font* mFont{ nullptr };
-		SDL_Renderer* mRenderer{ nullptr };
     };
 }

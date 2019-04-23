@@ -7,26 +7,6 @@
 
 
 namespace Game {
-
-	TextureManager::TextureManager() : mFont(nullptr)
-
-	{
-		// initialize TTF system for text rendering.
-		if (TTF_Init() == -1) {
-			std::cerr << "Unable to initialize TTF: " << TTF_GetError() << std::endl;
-			return;
-		}
-
-		const std::string fontPath = ".\\fonts\\default.ttf";
-
-		// initialize the selected font for the application.
-		mFont = TTF_OpenFont(fontPath.c_str(), 28);
-		if (mFont == nullptr) {
-			std::cerr << "Unable to load font: " << TTF_GetError() << std::endl;
-			return;
-		}
-	}
-
 	SDL_Texture* TextureManager::load_texture(std::string texture, SDL_Renderer* ren)
 	{
 		SDL_Surface* temp_surface = IMG_Load(texture.c_str());
@@ -39,18 +19,18 @@ namespace Game {
 		return tex;
 	}
 
-	SDL_Texture* TextureManager::CreateText(const std::string& text)
+	SDL_Texture* TextureManager::create_text(const std::string& text, SDL_Renderer* ren, TTF_Font* font)
 	{
 		// create a surface which contains the desired text.
 		SDL_Color color{ 0xff, 0xff, 0xff, 0xff };
-		auto surface = TTF_RenderText_Blended(mFont, text.c_str(), color);
+		auto surface = TTF_RenderText_Blended(font, text.c_str(), color);
 		if (surface == nullptr) {
 			std::cerr << "Unable to create a surface with a text: " << TTF_GetError() << std::endl;
 			return nullptr;
 		}
 
 		// create a texture from the text surface.
-		auto texture = SDL_CreateTextureFromSurface(mRenderer, surface);
+		auto texture = SDL_CreateTextureFromSurface(ren, surface);
 		SDL_FreeSurface(surface);
 		if (texture == nullptr) {
 			std::cerr << "Unable to create texture from a text surface: " << SDL_GetError() << std::endl;
