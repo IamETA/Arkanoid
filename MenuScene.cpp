@@ -10,11 +10,15 @@ MenuScene::MenuScene(Game& game) : Scene(game),
 	mHighscoresText(nullptr),
 	mPlayText(nullptr)
 {
+
+	SDL_Renderer* renderer = game.getRenderer();
+	TTF_Font* font = game.getFont();
+
+
 	// construct text textures used to render textual contents.
-	
-	mExitText = mGame.createText("Exit game");
-	mHighscoresText = mGame.createText("Highscores");
-	mPlayText = mGame.createText("Play");
+	mExitText = TextureManager::create_text("Exit game",renderer,font);
+	mHighscoresText = TextureManager::createText("Highscores",renderer,font);
+	mPlayText = TextureManager::createText("Play",renderer,font);
 
 	// query texture dimensions for each text texture.
 	SDL_QueryTexture(mTopicText, nullptr, nullptr, &mTopicTextPosition.w, &mTopicTextPosition.h);

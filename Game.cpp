@@ -195,5 +195,15 @@ namespace Game {
 		}
 	}
 
+	SDL_Renderer * Game::getRenderer()
+	{
+		return renderer;
+	}
+
+	TTF_Font * Game::getFont()
+	{
+		return mFont;
+	}
+
 
 }
