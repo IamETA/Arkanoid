@@ -39,7 +39,9 @@ namespace Game {
 		void run();
 		bool running() { return game_running; }
 		void enterScene(std::shared_ptr<Scene> scene);
-
+		SDL_Renderer* getRenderer();
+		TTF_Font* getFont();
+		SDL_Window* getWindow();
     };
 }
 
