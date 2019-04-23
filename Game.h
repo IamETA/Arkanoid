@@ -1,12 +1,8 @@
-//
-// Created by mynewdog on 11.03.19.
-//
-
 #ifndef ARCADEGAME_GAME_H
 #define ARCADEGAME_GAME_H
 
 
-#include <iostream>
+#include <iosfwd>
 #include <SDL.h>
 #include <SDL_image.h>
 #include "TextureManager.h"

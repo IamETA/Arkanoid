@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <iosfwd>
+#include <SDL_ttf.h>
 
 namespace Game {
 	class TextureManager final {
@@ -15,6 +16,7 @@ namespace Game {
 		SDL_Texture* CreateText(const std::string& text);
 
 	private: 
-		TTF_Font& mFont;
+		TTF_Font* mFont{ nullptr };
+		SDL_Renderer* mRenderer{ nullptr };
     };
 }
