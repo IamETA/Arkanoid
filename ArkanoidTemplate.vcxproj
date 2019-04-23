@@ -158,9 +158,10 @@
     <Image Include="textures\blueBox.png" />
     <Image Include="textures\greenBox.png" />
     <Image Include="textures\greyBox.png" />
-    <Image Include="textures\paddlev.png" />
+    <Image Include="textures\paddle.png" />
     <Image Include="textures\purpleBox.png" />
     <Image Include="textures\redBox.png" />
+    <Image Include="textures\transparentball.png" />
     <Image Include="textures\yellowBox.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

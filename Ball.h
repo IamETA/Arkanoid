@@ -9,6 +9,7 @@ public:
 
 	void update(float delta);
 	void render(float delta);
+	void set_direction(float diry, float dirx);
 
 	void change_ball_color();
 	
@@ -16,12 +17,10 @@ public:
 
 private: 
 	SDL_Texture* m_texture{ nullptr };
+	SDL_Rect m_rect;
 
 
-	// Define a ball speed in pixels per second
-// TODO:: A add increasing speed after each brick and/or powerups.
-
-
+	//Variabler for å endre hastigheten til ballen -
 
 	const float EASY_BALL_SPEED = 550;
 	const float MEDIUM_BALL_SPEED = 650;
