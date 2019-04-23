@@ -3,7 +3,11 @@
 //
 
 #include <iostream>
+#include <cstdlib>
 #include "Game.h"
+#include <iostream>
+#include "Scene.h"
+#include "MenuScene.h"
 
 SDL_Texture* playerTexture;
 SDL_Texture* enemyTexture;
@@ -25,11 +29,13 @@ namespace Game {
 		timer->Reset();
 		float fps{ 0 };
 		int framecount{ 0 };
+		/*
 		unsigned int lasttick = SDL_GetTicks();
 		// Calculate delta and fps
 		unsigned int curtick = SDL_GetTicks();
 		float delta = (curtick - lasttick) / 1000.0f;
-		/*
+
+		Gamle stabile måten:
 		while (game_running)
 		{
 			handle_exit_event();
@@ -54,19 +60,24 @@ namespace Game {
 			update(delta);
 			render(delta)
 		}*/
-		
+	
+
+		// set the initial scene for the game.
+		enterScene(std::make_shared<MenuScene>(*this));
+
 		while (game_running) {
 			timer->Tick();
 			//if (timer->delta_time() >= 1 / timer->get_frame_rate())
 			//{
 			if (timer->Delay() >= 500) {
 				timer->Reset();
+				framecount = 0;
 				handle_exit_event();
-				update();
-				render();
+				update(timer->delta_time());
+				render(timer->delta_time());
 			}
 			else {
-				framecount++;
+				framecount++;	
 			}
 			
 			//}
@@ -119,7 +130,7 @@ namespace Game {
 	}
 
 
-	void Game::update() 
+	void Game::update(unsigned int delta)
 	{
 
 		/*
@@ -136,7 +147,7 @@ namespace Game {
 	}
 
 
-	void Game::render() 
+	void Game::render(usigned int delta) 
 	{
 		SDL_RenderClear(renderer);
 
@@ -149,6 +160,20 @@ namespace Game {
 
 		SDL_RenderPresent(renderer);
 
+	}
+
+	void Game::enterScene(std::shared_ptr<Scene> scene)
+	{
+		if (scene) {
+			// perform a cleanup from the old scene (if any).
+			if (mScene) {
+				mScene->exit();
+			}
+
+			// apply the new scene and call the scene init (reset).
+			mScene = scene;
+			mScene->enter();
+		}
 	}
 
 

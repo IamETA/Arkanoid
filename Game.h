@@ -11,6 +11,7 @@
 #include <SDL_image.h>
 #include "TextureManager.h"
 #include "Timer.h"
+#include "Scene.h"
 
 namespace Game {
 
@@ -32,6 +33,7 @@ namespace Game {
         void render();
 		void run();
         bool running() { return game_running; }
+		void Game::enterScene(std::shared_ptr<Scene> scene);
 
     };
 }
