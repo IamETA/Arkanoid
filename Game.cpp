@@ -16,6 +16,9 @@ Game::Game()
 {
 }
 
+void Game::exit() {
+	game_running = false;
+}
 Game::~Game() 
 {
 	SDL_DestroyWindow(window);
@@ -43,7 +46,7 @@ void Game::run()
 			input->Update();
 			timer->Reset();
 			framecount = 0;
-			handle_exit_event();
+			handle_key_event();
 			update(timer->delta_time());
 			render();
 		}
@@ -106,16 +109,26 @@ bool Game::init_window(const char* title, int xpos, int ypos, int width, int hei
 	return game_running;
 }
 
-void Game::handle_exit_event()
+void Game::handle_key_event()
 {
-	SDL_PollEvent(&event);
-	switch (event.type) {
-	case SDL_QUIT:
-		game_running = false;
-		break;
-
-	default:
-		break;
+	while (SDL_PollEvent(&event) != 0) {
+		switch (event.type) {
+		case SDL_QUIT:
+			game_running = false;
+			break;
+		case SDL_KEYDOWN:
+			if (mScene) {
+				mScene->keyDown(event.key);
+			}
+			break;
+		case SDL_KEYUP:
+			if (mScene) {
+				mScene->keyUp(event.key);
+			}
+			break;
+		default:
+			break;
+		}
 	}
 }
 
@@ -123,7 +136,6 @@ void Game::handle_exit_event()
 void Game::update(unsigned int delta)
 {
 	mScene->update(delta);
-
 }
 
 
@@ -131,15 +143,6 @@ void Game::render()
 {
 	SDL_RenderClear(renderer);
 	mScene->render();
-	/*
-	Ender opp typisk med å se ut:
-
-	paddle->render();
-	level->render();
-	ball->render();
-
-
-	*/
 
 	/*This is where to  add stuff to render.
 	First to get rendered is the background, then whatever comes after will be rendered on top*/

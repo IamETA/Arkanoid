@@ -39,8 +39,7 @@ namespace InputUtils {
 	void InputManager::Update() 
 	{
 		mKeyBoardStates = SDL_GetKeyboardState(NULL);
-
-
+		mouseState = SDL_GetMouseState(&mx, &my);
 	}
 
 

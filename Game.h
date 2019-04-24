@@ -30,12 +30,13 @@ private:
 public:
 	Game();
 	~Game();
-	void handle_exit_event();
+	void handle_key_event();
 	bool init_window(const char *title, int xpos, int ypos, int height, int width, bool fullscreen);
 	bool init_font(const std::string fontPath);
 	void update(unsigned int delta);
 	void render();
 	void run();
+	void exit();
 	bool running() { return game_running; }
 	void enterScene(std::shared_ptr<Scene> scene);
 	SDL_Renderer* getRenderer();

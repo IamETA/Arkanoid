@@ -17,6 +17,12 @@ MenuScene::MenuScene(Game& game) : Scene(game),
 	mHighscoresText = TextureManager::create_text("Highscores",renderer,font);
 	mPlayText = TextureManager::create_text("Play",renderer,font);
 
+	SDL_Color selectedColor{ 0x0, 0xff, 0x0, 0xff };
+	// construct text textures used to render textual contents.
+	mExitTextSelected = TextureManager::create_text("Exit game", renderer, font, selectedColor);
+	mHighscoresTextSelected = TextureManager::create_text("Highscores", renderer, font, selectedColor);
+	mPlayTextSelected = TextureManager::create_text("Play", renderer, font, selectedColor);
+
 	// query texture dimensions for each text texture.
 	SDL_QueryTexture(mExitText, nullptr, nullptr, &mExitTextPosition.w, &mExitTextPosition.h);
 	SDL_QueryTexture(mHighscoresText, nullptr, nullptr, &mHighscoresTextPosition.w, &mHighscoresTextPosition.h);
@@ -61,11 +67,24 @@ void MenuScene::render()
 {
 	// get a reference to the SDL renderer.
 	SDL_Renderer* renderer = mGame.getRenderer();
-
-	// draw all texts on the buffer.
-	SDL_RenderCopy(renderer, mExitText, nullptr, &mExitTextPosition);
-	SDL_RenderCopy(renderer, mHighscoresText, nullptr, &mHighscoresTextPosition);
-	SDL_RenderCopy(renderer, mPlayText, nullptr, &mPlayTextPosition);
+	if (selectedItem == 0) {
+		SDL_RenderCopy(renderer, mPlayTextSelected, nullptr, &mPlayTextPosition);
+	}
+	else {
+		SDL_RenderCopy(renderer, mPlayText, nullptr, &mPlayTextPosition);
+	}
+	if (selectedItem == 1) {
+		SDL_RenderCopy(renderer, mHighscoresTextSelected, nullptr, &mHighscoresTextPosition);
+	}
+	else {
+		SDL_RenderCopy(renderer, mHighscoresText, nullptr, &mHighscoresTextPosition);
+	}
+	if (selectedItem == 2) {
+		SDL_RenderCopy(renderer, mExitTextSelected, nullptr, &mExitTextPosition);
+	}
+	else {
+		SDL_RenderCopy(renderer, mExitText, nullptr, &mExitTextPosition);
+	}
 }
 
 void MenuScene::enter()
@@ -77,21 +96,35 @@ void MenuScene::exit()
 {
 	// ...
 }
-
+void MenuScene::executeMenu(int selection) {
+	switch (selection) {
+	case 0:
+		mGame.enterScene(std::make_shared<GameScene>(mGame));
+		break;
+	case 1:
+		break;
+	case 2:
+		mGame.exit();
+		break;
+	}
+}
 
 void MenuScene::keyUp(SDL_KeyboardEvent& event)
 {
 	switch (event.keysym.sym) {
-	case SDLK_1:
-		///mGame.enterScene(std::make_shared<GameScene>(mGame));
+	case SDLK_DOWN:
+		selectedItem++;
+		if (selectedItem > 2)selectedItem = 0;
+		break;
+	case SDLK_UP:
+		selectedItem--;
+		if (selectedItem < 0)selectedItem = 2;
+		break;
+	case SDLK_RETURN:
+		executeMenu(selectedItem);
 		break;
 	}
 }
 void MenuScene::keyDown(SDL_KeyboardEvent& event)
 {
-	switch (event.keysym.sym) {
-	case SDLK_1:
-		///mGame.enterScene(std::make_shared<GameScene>(mGame));
-		break;
-	}
 }

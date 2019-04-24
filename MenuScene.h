@@ -21,10 +21,15 @@ public:
 	void keyDown(SDL_KeyboardEvent& event) override;
 private:
 	SDL_Texture* mExitText;
+	SDL_Texture* mExitTextSelected;
 	SDL_Texture* mHighscoresText;
+	SDL_Texture* mHighscoresTextSelected;
 	SDL_Texture* mPlayText;
+	SDL_Texture* mPlayTextSelected;
 
 	SDL_Rect mExitTextPosition;
 	SDL_Rect mHighscoresTextPosition;
 	SDL_Rect mPlayTextPosition;
+	void executeMenu(int selected);
+	int selectedItem{ 0 };
 };

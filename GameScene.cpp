@@ -6,18 +6,19 @@ GameScene::GameScene(Game& game) : Scene(game)
 	std::cout << "Initializing GameScene...";
 
 	SDL_Renderer *renderer = game.getRenderer();
-	paddle = new Paddle(renderer);
-	ball = new Ball(".\\textures\\blueBox.png",renderer);
-	level = new Level(renderer);
+
+	paddle = std::make_unique<Paddle>(renderer);
+	ball = std::make_unique<Ball>(".\\textures\\blueBox.png", renderer);
+	level = std::make_unique<Level>(renderer);
+
+
+	//paddle = new Paddle(renderer);
+	//ball = new Ball(".\\textures\\blueBox.png",renderer);
+	//level = new Level(renderer);
 
 	//Create start level
 	/*TODO*/// Need to create logic for game end... if bricks[][] == empty -> level->CreateRound2();
 	level->CreateRound1();
-}
-
-void GameScene::NewGame() {
-	level->CreateRound1();
-	ResetPlayer();
 }
 
 GameScene::~GameScene()
@@ -51,6 +52,7 @@ void GameScene::exit()
 
 void GameScene::keyUp(SDL_KeyboardEvent & event)
 {
+
 }
 
 void GameScene::keyDown(SDL_KeyboardEvent & event)
