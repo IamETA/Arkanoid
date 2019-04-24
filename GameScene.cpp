@@ -124,6 +124,7 @@ void GameScene::update(float delta)
 void GameScene::ResetBall() {
 	//Remove 1 life
 	Life--;
+
 	ball->released = false;
 	ball->set_direction(1, 1);
 }
