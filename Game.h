@@ -6,6 +6,7 @@
 #include "TextureManager.h"
 #include "Timer.h"
 #include "Scene.h"
+#include "SDL_mixer.h"
 
 class Game {
 private:
@@ -25,6 +26,7 @@ private:
 	//Other definitions
 	bool game_running{};
 	int counter{ 0 };
+	Mix_Music *music = NULL;
 
 public:
 	Game();

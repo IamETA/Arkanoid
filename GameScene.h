@@ -18,8 +18,25 @@ private:
 	Paddle* paddle;
 	Ball* ball;
 	Level* level;
-	InputUtils::InputManager *input{ nullptr };
+	InputUtils::InputManager*  input{ nullptr };
 
+	SDL_Texture* mLivesText{ nullptr };
+	SDL_Texture* mScoreText{ nullptr };
+	SDL_Texture* mDifficulty{ nullptr };
+	SDL_Texture* mLevel{ nullptr };
+	SDL_Texture* mLogo{ nunullptr };
+
+	SDL_Rect mLivesPosition{ nullptr };
+	SDL_Rect mScoreTextPosition{ nullptr };
+	SDL_Rect mDifficultyPosition{ nullptr };
+	SDL_Rect mLevelPosition{ nullptr };
+	SDL_Rect mLogoPosition{ nullptr };
+
+	void UpdatePaddlePosition();
+	void UpdateBallCheckReleased();
+	void UpdateMapCollisionDetection();
+	void UpdatePaddleCollisionDetection();
+	void UpdateLevelCollisionDetection();
 
 public:
 	GameScene(Game& game);
@@ -35,12 +52,6 @@ public:
 
 	float GetReflection(float hitx); 
 	void BallBrickResponse(int dirindex);
-	
-	void UpdatePaddlePosition();
-	void UpdateBallCheckReleased();
-	void UpdateMapCollisionDetection();
-	void UpdatePaddleCollisionDetection();
-	void UpdateLevelCollisionDetection();
 	void ResetBall();
 };
 

@@ -14,8 +14,9 @@ GameScene::GameScene(Game& game) : Scene(game)
 	ball = new Ball(renderer);
 	level = new Level(renderer);
 
-
+	//set paddle height to correct height
 	paddle->y = level->height - paddle->height;
+
 
 
 	//Create start level
