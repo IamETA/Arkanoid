@@ -32,6 +32,7 @@ private:
 	// Test
 	float testx, testy;
 
+	int round = 0;
 	Level* level;
 	Player* player;
 	Ball* ball;

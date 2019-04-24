@@ -25,7 +25,9 @@ public:
 
 	void Update(float delta);
 	void Render(float delta);
-	void CreateLevel();
+	void CreateLevel(int round);
+	void CreateRound1();
+	void CreateRound2();
 
 	float brickoffsetx, brickoffsety;
 

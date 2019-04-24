@@ -103,8 +103,9 @@ void Game::Run() {
 }
 
 void Game::NewGame() {
-	level->CreateLevel();
+	level->CreateLevel(round);
 	ResetPlayer();
+	round++; //Next round in game.
 }
 
 void Game::ResetPlayer() {
@@ -252,6 +253,9 @@ void Game::CheckBrickCollisions() {
 					}
 					else {
 						level->bricks[i][j].HP -= 1;
+						if (brick.type == 0) {
+							level->bricks[i][j].type = 2;
+						}
 					}
 
 					float wy = w * dy;
@@ -310,6 +314,9 @@ void Game::CheckBrickCollisions2() {
 					}
 					else {
 						level->bricks[i][j].HP -= 1;
+						if (brick.type == 0) {
+							level->bricks[i][j].type = 2;
+						}
 					}
 
 					// Asume the ball goes slow enough to not skip through the bricks TODO:: Change with more powerups
