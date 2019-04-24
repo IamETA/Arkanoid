@@ -114,6 +114,7 @@ void GameScene::update(float delta)
 	UpdateStats();
 	UpdatePaddlePosition();
 	UpdateBallCheckReleased();
+	NewRound();
 
 	//Collision detection
 	UpdateMapCollisionDetection();
@@ -123,13 +124,19 @@ void GameScene::update(float delta)
 void GameScene::ResetBall() {
 	//Remove 1 life
 	Life--;
-	if(Life == 0) {
-		Mix_PlayChannel(-1, cGameOver, 0);
-		// quit to highscore()
-		// Update Score()
-	}
 	ball->released = false;
 	ball->set_direction(1, 1);
+}
+
+void GameScene::NewRound() {
+	/*if (GetBrickCount() == 0) {
+		round++; //Next round in game.
+		NewGame();
+		level->CreateRound1();
+	}
+	level->CreateLevel(round);
+	ResetPlayer();
+	round++; //Next round in game.*/
 }
 
 void GameScene::UpdateLevelCollisionDetection() {
@@ -265,7 +272,15 @@ void GameScene::UpdateMapCollisionDetection() {
 
 		// Ball lost
 		ResetBall();
-		Mix_PlayChannel(-1, cBottom, 0);
+		if (Life == 0) {
+			Mix_PlayChannel(-1, cGameOver, 0);
+			// quit to highscore()
+			// Update Score()
+		}
+		else{
+			Mix_PlayChannel(-1, cBottom, 0);
+		}
+
 	}
 
 	// Left and right collisions
@@ -344,6 +359,19 @@ void GameScene::render()
 	SDL_RenderCopy(renderer, mLevelText, nullptr, &mLevelTextPosition);
 	SDL_RenderCopy(renderer, mLogo, nullptr, &mLogoPosition);
 	//SDL_RenderCopy(renderer, mLogo, nullptr, &mLivesTextPosition);
+}
+
+int GameScene::GetBrickCount() {
+	int brickcount = 0;
+	for (int i = 0; i < LEVEL_WIDTH; i++) {
+		for (int j = 0; j < LEVEL_HEIGHT; j++) {
+			Brick brick = level->bricks[i][j];
+			if (brick.state) {
+				brickcount++;
+			}
+		}
+	}
+	return brickcount;
 }
 
 void GameScene::enter()

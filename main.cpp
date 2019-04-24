@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
 {
 	std::unique_ptr<Game> game(new Game());
 
-	const std::string fontPath = ".\\fonts\\default.ttf";
+	const std::string fontPath = ".\\fonts\\arcade.ttf";
 
 	//initialize game
 	if (game->init_window( "Arkanoid",

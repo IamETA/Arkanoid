@@ -41,6 +41,8 @@ private:
 	void UpdateMapCollisionDetection();
 	void UpdatePaddleCollisionDetection();
 	void UpdateLevelCollisionDetection();
+	int GetBrickCount();
+	void NewRound();
 
 	//The sound effects that will be used
 	Mix_Chunk *cPaddle = NULL;
