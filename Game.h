@@ -1,6 +1,4 @@
-#ifndef ARCADEGAME_GAME_H
-#define ARCADEGAME_GAME_H
-
+#pragma once
 
 #include <iosfwd>
 #include <SDL.h>
@@ -17,6 +15,7 @@ private:
 	SDL_Event event{ NULL };
 	std::shared_ptr<Scene> mScene{ nullptr };
 	TextureManager* textureManager{ nullptr };
+
 	//Use chronos to keep track of time
 	TimerUtils::Timer *timer;
 	TTF_Font*  mFont{ nullptr };
@@ -43,7 +42,3 @@ public:
 	TTF_Font* getFont();
 	SDL_Window* getWindow();
 };
-
-
-
-#endif //ARCADEGAME_GAME_H

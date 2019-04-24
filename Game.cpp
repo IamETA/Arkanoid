@@ -1,7 +1,3 @@
-//
-// Created by mynewdog on 11.03.19.
-//
-
 #include <iostream>
 #include <cstdlib>
 #include "Game.h"
@@ -24,11 +20,12 @@ Game::~Game()
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
-	std::cout << "Game cleaned" << std::endl;
+	std::cout << "Game destroyed" << std::endl;
 };
 void Game::run() 
 {
 	InputUtils::InputManager *input = InputUtils::InputManager::Instance();
+
 	//Use chronos time library to control updates
 	timer = TimerUtils::Timer::Instance();
 	timer->Reset();

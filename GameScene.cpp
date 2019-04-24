@@ -13,7 +13,6 @@ GameScene::GameScene(Game& game) : Scene(game)
 	ball = new Ball(".\\textures\\blueBox.png", renderer);
 	level = new Level(renderer);
 
-	paddle->y = level->height - paddle->height;
 
 	//paddle = new Paddle(renderer);
 	//ball = new Ball(".\\textures\\blueBox.png",renderer);

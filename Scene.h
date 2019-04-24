@@ -1,4 +1,6 @@
 #pragma once
+
+
 /*! An abstraction for all scenes in the Arkanoid game.
  *
  *  This class acts as an abstraction for all scenes in our Breakout game. Our
