@@ -33,12 +33,14 @@ public:
 	void keyDown(SDL_KeyboardEvent & event) override;
 	void mouseDown(SDL_KeyboardEvent & event) override;
 
-	float GetReflection(float hitx);
+	float GetReflection(float hitx); 
+	void BallBrickResponse(int dirindex);
 	
 	void UpdatePaddlePosition();
 	void UpdateBallCheckReleased();
 	void UpdateMapCollisionDetection();
 	void UpdatePaddleCollisionDetection();
+	void UpdateLevelCollisionDetection();
 	void ResetBall();
 };
 
