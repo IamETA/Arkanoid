@@ -15,6 +15,11 @@ GameScene::GameScene(Game& game) : Scene(game)
 	level->CreateRound1();
 }
 
+void GameScene::NewGame() {
+	level->CreateRound1();
+	ResetPlayer();
+}
+
 GameScene::~GameScene()
 {
 	std::cout << "GameScene destroyed";

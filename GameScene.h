@@ -27,5 +27,6 @@ public:
 	void render() override;
 	void enter() override;
 	void exit() override;
+	void NewGame() override;
 };
 
