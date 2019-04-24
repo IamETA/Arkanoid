@@ -15,9 +15,9 @@ class GameScene final : public Scene
 private:
 	int Life{ 3 };
 
-	Paddle paddle;
-	Ball ball;
-	Level level;
+	Paddle* paddle;
+	Ball* ball;
+	Level* level;
 	InputUtils::InputManager *input{ nullptr };
 
 

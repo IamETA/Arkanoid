@@ -38,7 +38,9 @@ void GameScene::update(float delta)
 
 	UpdatePaddlePosition();
 	UpdateBallCheckReleased();
+	//Collision detection
 	UpdateMapCollisionDetection();
+	UpdatePaddleCollisionDetection();
 }
 void GameScene::ResetBall() {
 	//Remove 1 life
@@ -99,8 +101,7 @@ void GameScene::UpdatePaddleCollisionDetection() {
 	// Check player collision
 	if (ball->collision_with(paddle)) {
 		ball->y = paddle->y - ball->height;
-		ball->set_direction(GetReflection(ballcenterx - paddle->x), -1);
-		//ball->SetDirection(0, -1);
+		ball->set_direction(1,GetReflection(ballcenterx - paddle->x));
 	}
 }
 
