@@ -23,8 +23,10 @@ public:
 
 	void update(float delta) override;
 	void render() override;
+	void NextLevel(int round);
 	void CreateRound1();
 	void CreateRound2();
+	void CreateRound3();
 
 	float brickoffsetx, brickoffsety;
 

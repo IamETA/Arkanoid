@@ -38,11 +38,8 @@ GameScene::GameScene(Game& game) : Scene(game)
 	//set paddle height to correct height
 	paddle->y = level->height - paddle->height;
 
-
-
 	//Create start level
-	/*TODO*/// Need to create logic for game end... if bricks[][] == empty -> level->CreateRound2();
-	level->CreateRound1();
+	level->NextLevel(CurrentLevel);
 }
 void GameScene::UpdateStats() {
 	const int margin{ 60 };
@@ -107,6 +104,7 @@ GameScene::~GameScene()
 
 void GameScene::update(float delta)
 {
+	LevelUp();
 	paddle->update(delta);
 	ball->update(delta);
 	level->update(delta);
@@ -114,7 +112,6 @@ void GameScene::update(float delta)
 	UpdateStats();
 	UpdatePaddlePosition();
 	UpdateBallCheckReleased();
-	NewRound();
 
 	//Collision detection
 	UpdateMapCollisionDetection();
@@ -128,15 +125,13 @@ void GameScene::ResetBall() {
 	ball->set_direction(1, 1);
 }
 
-void GameScene::NewRound() {
-	/*if (GetBrickCount() == 0) {
-		round++; //Next round in game.
-		NewGame();
-		level->CreateRound1();
+void GameScene::LevelUp() {
+	if (GetBrickNum() == 0) {
+		CurrentLevel++; //Next round in game.
+		ball->released = false;
+		ball->set_direction(1, 1);
+		level->NextLevel(CurrentLevel);
 	}
-	level->CreateLevel(round);
-	ResetPlayer();
-	round++; //Next round in game.*/
 }
 
 void GameScene::UpdateLevelCollisionDetection() {
@@ -276,6 +271,7 @@ void GameScene::UpdateMapCollisionDetection() {
 			Mix_PlayChannel(-1, cGameOver, 0);
 			// quit to highscore()
 			// Update Score()
+			// Temp solutions, quit to menu, did not work
 		}
 		else{
 			Mix_PlayChannel(-1, cBottom, 0);
@@ -361,17 +357,17 @@ void GameScene::render()
 	//SDL_RenderCopy(renderer, mLogo, nullptr, &mLivesTextPosition);
 }
 
-int GameScene::GetBrickCount() {
-	int brickcount = 0;
+int GameScene::GetBrickNum() {
+	int bricknum = 0;
 	for (int i = 0; i < LEVEL_WIDTH; i++) {
 		for (int j = 0; j < LEVEL_HEIGHT; j++) {
 			Brick brick = level->bricks[i][j];
 			if (brick.state) {
-				brickcount++;
+				bricknum++;
 			}
 		}
 	}
-	return brickcount;
+	return bricknum;
 }
 
 void GameScene::enter()
