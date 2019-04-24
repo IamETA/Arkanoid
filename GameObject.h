@@ -11,7 +11,13 @@ class GameObject
 {
 public:
 
+	//Constructors
+
+	//Default inline
+	explicit GameObject() {};
 	explicit GameObject(std::string texture, SDL_Renderer* renderer);
+
+
 	//GameObject(SDL_Renderer* renderer);
 
 	virtual ~GameObject();
@@ -26,6 +32,6 @@ protected:
 	SDL_Renderer* m_renderer{ nullptr };
 	SDL_Texture* m_object_texture{ nullptr };
 
-
+	
 };
 

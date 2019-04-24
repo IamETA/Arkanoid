@@ -11,6 +11,7 @@ GameScene::GameScene(Game& game) : Scene(game)
 
 
 	//Create start level
+	/*TODO*/// Need to create logic for game end... if bricks[][] == empty -> level->CreateRound2();
 	level->CreateRound1();
 }
 

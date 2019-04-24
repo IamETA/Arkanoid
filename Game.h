@@ -11,6 +11,7 @@
 
 class Game {
 private:
+
 	SDL_Window* window{ nullptr };
 	SDL_Renderer* renderer{ nullptr };
 	SDL_Event event{ NULL };
@@ -25,6 +26,7 @@ private:
 	//Other definitions
 	bool game_running{};
 	int counter{ 0 };
+
 public:
 	Game();
 	~Game();
