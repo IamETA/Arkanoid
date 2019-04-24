@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include <iostream>
 
 GameScene::GameScene(Game& game) : Scene(game)
 {
@@ -8,15 +9,21 @@ GameScene::GameScene(Game& game) : Scene(game)
 	paddle = new Paddle(renderer);
 	ball = new Ball(".\\textures\\blueBox.png",renderer);
 	level = new Level(renderer);
+
 	//Create start level
+	/*TODO*/// Need to create logic for game end... if bricks[][] == empty -> level->CreateRound2();
 	level->CreateRound1();
+}
+
+void GameScene::NewGame() {
+	level->CreateRound1();
+	ResetPlayer();
 }
 
 GameScene::~GameScene()
 {
-	delete paddle;
-	delete ball;
-	delete level;
+	std::cout << "GameScene destroyed";
+	
 }
 
 void GameScene::update(unsigned int dt)

@@ -14,9 +14,11 @@ class GameScene final : public Scene
 {
 private:
 	int Life{ 3 };
-	Ball* ball{ nullptr };
-	Level* level{ nullptr };
-	Paddle* paddle{ nullptr };
+
+	std::unique_ptr<Paddle> paddle;
+	std::unique_ptr<Ball> ball;
+	std::unique_ptr<Level> level;
+
 
 public:
 	GameScene(Game& game);
@@ -26,8 +28,5 @@ public:
 	void render() override;
 	void enter() override;
 	void exit() override;
-	void mouseEvent(SDL_MouseButtonEvent& event) override;
-	void keyUp(SDL_KeyboardEvent& event) override;
-	void keyDown(SDL_KeyboardEvent& event) override;
 };
 

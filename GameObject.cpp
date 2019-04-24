@@ -1,6 +1,8 @@
 #include "GameObject.h"
 
 
+
+
 GameObject::GameObject(std::string texture, SDL_Renderer* renderer) : m_renderer(renderer), x(0), y(0), width(1), height(1) {
 	m_object_texture = TextureManager::load_texture(texture, renderer);
 }
