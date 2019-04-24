@@ -19,9 +19,9 @@ GameScene::GameScene(Game& game) : Scene(game)
 	cPaddle = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (1).wav");
 	cBrick = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (2).wav");
 	cBottom = Mix_LoadWAV(".\\sounds\\doh.wav");
-	cSides = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (4).wav");
-	cNextRound = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (5).wav");
-	cGameOver = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (6).wav");
+	cSides = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (3).wav");
+	cNextRound = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (9).wav");
+	cGameOver = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (10).wav");
 
 	//If there was a problem loading the sound effects
 	/*
@@ -82,9 +82,11 @@ void GameScene::UpdateStats() {
 	mLevelTextPosition.y = hmargin * 7;
 	mLevelTextPosition.x = level->width + margin;
 
-	
-
-
+	mLogo  = mLogo = TextureManager::load_texture(".\\textures\\logo.png", renderer);
+	mLogoPosition.h = 100; 
+	mLogoPosition.w = 200;
+	mLogoPosition.x = level->width + margin;
+	mLogoPosition.y = 30;
 }
 GameScene::~GameScene()
 {
@@ -99,8 +101,6 @@ GameScene::~GameScene()
 	Mix_FreeChunk(cSides);
 	Mix_FreeChunk(cGameOver);
 
-	//Quit SDL_mixer
-	Mix_CloseAudio();
 	std::cout << "GameScene destroyed";
 	
 }
@@ -123,6 +123,11 @@ void GameScene::update(float delta)
 void GameScene::ResetBall() {
 	//Remove 1 life
 	Life--;
+	if(Life == 0) {
+		Mix_PlayChannel(-1, cGameOver, 0);
+		// quit to highscore()
+		// Update Score()
+	}
 	ball->released = false;
 	ball->set_direction(1, 1);
 }
@@ -305,6 +310,7 @@ void GameScene::UpdatePaddleCollisionDetection() {
 	if (ball->collision_with(paddle)) {
 		ball->y = paddle->y - ball->height;
 		ball->set_direction(1,GetReflection(ballcenterx - paddle->x));
+		Mix_PlayChannel(-1, cPaddle, 0);
 	}
 }
 
@@ -336,6 +342,7 @@ void GameScene::render()
 	SDL_RenderCopy(renderer, mScoreText, nullptr, &mScoreTextPosition);
 	SDL_RenderCopy(renderer, mDifficultyText, nullptr, &mDifficultyTextPosition);
 	SDL_RenderCopy(renderer, mLevelText, nullptr, &mLevelTextPosition);
+	SDL_RenderCopy(renderer, mLogo, nullptr, &mLogoPosition);
 	//SDL_RenderCopy(renderer, mLogo, nullptr, &mLivesTextPosition);
 }
 

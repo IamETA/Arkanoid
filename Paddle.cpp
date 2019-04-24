@@ -4,7 +4,7 @@
 Paddle::Paddle(SDL_Renderer* renderer) : GameObject(".\\textures\\paddle.png",renderer)
 {	
 	width = 128;
-	height = 68;
+	height = 98;
 }
 
 

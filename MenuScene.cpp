@@ -16,6 +16,7 @@ MenuScene::MenuScene(Game& game) : Scene(game),
 	mExitText = TextureManager::create_text("Exit game",renderer,font);
 	mHighscoresText = TextureManager::create_text("Highscores",renderer,font);
 	mPlayText = TextureManager::create_text("Play",renderer,font);
+	mLogo = TextureManager::load_texture(".\\textures\\logo.png", renderer);
 
 	SDL_Color selectedColor{ 0x0, 0xff, 0x0, 0xff };
 	// construct text textures used to render textual contents.
@@ -27,7 +28,9 @@ MenuScene::MenuScene(Game& game) : Scene(game),
 	SDL_QueryTexture(mExitText, nullptr, nullptr, &mExitTextPosition.w, &mExitTextPosition.h);
 	SDL_QueryTexture(mHighscoresText, nullptr, nullptr, &mHighscoresTextPosition.w, &mHighscoresTextPosition.h);
 	SDL_QueryTexture(mPlayText, nullptr, nullptr, &mPlayTextPosition.w, &mPlayTextPosition.h);
-
+	//SDL_QueryTexture(mLogo, nullptr, nullptr, &mLogoPosition.w, &mLogoPosition.h);
+	mLogoPosition.w = 400; 
+	mLogoPosition.h = 200;
 	// get the rendering window size and calculate the center position.
 	int windowWidth = 0, windowHeight = 0;
 	SDL_GetWindowSize(mGame.getWindow(), &windowWidth, &windowHeight);
@@ -38,13 +41,16 @@ MenuScene::MenuScene(Game& game) : Scene(game),
 	CENTER(mExitTextPosition);
 	CENTER(mHighscoresTextPosition);
 	CENTER(mPlayTextPosition);
-
+	CENTER(mLogoPosition);
+	
 	// assign vertical positions for each texture.
 	int slotHeight = (windowHeight / 10);
-	mPlayTextPosition.y = 2 * slotHeight;
+	mPlayTextPosition.y = 4 * slotHeight;
+	
+	mLogoPosition.y = slotHeight;
 	//mControlTextPosition.y = static_cast<int>(2.5 * slotHeight);
-	mHighscoresTextPosition.y = (3 * slotHeight);
-	mExitTextPosition.y = (4 * slotHeight);
+	mHighscoresTextPosition.y = (5 * slotHeight);
+	mExitTextPosition.y = (6 * slotHeight);
 }
 
 MenuScene::~MenuScene()
@@ -85,6 +91,9 @@ void MenuScene::render()
 	else {
 		SDL_RenderCopy(renderer, mExitText, nullptr, &mExitTextPosition);
 	}
+
+	SDL_RenderCopy(renderer, mLogo, nullptr, &mLogoPosition);
+
 }
 
 void MenuScene::enter()

@@ -1,6 +1,6 @@
 #include "Ball.h"
 
-Ball::Ball(SDL_Renderer* renderer) : GameObject(".\\textures\\transparentball.png", renderer)
+Ball::Ball(SDL_Renderer* renderer) : GameObject(".\\textures\\ball.png", renderer)
 {
 	x = 32;
 	y = 32;

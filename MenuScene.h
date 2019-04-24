@@ -27,9 +27,12 @@ private:
 	SDL_Texture* mPlayText;
 	SDL_Texture* mPlayTextSelected;
 
+	SDL_Texture* mLogo;
+
 	SDL_Rect mExitTextPosition;
 	SDL_Rect mHighscoresTextPosition;
 	SDL_Rect mPlayTextPosition;
+	SDL_Rect mLogoPosition;
 	void executeMenu(int selected);
 	int selectedItem{ 0 };
 };
