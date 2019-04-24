@@ -2,10 +2,11 @@
 
 Ball::Ball(std::string texture, SDL_Renderer* renderer) : GameObject(".\\textures\\transparentball.png", renderer)
 {
-	x_pos = 50;
-	y_pos = 50;
-	width = 24;
-	height = 24;
+	x_pos = 32;
+	y_pos = 32;
+	width = 32;
+	height = 32;
+	set_direction(1, 1);
 }
 
 Ball::~Ball()
@@ -23,8 +24,11 @@ void Ball::render() {
 	m_rect.y = (int)(y_pos + 0.5f);
 	m_rect.w = width;
 	m_rect.h = height;
-
+	SDL_SetRenderDrawColor(m_renderer, 0, 255, 0, 1);
+	SDL_RenderFillRect(m_renderer, &m_rect);
 	SDL_RenderCopy(m_renderer, m_object_texture, 0, &m_rect);
+	SDL_SetRenderDrawColor(m_renderer, 0, 0, 0,0);
+
 }
 
 void Ball::set_direction(float diry, float dirx) {

@@ -95,7 +95,7 @@ bool Game::init_window(const char* title, int xpos, int ypos, int width, int hei
 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 		if (renderer)
 		{
-			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+			SDL_SetRenderDrawColor(renderer, 0, 0, 100, 255);
 			std::cout << "Renderer created" << std::endl;
 		}
 

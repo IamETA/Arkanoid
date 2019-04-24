@@ -3,7 +3,10 @@
 
 SDL_Texture* TextureManager::load_texture(std::string texture, SDL_Renderer* ren)
 {
-	SDL_Surface* temp_surface = IMG_Load(texture.c_str());
+	SDL_Surface* temp_surface = IMG_Load(texture.c_str());	
+	
+	//Uint32 colorkey = SDL_MapRGB(temp_surface->format, 255, 255, 0);
+	//SDL_SetColorKey(temp_surface, SDL_TRUE, colorkey);
 	if (temp_surface == nullptr)
 	{
 		std::cout << "Unable to load image: " << SDL_GetError() << std::endl;
