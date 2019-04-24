@@ -13,8 +13,8 @@ Level::Level(SDL_Renderer* renderer) : GameObject(".\\textures\\bricks.png",rend
 
 	srand(time(0));
 
-	x_pos = 0;
-	y_pos = 0;
+	x = 0;
+	y = 0;
 	width = 768;
 	height = 600;
 
@@ -28,7 +28,7 @@ Level::~Level() {
 	SDL_DestroyTexture(sidetexture);
 }
 
-void Level::update(unsigned int delta) {
+void Level::update(float delta) {
 
 }
 
@@ -50,8 +50,8 @@ void Level::render() {
 			srcrect.h = LEVEL_BRHEIGHT;
 
 			SDL_Rect dstrect;
-			dstrect.x = brickoffsetx + x_pos + i * LEVEL_BRWIDTH;
-			dstrect.y = brickoffsety + y_pos + j * LEVEL_BRHEIGHT;
+			dstrect.x = brickoffsetx + x + i * LEVEL_BRWIDTH;
+			dstrect.y = brickoffsety + y + j * LEVEL_BRHEIGHT;
 			dstrect.w = LEVEL_BRWIDTH;
 			dstrect.h = LEVEL_BRHEIGHT;
 

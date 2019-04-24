@@ -17,12 +17,13 @@ class Scene
 
 		virtual ~Scene() = default;
 
-		virtual void update(unsigned int dt) {}
+		virtual void update(float delta) {}
 		virtual void render() {}
 		virtual void enter() {}
 		virtual void exit() {}
 		virtual void keyDown(SDL_KeyboardEvent& event) {}
 		virtual void keyUp(SDL_KeyboardEvent& event) {}
+		virtual void mouseDown(SDL_KeyboardEvent& event) {}
 	protected:
 		Game& mGame;
 };

@@ -13,7 +13,7 @@ public:
 
 	~MenuScene();
 
-	void update(unsigned int dt) override;
+	void update(float delta) override;
 	void render() override;
 	void enter() override;
 	void exit() override;

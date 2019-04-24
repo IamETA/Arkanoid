@@ -21,7 +21,7 @@ public:
 	Level(SDL_Renderer* renderer);
 	~Level();
 
-	void update(unsigned int delta) override;
+	void update(float delta) override;
 	void render() override;
 	void CreateRound1();
 	void CreateRound2();

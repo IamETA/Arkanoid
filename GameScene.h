@@ -15,20 +15,30 @@ class GameScene final : public Scene
 private:
 	int Life{ 3 };
 
-	std::unique_ptr<Paddle> paddle;
-	std::unique_ptr<Ball> ball;
-	std::unique_ptr<Level> level;
+	Paddle paddle;
+	Ball ball;
+	Level level;
+	InputUtils::InputManager *input{ nullptr };
 
 
 public:
 	GameScene(Game& game);
 	~GameScene();
 
-	void update(unsigned int dt) override;
+	void update(float delta) override;
 	void render() override;
 	void enter() override;
 	void exit() override;
 	void keyUp(SDL_KeyboardEvent & event) override;
 	void keyDown(SDL_KeyboardEvent & event) override;
+	void mouseDown(SDL_KeyboardEvent & event) override;
+
+	float GetReflection(float hitx);
+	
+	void UpdatePaddlePosition();
+	void UpdateBallCheckReleased();
+	void UpdateMapCollisionDetection();
+	void UpdatePaddleCollisionDetection();
+	void ResetBall();
 };
 

@@ -58,7 +58,7 @@ MenuScene::~MenuScene()
 	RELEASE_TEXTURE(mPlayText);
 }
 
-void MenuScene::update(unsigned int dt)
+void MenuScene::update(float delta)
 {
 	// ...
 }

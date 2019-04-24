@@ -30,10 +30,10 @@ private:
 public:
 	Game();
 	~Game();
-	void handle_key_event();
-	bool init_window(const char *title, int xpos, int ypos, int height, int width, bool fullscreen);
+	void handle_input_event(); 
+	bool init_window(const char *title, int xpos, int ypos, int width, int height, bool fullscreen);
 	bool init_font(const std::string fontPath);
-	void update(unsigned int delta);
+	void update(float delta);
 	void render();
 	void run();
 	void exit();

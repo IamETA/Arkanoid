@@ -22,12 +22,12 @@ public:
 
 	virtual ~GameObject();
 
-	float x_pos{ 0 }, y_pos{ 0 }, width{ 0 }, height{ 0 };
+	float x{ 0 }, y{ 0 }, width{ 0 }, height{ 0 };
 
-	virtual void update(unsigned int delta) {}
+	virtual void update(float delta) {}
 	virtual void render() {}
 
-	bool collision_with(GameObject *object);
+	bool collision_with(GameObject object);
 protected:
 	SDL_Renderer* m_renderer{ nullptr };
 	SDL_Texture* m_object_texture{ nullptr };

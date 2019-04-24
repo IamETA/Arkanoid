@@ -46,8 +46,13 @@ void Game::run()
 			input->Update();
 			timer->Reset();
 			framecount = 0;
-			handle_key_event();
+			handle_input_event();
 			update(timer->delta_time());
+
+			//Debug delta time, remove later
+			//std::cout << "Delta time: " << timer->delta_time() << "\r\n";
+
+
 			render();
 		}
 		else {
@@ -108,8 +113,7 @@ bool Game::init_window(const char* title, int xpos, int ypos, int width, int hei
 	}
 	return game_running;
 }
-
-void Game::handle_key_event()
+void Game::handle_input_event()
 {
 	while (SDL_PollEvent(&event) != 0) {
 		switch (event.type) {
@@ -126,6 +130,10 @@ void Game::handle_key_event()
 				mScene->keyUp(event.key);
 			}
 			break;
+		case SDL_MOUSEBUTTONDOWN:
+			if (mScene) {
+				mScene->mouseDown(event.key);
+			}
 		default:
 			break;
 		}
@@ -133,7 +141,7 @@ void Game::handle_key_event()
 }
 
 
-void Game::update(unsigned int delta)
+void Game::update(float delta)
 {
 	mScene->update(delta);
 }

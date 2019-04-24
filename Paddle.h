@@ -8,12 +8,11 @@ class Paddle :
 public:
 	Paddle(SDL_Renderer* renderer);
 	~Paddle();
-	void update(unsigned int delta) override;
+	void update(float delta) override;
 	void render() override;
 private: 
 	SDL_Texture* m_texture{ nullptr };
 	SDL_Rect m_rect{ 0 };
-	InputUtils::InputManager *input{ nullptr };
 
 };
 
