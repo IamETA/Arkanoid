@@ -40,8 +40,6 @@ void Game::run()
 	// set the initial scene for the game.
 	enterScene(std::make_shared<MenuScene>(*this));
 
-	init_music();
-
 	//Play the music
 	Mix_PlayMusic(music, -1);
 	
@@ -102,7 +100,7 @@ bool Game::init_music()
 		return false;
 	}
 	// Control the volume
-	Mix_VolumeMusic(2);
+	Mix_VolumeMusic(50);
 	return true;
 }
 

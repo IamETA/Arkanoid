@@ -26,7 +26,7 @@ private:
 	//Other definitions
 	bool game_running{};
 	int counter{ 0 };
-	Mix_Music *music = NULL;
+	Mix_Music *music{ nullptr };
 
 public:
 	Game();

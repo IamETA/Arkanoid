@@ -17,7 +17,8 @@ int main(int argc, char* argv[])
 	if (game->init_window( "Arkanoid",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		SCREEN_WIDTH, SCREEN_HEIGHT, false)
-		&& game->init_font(fontPath))
+		&& game->init_font(fontPath) 
+		&& game->init_music())
 	{
 		game->run();
 	}
