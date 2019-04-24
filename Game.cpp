@@ -36,6 +36,9 @@ void Game::run()
 
 	// set the initial scene for the game.
 	enterScene(std::make_shared<MenuScene>(*this));
+
+	//Play the music
+	Mix_PlayMusic(music, -1);
 	
 	while (game_running) {
 		timer->Tick();
@@ -74,6 +77,26 @@ bool Game::init_font(const std::string fontPath) {
 		std::cerr << "Unable to load font: " << TTF_GetError() << std::endl;
 		return false;
 	}
+	return true;
+}
+
+bool Game::init_music()
+{
+	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
+	{
+		return false;
+	}
+
+	//Load the music
+	music = Mix_LoadMUS(".\\audio\\beat.wav");
+
+	//If there was a problem loading the music
+	if (music == NULL)
+	{
+		return false;
+	}
+	// Control the volume
+	Mix_VolumeMusic(2);
 	return true;
 }
 

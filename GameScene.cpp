@@ -23,7 +23,16 @@ GameScene::GameScene(Game& game) : Scene(game)
 	/*TODO*/// Need to create logic for game end... if bricks[][] == empty -> level->CreateRound2();
 	level->CreateRound1();
 }
+GameScene::updateStats() {
+	SDL_DestroyTexture(mLivesText);
+	SDL_DestroyTexture(mScoreText);
+	SDL_DestroyTexture(mDifficulty);
+	SDL_DestroyTexture(mLevel);
+	SDL_DestroyTexture(mLogo);
 
+	mLivesText = TextureManager::create_text("Lives", renderer, font, selectedColor);
+
+}
 GameScene::~GameScene()
 {
 	delete paddle;

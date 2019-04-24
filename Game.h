@@ -34,6 +34,7 @@ public:
 	void handle_input_event(); 
 	bool init_window(const char *title, int xpos, int ypos, int width, int height, bool fullscreen);
 	bool init_font(const std::string fontPath);
+	bool init_music();
 	void update(float delta);
 	void render();
 	void run();

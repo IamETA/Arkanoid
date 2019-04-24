@@ -24,7 +24,7 @@ private:
 	SDL_Texture* mScoreText{ nullptr };
 	SDL_Texture* mDifficulty{ nullptr };
 	SDL_Texture* mLevel{ nullptr };
-	SDL_Texture* mLogo{ nunullptr };
+	SDL_Texture* mLogo{ nullptr };
 
 	SDL_Rect mLivesPosition{ nullptr };
 	SDL_Rect mScoreTextPosition{ nullptr };
