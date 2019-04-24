@@ -9,14 +9,14 @@ GameScene::GameScene(Game& game) : Scene(game)
 	input = InputUtils::InputManager::Instance();
 	SDL_Renderer *renderer = game.getRenderer();
 
+	//Game objects
 	paddle = new Paddle(renderer);
-	ball = new Ball(".\\textures\\blueBox.png", renderer);
+	ball = new Ball(renderer);
 	level = new Level(renderer);
 
 
-	//paddle = new Paddle(renderer);
-	//ball = new Ball(".\\textures\\blueBox.png",renderer);
-	//level = new Level(renderer);
+	paddle->y = level->height - paddle->height;
+
 
 	//Create start level
 	/*TODO*/// Need to create logic for game end... if bricks[][] == empty -> level->CreateRound2();
@@ -77,7 +77,7 @@ void GameScene::UpdateLevelCollisionDetection() {
 					else {
 						level->bricks[i][j].hp -= 1;
 						if (brick.type == 0) {
-							level->bricks[i][j].type = 2;
+							level->bricks[i][j].type = 2; // Green Brick
 						}
 					}
 

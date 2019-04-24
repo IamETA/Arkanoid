@@ -3,7 +3,7 @@
 class Ball : public GameObject
 {
 public:
-	Ball(std::string texture, SDL_Renderer* renderer);
+	Ball(SDL_Renderer* renderer);
 	~Ball();
 
 	void update(float delta);
