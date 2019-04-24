@@ -19,6 +19,9 @@ Game::~Game()
 {
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
+	//Free the music
+	Mix_FreeMusic(music);
+	Mix_CloseAudio();
 	SDL_Quit();
 	std::cout << "Game destroyed" << std::endl;
 };
@@ -36,6 +39,8 @@ void Game::run()
 
 	// set the initial scene for the game.
 	enterScene(std::make_shared<MenuScene>(*this));
+
+	init_music();
 
 	//Play the music
 	Mix_PlayMusic(music, -1);
@@ -88,7 +93,8 @@ bool Game::init_music()
 	}
 
 	//Load the music
-	music = Mix_LoadMUS(".\\audio\\beat.wav");
+	music = Mix_LoadMUS(".\\sounds\\background.wav");
+
 
 	//If there was a problem loading the music
 	if (music == NULL)

@@ -16,9 +16,6 @@
     <Filter Include="Resource Files\textures">
       <UniqueIdentifier>{5f43442a-d380-4a46-b3b1-a65ee6610085}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\map">
-      <UniqueIdentifier>{7ac91f00-747d-4eb0-93d6-52820bbc7be8}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

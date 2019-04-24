@@ -22,7 +22,5 @@ int main(int argc, char* argv[])
 		game->run();
 	}
 
-	//input->Release();
-
 	return 0;
 }
