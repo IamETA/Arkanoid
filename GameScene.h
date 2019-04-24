@@ -67,5 +67,6 @@ public:
 	float GetReflection(float hitx); 
 	void BallBrickResponse(int dirindex);
 	void ResetBall();
+
 };
 
