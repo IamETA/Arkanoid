@@ -10,6 +10,7 @@ SDL_Texture* TextureManager::load_texture(std::string texture, SDL_Renderer* ren
 	if (temp_surface == nullptr)
 	{
 		std::cout << "Unable to load image: " << SDL_GetError() << std::endl;
+	
 	}
 	SDL_Texture* tex = SDL_CreateTextureFromSurface(ren, temp_surface);
 	SDL_FreeSurface(temp_surface);
@@ -41,4 +42,8 @@ SDL_Texture* TextureManager::create_text(const std::string& text, SDL_Renderer* 
 	}
 
 	return texture;
+}
+
+TextureManager::~TextureManager() {
+	std::cout << "Texture destroyed" << std::endl;
 }

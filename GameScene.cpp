@@ -11,11 +11,6 @@ GameScene::GameScene(Game& game) : Scene(game)
 	ball = std::make_unique<Ball>(".\\textures\\blueBox.png", renderer);
 	level = std::make_unique<Level>(renderer);
 
-
-	//paddle = new Paddle(renderer);
-	//ball = new Ball(".\\textures\\blueBox.png",renderer);
-	//level = new Level(renderer);
-
 	//Create start level
 	/*TODO*/// Need to create logic for game end... if bricks[][] == empty -> level->CreateRound2();
 	level->CreateRound1();

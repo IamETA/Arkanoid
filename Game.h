@@ -17,6 +17,7 @@ private:
 	SDL_Event event{ NULL };
 	std::shared_ptr<Scene> mScene{ nullptr };
 	TextureManager* textureManager{ nullptr };
+
 	//Use chronos to keep track of time
 	TimerUtils::Timer *timer;
 	TTF_Font*  mFont{ nullptr };
