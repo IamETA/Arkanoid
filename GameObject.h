@@ -22,7 +22,7 @@ public:
 
 	virtual ~GameObject();
 
-	float x{ 0 }, y{ 0 }, width{ 0 }, height{ 0 };
+	float x_pos{ 0 }, y_pos{ 0 }, width{ 0 }, height{ 0 };
 
 	virtual void update(unsigned int delta) {}
 	virtual void render() {}

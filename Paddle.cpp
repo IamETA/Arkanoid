@@ -4,14 +4,14 @@
 Paddle::Paddle(SDL_Renderer* renderer) : GameObject(".\\textures\\paddle.png",renderer)
 {
 	input = InputUtils::InputManager::Instance();
-	SDL_Surface* surface = IMG_Load(".\\textures\\paddle.png");
-	m_texture = SDL_CreateTextureFromSurface(renderer, surface);
-	SDL_FreeSurface(surface);
+	//SDL_Surface* surface = IMG_Load(".\\textures\\paddle.png");
+	//m_texture = SDL_CreateTextureFromSurface(renderer, surface);
+	//SDL_FreeSurface(surface);
 	
 	width = 128;
 	height = 68;
 
-	y = 560;
+	y_pos = 560;
 }
 
 
@@ -23,13 +23,13 @@ Paddle::~Paddle()
 void Paddle::update(unsigned int delta) {}
 
 void Paddle::render() {
-	x = input->getX() - width / 2.0f;
+	x_pos = input->getX() - width / 2.0f;
 
-	m_rect.x = (int)(x + 0.5f);
-	m_rect.y = (int)(y + 0.5f);
+	m_rect.x = (int)(x_pos + 0.5f);
+	m_rect.y = (int)(y_pos + 0.5f);
 	m_rect.w = width;
 	m_rect.h = height;
 
-	SDL_RenderCopy(m_renderer, m_texture, 0, &m_rect);
+	SDL_RenderCopy(m_renderer, m_object_texture, 0, &m_rect);
 
 }

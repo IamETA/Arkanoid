@@ -1,11 +1,9 @@
 #include "Ball.h"
 
-Ball::Ball(std::string texture, SDL_Renderer* renderer) : GameObject(texture, m_renderer)
+Ball::Ball(std::string texture, SDL_Renderer* renderer) : GameObject(".\\textures\\transparentball.png", renderer)
 {
-	m_object_texture = TextureManager::load_texture(texture, renderer);
-	
-	x = 50;
-	y = 50;
+	x_pos = 50;
+	y_pos = 50;
 	width = 24;
 	height = 24;
 }
@@ -16,13 +14,13 @@ Ball::~Ball()
 }
 
 void Ball::update(float delta) {
-	x += (m_dirX * delta);
-	y += (m_dirY * delta);
+	x_pos += (m_dirX * delta);
+	y_pos += (m_dirY * delta);
 }
 
 void Ball::render() {
-	m_rect.x = (int)(x + 0.5f);
-	m_rect.y = (int)(y + 0.5f);
+	m_rect.x = (int)(x_pos + 0.5f);
+	m_rect.y = (int)(y_pos + 0.5f);
 	m_rect.w = width;
 	m_rect.h = height;
 

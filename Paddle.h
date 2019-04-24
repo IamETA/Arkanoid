@@ -12,7 +12,8 @@ public:
 	void render() override;
 private: 
 	SDL_Texture* m_texture{ nullptr };
-	SDL_Rect m_rect;
+	SDL_Rect m_rect{ 0 };
 	InputUtils::InputManager *input{ nullptr };
+
 };
 
