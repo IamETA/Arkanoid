@@ -21,7 +21,7 @@ GameScene::GameScene(Game& game) : Scene(game)
 	cBottom = Mix_LoadWAV(".\\sounds\\doh.wav");
 	cSides = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (3).wav");
 	cNextRound = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (9).wav");
-	cGameOver = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (10).wav");
+	cGameOver = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (11).wav");
 
 	//If there was a problem loading the sound effects
 	/*
@@ -40,6 +40,7 @@ GameScene::GameScene(Game& game) : Scene(game)
 
 	//Create start level
 	level->NextLevel(CurrentLevel);
+	UpdateStats();
 }
 void GameScene::UpdateStats() {
 	const int margin{ 60 };
@@ -109,7 +110,6 @@ void GameScene::update(float delta)
 	ball->update(delta);
 	level->update(delta);
 
-	UpdateStats();
 	UpdatePaddlePosition();
 	UpdateBallCheckReleased();
 
@@ -124,14 +124,18 @@ void GameScene::ResetBall() {
 
 	ball->released = false;
 	ball->set_direction(1, 1);
+	UpdateStats();
 }
 
 void GameScene::LevelUp() {
 	if (GetBrickNum() == 0) {
 		CurrentLevel++; //Next round in game.
+		// Rest the ball to paddle with next level
 		ball->released = false;
 		ball->set_direction(1, 1);
 		level->NextLevel(CurrentLevel);
+		Mix_PlayChannel(-1, cNextRound, 0);
+		UpdateStats();
 	}
 }
 
@@ -161,11 +165,12 @@ void GameScene::UpdateLevelCollisionDetection() {
 					}
 					else {
 						level->bricks[i][j].hp -= 1;
-						if (brick.type == 0) {
+						/*if (brick.type == 0) {
 							level->bricks[i][j].type = 2; // Green Brick
-						}
+						}*/
 					}
-
+					Score++;
+					UpdateStats();
 					float wy = w * dy;
 					float hx = h * dx;
 
@@ -253,6 +258,7 @@ void GameScene::BallBrickResponse(int dirindex) {
 	// Set the new direction of the ball, by multiplying the old direction
 	// with the determined direction factors
 	ball->set_direction(mulx*ball->m_dirX, muly*ball->m_dirY);
+	ball->update(0.0001);
 }
 void GameScene::UpdateMapCollisionDetection() {
 	// Top and bottom collisions
