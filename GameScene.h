@@ -15,7 +15,7 @@ class GameScene final : public Scene
 {
 private:
 	int Life{ 3 };
-	int CurrentLevel{ 3 };
+	int CurrentLevel{ 1 };
 	int Score{ 0 };
 	int Difficulty{ 0 };
 
@@ -41,8 +41,8 @@ private:
 	void UpdateMapCollisionDetection();
 	void UpdatePaddleCollisionDetection();
 	void UpdateLevelCollisionDetection();
-	int GetBrickCount();
-	void NewRound();
+	int GetBrickNum();
+	void LevelUp();
 
 	//The sound effects that will be used
 	Mix_Chunk *cPaddle = NULL;

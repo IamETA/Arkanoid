@@ -74,21 +74,45 @@ void Level::render() {
 	SDL_RenderCopy(m_renderer, sidetexture, 0, &dstrect);
 }
 
+void Level::NextLevel(int round) {
+	if (round == 1) {
+		CreateRound1();
+	}
+	if (round == 2) {
+		CreateRound2();
+	}
+	if (round == 3) {
+		CreateRound3();
+	}
+}
+// Rainbow
 void Level::CreateRound1() {
-	for (int i = 5; i < LEVEL_WIDTH; i++) {
-		for (int j = 5; j < LEVEL_HEIGHT; j++) {
-
-			if (i == 1 || i == LEVEL_WIDTH - 2 || j == 1 || j == LEVEL_HEIGHT - 2) {
+	for (int i = 0; i < LEVEL_WIDTH; i++) {
+		for (int j = 6; j < LEVEL_HEIGHT; j++) {
+			if (j == 6) {
 				Brick brick;
-
-				brick.type = 0;
+				brick.type = 3; // blue
+				brick.state = true;
+				brick.hp = 3;
+				bricks[i][j] = brick;
+			}
+			if (j == 7) {
+				Brick brick;
+				brick.type = 2; // green
+				brick.state = true;
+				brick.hp = 2;
+				bricks[i][j] = brick;
+			}
+			if (j == 8) {
+				Brick brick;
+				brick.type = 1; // yellow
 				brick.state = true;
 				brick.hp = 1;
 				bricks[i][j] = brick;
 			}
-			else {
+			if (j == 9) {
 				Brick brick;
-				brick.type = 2;
+				brick.type = 0; // red
 				brick.state = true;
 				brick.hp = 0;
 				bricks[i][j] = brick;
@@ -96,10 +120,33 @@ void Level::CreateRound1() {
 		}
 	}
 }
-
+// Swedish flag
 void Level::CreateRound2() {
 	for (int i = 1; i < LEVEL_WIDTH; i++) {
 		for (int j = 1; j < LEVEL_HEIGHT; j++) {
+
+			if (i == 4 || j == 5) {
+				Brick brick;
+
+				brick.type = 1; // yellow
+				brick.state = true;
+				brick.hp = 1;
+				bricks[i][j] = brick;
+			}
+			if (i != 4 && j != 5) {
+				Brick brick;
+				brick.type = 3; // blue
+				brick.state = true;
+				brick.hp = 0;
+				bricks[i][j] = brick;
+			}
+		}
+	}
+}
+// Steps with industritible(spell?)
+void Level::CreateRound3() {
+	for (int i = 0; i < LEVEL_WIDTH; i++) {
+		for (int j = 0; j < LEVEL_HEIGHT; j++) {
 
 			if (i == 1 || i == LEVEL_WIDTH - 2 || j == 1 || j == LEVEL_HEIGHT - 2) {
 				Brick brick;
