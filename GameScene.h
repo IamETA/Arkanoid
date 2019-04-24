@@ -13,9 +13,11 @@ class GameScene final : public Scene
 {
 private:
 	int Life{ 3 };
-	Ball* ball{ nullptr };
-	Level* level{ nullptr };
-	Paddle* paddle{ nullptr };
+
+	std::unique_ptr<Paddle> paddle;
+	std::unique_ptr<Ball> ball;
+	std::unique_ptr<Level> level;
+
 
 public:
 	GameScene(Game& game);

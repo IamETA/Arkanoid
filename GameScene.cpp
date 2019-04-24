@@ -1,11 +1,14 @@
 #include "GameScene.h"
+#include <iostream>
 
 GameScene::GameScene(Game& game) : Scene(game)
 {
 	SDL_Renderer *renderer = game.getRenderer();
-	paddle = new Paddle(renderer);
-	ball = new Ball(".\\textures\\blueBox.png",renderer);
-	level = new Level(renderer);
+
+	paddle = std::make_unique<Paddle>(renderer);
+	ball = std::make_unique<Ball>(".\\textures\\blueBox.png", renderer);
+	level = std::make_unique<Level>(renderer);
+
 
 	//Create start level
 	level->CreateRound1();
@@ -13,9 +16,8 @@ GameScene::GameScene(Game& game) : Scene(game)
 
 GameScene::~GameScene()
 {
-	delete paddle;
-	delete ball;
-	delete level;
+	std::cout << "GameScene destroyed";
+	
 }
 
 void GameScene::update(float dt)
