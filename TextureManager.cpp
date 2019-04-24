@@ -15,8 +15,12 @@ SDL_Texture* TextureManager::load_texture(std::string texture, SDL_Renderer* ren
 
 SDL_Texture* TextureManager::create_text(const std::string& text, SDL_Renderer* ren, TTF_Font* font)
 {
-	// create a surface which contains the desired text.
 	SDL_Color color{ 0xff, 0xff, 0xff, 0xff };
+
+}
+SDL_Texture* TextureManager::create_text(const std::string& text, SDL_Renderer* ren, TTF_Font* font, SDL_Color color)
+{
+	// create a surface which contains the desired text.
 	auto surface = TTF_RenderText_Blended(font, text.c_str(), color);
 	if (surface == nullptr) {
 		std::cerr << "Unable to create a surface with a text: " << TTF_GetError() << std::endl;

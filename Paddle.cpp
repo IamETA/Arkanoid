@@ -1,7 +1,9 @@
 #include "Paddle.h"
+#include "InputManager.h"
 
 Paddle::Paddle(SDL_Renderer* renderer) : GameObject(".\\textures\\paddle.png",renderer)
 {
+	input = InputUtils::InputManager::Instance();
 	SDL_Surface* surface = IMG_Load(".\\textures\\paddle.png");
 	m_texture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
@@ -10,7 +12,6 @@ Paddle::Paddle(SDL_Renderer* renderer) : GameObject(".\\textures\\paddle.png",re
 	height = 32;
 
 	y = 560;
-
 }
 
 
@@ -19,14 +20,10 @@ Paddle::~Paddle()
 	SDL_DestroyTexture(m_texture);
 }
 
-void Paddle::update(float delta) {}
+void Paddle::update(unsigned int delta) {}
 
 void Paddle::render() {
-	// Input TODO:: move to inputmanager class
-	int px, py;
-	Uint8 mouseState = SDL_GetMouseState(&px, &py);
-	x = px - width / 2.0f;
-
+	x = input->getX() - width / 2.0f;
 
 	m_rect.x = (int)(x + 0.5f);
 	m_rect.y = (int)(y + 0.5f);

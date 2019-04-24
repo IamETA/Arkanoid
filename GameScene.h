@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include "scene.h"
 #include "Game.h"
 #include <memory>
@@ -21,9 +22,12 @@ public:
 	GameScene(Game& game);
 	~GameScene();
 
-	void update(float dt) override;
+	void update(unsigned int dt) override;
 	void render() override;
 	void enter() override;
 	void exit() override;
+	void mouseEvent(SDL_MouseButtonEvent& event) override;
+	void keyUp(SDL_KeyboardEvent& event) override;
+	void keyDown(SDL_KeyboardEvent& event) override;
 };
 

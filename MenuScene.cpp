@@ -35,10 +35,10 @@ MenuScene::MenuScene(Game& game) : Scene(game),
 
 	// assign vertical positions for each texture.
 	int slotHeight = (windowHeight / 10);
-	mPlayTextPosition.y = slotHeight;
+	mPlayTextPosition.y = 2 * slotHeight;
 	//mControlTextPosition.y = static_cast<int>(2.5 * slotHeight);
 	mHighscoresTextPosition.y = (3 * slotHeight);
-	mExitTextPosition.y = (6 * slotHeight);
+	mExitTextPosition.y = (4 * slotHeight);
 }
 
 MenuScene::~MenuScene()
@@ -52,7 +52,7 @@ MenuScene::~MenuScene()
 	RELEASE_TEXTURE(mPlayText);
 }
 
-void MenuScene::update(float dt)
+void MenuScene::update(unsigned int dt)
 {
 	// ...
 }
@@ -78,9 +78,6 @@ void MenuScene::exit()
 	// ...
 }
 
-void MenuScene::keyEnter(SDL_KeyboardEvent & event)
-{
-}
 
 void MenuScene::keyUp(SDL_KeyboardEvent& event)
 {

@@ -18,7 +18,7 @@ public:
 
 	float x{ 0 }, y{ 0 }, width{ 0 }, height{ 0 };
 
-	virtual void update(float delta) {}
+	virtual void update(unsigned int delta) {}
 	virtual void render() {}
 
 	bool collision_with(GameObject *object);

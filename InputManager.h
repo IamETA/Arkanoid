@@ -12,16 +12,13 @@ namespace InputUtils {
 
 		int mx{ 0 }, my{ 0 };
 
-		const Uint8 mouseState = SDL_GetMouseState(&mx, &my);
-
-
 	public:
 		static InputManager* Instance();
 
 		static void Release();
 
 		bool KeyDown(SDL_Scancode scanCode);
-
+		int getX() { return mx; }
 		void Update();
 
 		explicit InputManager();

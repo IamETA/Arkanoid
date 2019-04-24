@@ -13,11 +13,10 @@ public:
 
 	~MenuScene();
 
-	void update(float dt) override;
+	void update(unsigned int dt) override;
 	void render() override;
 	void enter() override;
 	void exit() override;
-	void keyEnter(SDL_KeyboardEvent& event) override;
 	void keyUp(SDL_KeyboardEvent& event) override;
 	void keyDown(SDL_KeyboardEvent& event) override;
 private:

@@ -28,7 +28,7 @@ Level::~Level() {
 	SDL_DestroyTexture(sidetexture);
 }
 
-void Level::update(float delta) {
+void Level::update(unsigned int delta) {
 
 }
 
