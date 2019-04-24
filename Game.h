@@ -3,6 +3,7 @@
 
 #include "SDL.h"
 #include "SDL_image.h"
+#include "SDL_mixer.h"
 #include <iostream>
 #include <stdio.h>
 
@@ -31,6 +32,14 @@ private:
 
 	// Test
 	float testx, testy;
+
+	Mix_Music *music = NULL;
+
+	//The sound effects that will be used
+	Mix_Chunk *scratch = NULL;
+	Mix_Chunk *high = NULL;
+	Mix_Chunk *med = NULL;
+	Mix_Chunk *low = NULL;
 
 	int round = 0;
 	Level* level;

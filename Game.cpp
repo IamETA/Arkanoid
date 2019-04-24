@@ -28,6 +28,34 @@ bool Game::Init() {
 		return false;
 	}
 
+	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
+	{
+		return false;
+	}
+
+	//Load the music
+	music = Mix_LoadMUS(".\\audio\\beat.wav");
+
+	//If there was a problem loading the music
+	if (music == NULL)
+	{
+		return false;
+	}
+
+	//Load the sound effects
+	scratch = Mix_LoadWAV(".\\audio\\scratch.wav");
+	high = Mix_LoadWAV(".\\audio\\high.wav");
+	med = Mix_LoadWAV(".\\audio\\medium.wav");
+	low = Mix_LoadWAV(".\\audio\\low.wav");
+
+	//If there was a problem loading the sound effects
+	if ((scratch == NULL) || (high == NULL) || (med == NULL) || (low == NULL))
+	{
+		return false;
+	}
+
+	Mix_VolumeMusic(2);
+
 	// Initialize resources
 	SDL_Surface* surface = IMG_Load("test.png"); // endre til bmp fil.
 	texture = SDL_CreateTextureFromSurface(renderer, surface);
@@ -60,6 +88,9 @@ void Game::Run() {
 	ball = new Ball(renderer);
 
 	NewGame();
+
+	//Play the music
+	Mix_PlayMusic(music, -1);
 
 	while (1) {
 		// Handler events 
@@ -96,6 +127,18 @@ void Game::Run() {
 	delete level;
 	delete player;
 	delete ball;
+
+	//Free the sound effects
+	Mix_FreeChunk(scratch);
+	Mix_FreeChunk(high);
+	Mix_FreeChunk(med);
+	Mix_FreeChunk(low);
+
+	//Free the music
+	Mix_FreeMusic(music);
+
+	//Quit SDL_mixer
+	Mix_CloseAudio();
 
 	Clean();
 
@@ -181,6 +224,7 @@ void Game::CheckBoardCollisions() {
 
 		// Ball lost
 		ResetPlayer();
+		Mix_PlayChannel(-1, scratch, 0);
 	}
 
 	// Left and right collisions
@@ -248,6 +292,7 @@ void Game::CheckBrickCollisions() {
 
 				if (fabs(dx) <= w && fabs(dy) <= h) {
 					// Collision detected
+					Mix_PlayChannel(-1, high, 0);
 					if (brick.HP == 0) {
 						level->bricks[i][j].state = false;
 					}
@@ -309,6 +354,7 @@ void Game::CheckBrickCollisions2() {
 
 				if (ball->x <= brickx + LEVEL_BRWIDTH && ball->x + ball->width >= brickx && ball->y <= bricky + LEVEL_BRHEIGHT && ball->y + ball->height >= bricky) {
 					// Collision detected, remove the brick
+					Mix_PlayChannel(-1, med, 0);
 					if (brick.HP == 0) {
 						level->bricks[i][j].state = false;
 					}
