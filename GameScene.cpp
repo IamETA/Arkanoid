@@ -177,6 +177,10 @@ void GameScene::UpdateLevelCollisionDetectionMove() {
 						}
 					}
 
+					if (brick.hp != -1) {
+						Score++;
+						UpdateStats();
+					}
 					// Asume the ball goes slow enough to not skip through the bricks TODO:: Change with more powerups
 
 					// Calculate ysize
@@ -256,6 +260,7 @@ void GameScene::UpdateLevelCollisionDetectionMove() {
 }
 void GameScene::brick_hit(brick_hit_face face) {
 	// dirindex 0: Left, 1: Top, 2: Right, 3: Bottom
+
 
 	// Direction factors
 	int mulx = 1;
