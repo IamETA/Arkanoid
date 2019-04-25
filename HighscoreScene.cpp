@@ -61,6 +61,7 @@ HighscoreScene::~HighscoreScene()
 	RELEASE_TEXTURE(mExitText);
 	RELEASE_TEXTURE(mHighscoresText);
 	RELEASE_TEXTURE(mPlayText);
+	RELEASE_TEXTURE(mLogo);
 }
 
 void HighscoreScene::updateHighscore()
