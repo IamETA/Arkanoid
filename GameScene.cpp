@@ -97,6 +97,7 @@ void GameScene::level_up()
 		{
 			current_level = 0; // reset level to loop
 			difficulty++; // increase Difficulty after next loop
+			update_stats_difficulty();
 			ball->ball_difficulty = 1 + (difficulty / 4);
 		}
 		current_level++;
