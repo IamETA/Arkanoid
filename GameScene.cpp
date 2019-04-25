@@ -59,9 +59,9 @@ void GameScene::update(float delta)
 	UpdateBallCheckReleased();
 
 	//Collision detection
-	UpdateMapCollisionDetection();
 	UpdatePaddleCollisionDetection();
 	UpdateLevelCollisionDetectionMove();
+	UpdateMapCollisionDetection();
 }
 void GameScene::ResetBall() {
 	//Remove 1 life
@@ -286,9 +286,6 @@ void GameScene::UpdateMapCollisionDetection() {
 			// quit to highscore()
 			// Update Score()
 			// Temp solutions, quit to menu, did not work
-				
-
-			
 		}
 		else{
 			Mix_PlayChannel(-1, cBottom, 0);
