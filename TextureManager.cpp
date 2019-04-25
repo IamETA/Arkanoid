@@ -27,14 +27,14 @@ SDL_Texture* TextureManager::create_text(const std::string& text, SDL_Renderer* 
 SDL_Texture* TextureManager::create_text(const std::string& text, SDL_Renderer* ren, TTF_Font* font, SDL_Color color)
 {
 	// create a surface which contains the desired text.
-	auto surface = TTF_RenderText_Blended(font, text.c_str(), color);
+	SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), color);
 	if (surface == nullptr) {
 		std::cerr << "Unable to create a surface with a text: " << TTF_GetError() << std::endl;
 		return nullptr;
 	}
 
 	// create a texture from the text surface.
-	auto texture = SDL_CreateTextureFromSurface(ren, surface);
+	SDL_Texture*  texture = SDL_CreateTextureFromSurface(ren, surface);
 	SDL_FreeSurface(surface);
 	if (texture == nullptr) {
 		std::cerr << "Unable to create texture from a text surface: " << SDL_GetError() << std::endl;
