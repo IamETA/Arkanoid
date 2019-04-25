@@ -118,7 +118,6 @@ void GameScene::update(float delta)
 	//Collision detection
 	UpdateMapCollisionDetection();
 	UpdatePaddleCollisionDetection();
-	//UpdateLevelCollisionDetection();
 	UpdateLevelCollisionDetectionMove();
 }
 void GameScene::ResetBall() {
@@ -143,68 +142,6 @@ void GameScene::LevelUp() {
 		Mix_PlayChannel(-1, cNextRound, 0);
 		
 		UpdateStats();
-	}
-}
-
-void GameScene::UpdateLevelCollisionDetection() {
-	for (int i = 0; i < LEVEL_WIDTH; i++) {
-		for (int j = 0; j < LEVEL_HEIGHT; j++) {
-			Brick brick = level->bricks[i][j];
-
-			// Check if brick is present
-			if (brick.state) {
-				// Brick x and y coordinates
-				float brickx = level->brickoffsetx + level->x + i * LEVEL_BRWIDTH;
-				float bricky = level->brickoffsety + level->y + j * LEVEL_BRHEIGHT;
-
-				// Check ball-brick collision
-				// Determine the collision using the half-widths of the rectangles
-				float w = 0.5f * (ball->width + LEVEL_BRWIDTH);
-				float h = 0.5f * (ball->height + LEVEL_BRHEIGHT);
-				float dx = (ball->x + 0.5f*ball->width) - (brickx + 0.5f*LEVEL_BRWIDTH);
-				float dy = (ball->y + 0.5f*ball->height) - (bricky + 0.5f*LEVEL_BRHEIGHT);
-
-				if (fabs(dx) <= w && fabs(dy) <= h) {
-					// Collision detected
-					Mix_PlayChannel(-1, cBrick, 0);
-					if (brick.hp == 0) {
-						level->bricks[i][j].state = false;
-					}
-					else {
-						level->bricks[i][j].hp -= 1;
-						/*if (brick.type == 0) {
-							level->bricks[i][j].type = 2; // Green Brick
-						}*/
-					}
-					Score++;
-					UpdateStats();
-					float wy = w * dy;
-					float hx = h * dx;
-
-					if (wy > hx) {
-						if (wy > -hx) {
-							// Bottom (y is flipped)
-							brick_hit(brick_hit_face::bottom);
-						}
-						else {
-							// Left
-							brick_hit(brick_hit_face::left);
-						}
-					}
-					else {
-						if (wy > -hx) {
-							// Right
-							brick_hit(brick_hit_face::right);
-						}
-						else {
-							// Top (y is flipped)
-							brick_hit(brick_hit_face::top);
-						}
-					}
-					return;
-				}
-			}
-		}
 	}
 }
 
@@ -374,7 +311,7 @@ void GameScene::brick_hit(brick_hit_face face) {
 
 	// Set the new direction of the ball, by multiplying the old direction
 	// with the determined direction factors
-	ball->set_direction(mulx*ball->m_dirY, muly*ball->m_dirX);
+	ball->set_direction(muly*ball->m_dirY, mulx*ball->m_dirX);
 }
 void GameScene::UpdateMapCollisionDetection() {
 	// Top and bottom collisions
