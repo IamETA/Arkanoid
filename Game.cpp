@@ -174,7 +174,9 @@ void Game::update(float delta)
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	mScene->render();
+	if (mScene != nullptr) {
+		mScene->render();
+	}
 	SDL_RenderPresent(renderer);
 }
 

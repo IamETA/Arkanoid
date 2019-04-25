@@ -68,6 +68,8 @@ MenuScene::~MenuScene()
 	RELEASE_TEXTURE(mHighscoresTextSelected);
 	RELEASE_TEXTURE(mPlayTextSelected);
 	RELEASE_TEXTURE(mLogo);
+
+	std::cout << "MenuScene destroyed" << std::endl;
 }
 
 void MenuScene::update(float delta)
