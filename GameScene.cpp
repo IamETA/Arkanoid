@@ -92,6 +92,7 @@ GameScene::~GameScene()
 	delete paddle;
 	delete ball;
 	delete level;
+	delete highscore;
 	//Free the sound effects
 	Mix_FreeChunk(cBrick);
 	Mix_FreeChunk(cBottom);
