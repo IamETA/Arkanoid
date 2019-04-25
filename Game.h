@@ -15,6 +15,7 @@ private:
 	SDL_Renderer* renderer{ nullptr };
 	SDL_Event event{ NULL };
 	std::shared_ptr<Scene> mScene{ nullptr };
+	std::shared_ptr<Scene> mHighScene{ nullptr };
 	TextureManager* textureManager{ nullptr };
 
 	//Use chronos to keep track of time

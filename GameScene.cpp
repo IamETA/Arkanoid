@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include "MenuScene.h"
+#include "HighscoreScene.h"
 #include <iostream>
 
 
@@ -286,6 +287,9 @@ void GameScene::UpdateMapCollisionDetection() {
 			// quit to highscore()
 			// Update Score()
 			// Temp solutions, quit to menu, did not work
+				
+
+			
 		}
 		else{
 			Mix_PlayChannel(-1, cBottom, 0);

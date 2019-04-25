@@ -83,7 +83,7 @@ void Level::NextLevel(int round) {
 	}
 	
 }
-// Rainbow
+// Rainbow with tiered hit points bricks
 void Level::CreateRound1() {
 	for (int i = 1; i < LEVEL_WIDTH+1; i++) {
 		for (int j = 6; j < LEVEL_HEIGHT; j++) {
@@ -141,37 +141,27 @@ void Level::CreateRound2() {
 		}
 	}
 }
-// Steps with industritible(spell?) NOT DONE
+// U shape with indestructible bricks
 void Level::CreateRound3() {
 	for (int i = 1; i < LEVEL_WIDTH; i++) {
-		for (int j = 1; j < LEVEL_HEIGHT; j++) {
-
-			/*if (j != 9 && i != 5) {
-				Brick brick;
-
-				brick.type = 0; // red
-				brick.state = true;
-				brick.hp = 1;
-				bricks[i][j] = brick;
-			}*/
-			
+		for (int j = 1; j < LEVEL_HEIGHT; j++) {			
 			if (i == 3 && j != 1 && j != 8 && j != 9 ) {
 				Brick brick;
-				brick.type = 5; // grey (j != 2 || j != 3 || j != 8 || j != 9)
+				brick.type = 5; // grey
 				brick.state = true;
 				brick.hp = -1; // indestructible
 				bricks[i][j] = brick;
 			}
 			 else if (i == 8 && j != 1 && j != 8 && j != 9) {
 				Brick brick;
-				brick.type = 5; // grey (j != 2 || j != 3 || j != 8 || j != 9)
+				brick.type = 5; // grey
 				brick.state = true;
 				brick.hp = -1; // indestructible
 				bricks[i][j] = brick;
 			}
 			else if(j == 7 && i != 1 && i != 2 && i != 8 && i != 9) {
 				Brick brick;
-				brick.type = 5; // grey (i != 2 || i != 3 || i != 8 || i != 9)
+				brick.type = 5; // grey
 				brick.state = true;
 				brick.hp = -1; // indestructible
 				bricks[i][j] = brick;
