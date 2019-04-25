@@ -47,6 +47,18 @@ GameScene::~GameScene()
 	Mix_FreeChunk(cSides);
 	Mix_FreeChunk(cGameOver);
 
+
+	#define RELEASE_TEXTURE(x) if (x != nullptr) { SDL_DestroyTexture(x); }
+
+	// release all reserved textures.
+	RELEASE_TEXTURE(mScoreText);
+	RELEASE_TEXTURE(mLivesText);
+	RELEASE_TEXTURE(mDifficultyText);
+	RELEASE_TEXTURE(mLogo);
+	RELEASE_TEXTURE(mLevelText);
+
+
+
 	std::cout << "GameScene destroyed";
 	
 }

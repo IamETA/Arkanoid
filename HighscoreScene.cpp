@@ -1,5 +1,5 @@
 #include "HighscoreScene.h"
-
+#include "MenuScene.h"
 
 HighscoreScene::HighscoreScene(Game& game) : Scene(game),
 mExitText(nullptr),
@@ -92,4 +92,10 @@ void HighscoreScene::keyUp(SDL_KeyboardEvent& event)
 
 void HighscoreScene::keyDown(SDL_KeyboardEvent& event)
 {
+	switch (event.keysym.sym) {
+	case SDLK_ESCAPE:
+		mGame.enterScene(std::make_shared<MenuScene>(mGame));
+		break;
+	}
+	
 }

@@ -34,8 +34,6 @@ private:
 	SDL_Rect mHighscoresTextPosition;
 	SDL_Rect mPlayTextPosition;
 	SDL_Rect mLogoPosition;
-	void executeMenu(int selected);
-	int selectedItem{ 0 };
 };
 
 
