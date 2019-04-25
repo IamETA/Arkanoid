@@ -595,11 +595,5 @@ void GameScene::key_down(SDL_KeyboardEvent & event)
 }
 void GameScene::mouse_down(SDL_KeyboardEvent & event)
 {
-	/*
-	switch (event.keysym.sym) {
-	case SDLK_|:
-		mGame.enterScene(std::make_shared<MenuScene>(mGame));
-		break;
-	}*/
 	ball->released = true;
 }
