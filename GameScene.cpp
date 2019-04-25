@@ -95,8 +95,8 @@ void GameScene::level_up()
 		level->next_level(current_level);
 		if (current_level == 3)
 		{
-			current_level = 0; // reset level to loop
-			difficulty++; // increase difficulty after next loop
+			current_level = 0; // reset to loop the levels
+			difficulty++;
 			update_stats_difficulty();
 			ball->ball_difficulty = 1 + (difficulty / 20);
 		}
@@ -357,12 +357,6 @@ void GameScene::update_map_collision_detection()
 		if (life_left == 0) 
 		{
 			Mix_PlayChannel(-1, cGameOver, 0);
-
-			// TODO
-			// quit to highscore()
-			// Update Score()
-			// Temp solutions, quit to menu, did not work
-
 			highscore->read_file();
 			highscore->write_file(score);
 
@@ -445,8 +439,8 @@ void GameScene::update_paddle_position()
 	}
 
 	if (paddle->x < level->brick_offset_x) { paddle->x = level->brick_offset_x; }
-	if (paddle->x > (level->width - paddle->width + level->brick_offset_x)) {
-		paddle->x = (level->width - paddle->width + level->brick_offset_x);
+	if (paddle->x > (level->width - paddle->width)) {
+		paddle->x = (level->width - paddle->width);
 	}
 }
 void GameScene::update_ball_check_released()

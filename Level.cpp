@@ -97,15 +97,15 @@ void Level::next_level(int round)
 void Level::create_round_one()
 {
 	std::cout << "Level 1" << std::endl;
-	for (int i = 1; i < LEVEL_WIDTH+1; i++)
+	for (int i = 1; i < LEVEL_WIDTH; i++)
 	{
-		for (int j = 6; j < LEVEL_HEIGHT; j++)
+		for (int j = 1; j < LEVEL_HEIGHT; j++)
 		{
-			if (j < 6) 
+			if (j <= 5) 
 			{
 				Brick brick;
 				brick.type = 0; 
-				brick.state = true; // empty
+				brick.state = false; // empty
 				brick.hp = 0;
 				bricks[i][j] = brick;
 			}
@@ -183,7 +183,7 @@ void Level::create_round_three()
 				Brick brick;
 				brick.type = 5; // grey
 				brick.state = true;
-				brick.hp = 0;// -1; // indestructible
+				brick.hp = -1; // indestructible
 				bricks[i][j] = brick;
 			}
 			 else if (i == 8 && j != 1 && j != 8 && j != 9)
@@ -191,7 +191,7 @@ void Level::create_round_three()
 				Brick brick;
 				brick.type = 5; // grey
 				brick.state = true;
-				brick.hp = 0;// -1; // indestructible
+				brick.hp = -1; // indestructible
 				bricks[i][j] = brick;
 			}
 			else if(j == 7 && i != 1 && i != 2 && i != 8 && i != 9) 
@@ -199,7 +199,7 @@ void Level::create_round_three()
 				Brick brick;
 				brick.type = 5; // grey
 				brick.state = true;
-				brick.hp = 0;// -1; // indestructible
+				brick.hp = -1; // indestructible
 				bricks[i][j] = brick;
 			}
 			else 
