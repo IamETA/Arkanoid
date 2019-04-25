@@ -10,6 +10,7 @@
 #include "Ball.h"
 #include "Level.h"
 #include "Paddle.h"
+#include "Highscores.h"
 
 enum brick_hit_face { top, bottom, left, right };
 
@@ -24,6 +25,7 @@ private:
 	Paddle* paddle;
 	Ball* ball;
 	Level* level;
+	Highscores* highscore;
 	InputUtils::InputManager*  input{ nullptr };
 
 	SDL_Texture* mLivesText{ nullptr };
@@ -48,12 +50,12 @@ private:
 	void LevelUp();
 
 	//The sound effects that will be used
-	Mix_Chunk *cPaddle = NULL;
-	Mix_Chunk *cBrick = NULL;
-	Mix_Chunk *cBottom = NULL;
-	Mix_Chunk *cSides = NULL;
-	Mix_Chunk *cNextRound = NULL;
-	Mix_Chunk *cGameOver = NULL;
+	Mix_Chunk *cPaddle{ NULL };
+	Mix_Chunk *cBrick{ NULL };
+	Mix_Chunk *cBottom{ NULL };
+	Mix_Chunk *cSides{ NULL };
+	Mix_Chunk *cNextRound{ NULL };
+	Mix_Chunk *cGameOver{ NULL };
 
 public:
 	GameScene(Game& game);
@@ -70,5 +72,6 @@ public:
 	float GetReflection(float hitx); 
 	void brick_hit(brick_hit_face face);
 	void ResetBall();
+
 };
 

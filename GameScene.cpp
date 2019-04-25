@@ -22,7 +22,7 @@ GameScene::GameScene(Game& game) : Scene(game)
 	cBottom = Mix_LoadWAV(".\\sounds\\doh.wav");
 	cSides = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (3).wav");
 	cNextRound = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (9).wav");
-	cGameOver = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (10).wav");
+	cGameOver = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (11).wav");
 
 	//If there was a problem loading the sound effects
 	/*
@@ -35,12 +35,14 @@ GameScene::GameScene(Game& game) : Scene(game)
 	paddle = new Paddle(renderer);
 	ball = new Ball(renderer);
 	level = new Level(renderer);
+	highscore = new Highscores();
 
 	//set paddle height to correct height
 	paddle->y = level->height - paddle->height;
 
 	//Create start level
 	level->NextLevel(CurrentLevel);
+	UpdateStats();
 }
 void GameScene::UpdateStats() {
 	const int margin{ 60 };
@@ -110,7 +112,6 @@ void GameScene::update(float delta)
 	ball->update(delta);
 	level->update(delta);
 
-	UpdateStats();
 	UpdatePaddlePosition();
 	UpdateBallCheckReleased();
 
@@ -123,16 +124,25 @@ void GameScene::update(float delta)
 void GameScene::ResetBall() {
 	//Remove 1 life
 	Life--;
+
 	ball->released = false;
+	UpdateStats();
 	ball->set_direction(EASY_BALL_SPEED, 100);
 }
 
 void GameScene::LevelUp() {
 	if (GetBrickNum() == 0) {
+
+		highscore->readFile();
+		highscore->writeFile(Score);
 		CurrentLevel++; //Next round in game.
+		// Rest the ball to paddle with next level
 		ball->released = false;
 		ball->set_direction(1, 1);
 		level->NextLevel(CurrentLevel);
+		Mix_PlayChannel(-1, cNextRound, 0);
+		
+		UpdateStats();
 	}
 }
 
@@ -162,11 +172,12 @@ void GameScene::UpdateLevelCollisionDetection() {
 					}
 					else {
 						level->bricks[i][j].hp -= 1;
-						if (brick.type == 0) {
+						/*if (brick.type == 0) {
 							level->bricks[i][j].type = 2; // Green Brick
-						}
+						}*/
 					}
-
+					Score++;
+					UpdateStats();
 					float wy = w * dy;
 					float hx = h * dx;
 
@@ -363,7 +374,7 @@ void GameScene::brick_hit(brick_hit_face face) {
 
 	// Set the new direction of the ball, by multiplying the old direction
 	// with the determined direction factors
-	ball->set_direction(muly*ball->m_dirY, mulx*ball->m_dirX);
+	ball->set_direction(mulx*ball->m_dirY, muly*ball->m_dirX);
 }
 void GameScene::UpdateMapCollisionDetection() {
 	// Top and bottom collisions

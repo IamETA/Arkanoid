@@ -7,7 +7,7 @@ Level::Level(SDL_Renderer* renderer) : GameObject(".\\textures\\bricks.png",rend
 	bricktexture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
-	surface = IMG_Load(".\\textures\\side.png");
+	surface = IMG_Load(".\\textures\\purple_side.png");
 	sidetexture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
@@ -18,7 +18,7 @@ Level::Level(SDL_Renderer* renderer) : GameObject(".\\textures\\bricks.png",rend
 	width = 768;
 	height = 600;
 
-	brickoffsetx = 0;
+	brickoffsetx = 10;
 	brickoffsety = 10;
 }
 
@@ -143,7 +143,7 @@ void Level::CreateRound2() {
 		}
 	}
 }
-// Steps with industritible(spell?)
+// Steps with industritible(spell?) NOT DONE
 void Level::CreateRound3() {
 	for (int i = 0; i < LEVEL_WIDTH; i++) {
 		for (int j = 0; j < LEVEL_HEIGHT; j++) {
@@ -167,7 +167,7 @@ void Level::CreateRound3() {
 				Brick brick;
 				brick.type = 3;
 				brick.state = true;
-				brick.hp = -1;
+				brick.hp = -1; // industritible
 				bricks[i][j] = brick;
 			}
 		}
