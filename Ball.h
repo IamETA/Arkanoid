@@ -5,9 +5,9 @@
 //Variabler for å endre hastigheten til ballen -
 //TODO skal disse være her? )==))(())
 
-const float EASY_BALL_SPEED = 550;
-const float MEDIUM_BALL_SPEED = 650;
-const float HARD_BALL_SPEED = 750;
+const float EASY_BALL_SPEED = 650;
+const float MEDIUM_BALL_SPEED = 750;
+const float HARD_BALL_SPEED = 850;
 class Ball : public GameObject
 {
 public:

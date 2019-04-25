@@ -97,8 +97,16 @@ void Level::create_round_one()
 {
 	for (int i = 1; i < LEVEL_WIDTH+1; i++)
 	{
-		for (int j = 6; j < LEVEL_HEIGHT; j++)
+		for (int j = 1; j < LEVEL_HEIGHT; j++)
 		{
+			if (j < 6) 
+			{
+				Brick brick;
+				brick.type = 0; 
+				brick.state = false; // empty
+				brick.hp = 0;
+				bricks[i][j] = brick;
+			}
 			if (j == 6) 
 			{
 				Brick brick;
