@@ -12,7 +12,7 @@ public:
 	HighscoreScene(Game& game);
 	~HighscoreScene();
 
-	void update(float delta) override;
+	void updateHighscore();
 	void render() override;
 	void enter() override;
 	void exit() override;
@@ -23,9 +23,10 @@ private:
 	SDL_Texture* mExitText;
 	SDL_Texture* mExitTextSelected;
 	SDL_Texture* mHighscoresText;
-	SDL_Texture* mHighscoresTextSelected;
 	SDL_Texture* mPlayText;
 	SDL_Texture* mPlayTextSelected;
+	SDL_Texture* mScoreText;
+	Highscores* highscore;
 
 	SDL_Texture* mLogo;
 

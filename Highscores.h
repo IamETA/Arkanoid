@@ -10,7 +10,7 @@ public:
 	explicit Highscores() = default;
 	~Highscores() = default;
 
-	int readFile() const;
+	int readFile();
 	void writeFile(int score);
 
 private:
