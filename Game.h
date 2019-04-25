@@ -14,13 +14,13 @@ private:
 	SDL_Window* window{ nullptr };
 	SDL_Renderer* renderer{ nullptr };
 	SDL_Event event{ NULL };
-	std::shared_ptr<Scene> mScene{ nullptr };
-	std::shared_ptr<Scene> mHighScene{ nullptr };
-	TextureManager* textureManager{ nullptr };
+	std::shared_ptr<Scene> m_scene{ nullptr };
+	std::shared_ptr<Scene> m_high_scene{ nullptr };
+	TextureManager* texture_manager{ nullptr };
 
 	//Use chronos to keep track of time
 	TimerUtils::Timer *timer;
-	TTF_Font*  mFont{ nullptr };
+	TTF_Font*  m_font{ nullptr };
 
 	//Game definitions
 
@@ -41,8 +41,8 @@ public:
 	void run();
 	void exit();
 	bool running() { return game_running; }
-	void enterScene(std::shared_ptr<Scene> scene);
-	SDL_Renderer* getRenderer();
-	TTF_Font* getFont();
-	SDL_Window* getWindow();
+	void enter_scene(std::shared_ptr<Scene> scene);
+	SDL_Renderer* get_renderer();
+	TTF_Font* get_font();
+	SDL_Window* get_window();
 };

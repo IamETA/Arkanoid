@@ -1,11 +1,10 @@
 #pragma once
 
 #include <iostream>
-#include "scene.h"
+#include "Scene.h"
 #include "Game.h"
 #include <memory>
 #include <SDL.h>
-#include "SDL_mixer.h"
 #include "TextureManager.h"
 #include "Ball.h"
 #include "Level.h"
@@ -21,31 +20,31 @@ private:
 	const int stats_height_margin{ 70 };
 
 
-	int Life{ 3 };
-	int CurrentLevel{ 3 };
-	int Score{ 0 };
-	int Difficulty{ 1 };
+	int life_left{ 3 };
+	int current_level{ 1 };
+	int score{ 0 };
+	int difficulty{ 1 };
 
 	bool move_left{ false };
 	bool move_right{ false };
 
-	Paddle* paddle;
-	Ball* ball;
-	Level* level;
-	Highscores* highscore;
+	Paddle* paddle{ nullptr };
+	Ball* ball{ nullptr };
+	Level* level{ nullptr };
+	Highscores* highscore{ nullptr };
 	InputUtils::InputManager*  input{ nullptr };
 
-	SDL_Texture* mLivesText{ nullptr };
-	SDL_Texture* mScoreText{ nullptr };
-	SDL_Texture* mDifficultyText{ nullptr };
-	SDL_Texture* mLevelText{ nullptr };
-	SDL_Texture* mLogo{ nullptr };
+	SDL_Texture* m_life_text{ nullptr };
+	SDL_Texture* m_score_text{ nullptr };
+	SDL_Texture* m_difficulty_text{ nullptr };
+	SDL_Texture* m_level_text{ nullptr };
+	SDL_Texture* m_logo{ nullptr };
 
-	SDL_Rect mLivesTextPosition{ 0,0,0,0 };
-	SDL_Rect mScoreTextPosition{ 0,0,0,0 };
-	SDL_Rect mDifficultyTextPosition{ 0,0,0,0 };
-	SDL_Rect mLevelTextPosition{ 0,0,0,0 };
-	SDL_Rect mLogoPosition{ 0,0,0,0 };
+	SDL_Rect m_life_text_pos{ 0,0,0,0 };
+	SDL_Rect m_score_text_pos{ 0,0,0,0 };
+	SDL_Rect m_difficulty_text_pos{ 0,0,0,0 };
+	SDL_Rect m_level_text_pos{ 0,0,0,0 };
+	SDL_Rect m_logo_pos{ 0,0,0,0 };
 
 	void update_stats_lives();
 	void update_stats_score();
@@ -54,13 +53,13 @@ private:
 	void update_logo();
 
 
-	void UpdatePaddlePosition();
-	void UpdateBallCheckReleased();
-	void UpdateMapCollisionDetection();
-	void UpdatePaddleCollisionDetection();
-	void UpdateLevelCollisionDetectionMove();
-	int GetBrickNum();
-	void LevelUp();
+	void update_paddle_position();
+	void update_ball_check_released();
+	void update_map_collision_detection();
+	void update_paddle_collision_detection();
+	void update_level_collision_detection();
+	int get_brick_num();
+	void level_up();
 
 	//The sound effects that will be used
 	Mix_Chunk *cPaddle{ NULL };
@@ -78,13 +77,13 @@ public:
 	void render() override;
 	void enter() override;
 	void exit() override;
-	void keyUp(SDL_KeyboardEvent & event) override;
-	void keyDown(SDL_KeyboardEvent & event) override;
-	void mouseDown(SDL_KeyboardEvent & event) override;
+	void key_up(SDL_KeyboardEvent & event) override;
+	void key_down(SDL_KeyboardEvent & event) override;
+	void mouse_down(SDL_KeyboardEvent & event) override;
 
-	float GetReflection(float hitx); 
+	float get_reflection(float hitx); 
 	void brick_hit(brick_hit_face face);
-	void ResetBall();
+	void reset_ball();
 
 };
 

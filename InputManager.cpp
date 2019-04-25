@@ -31,15 +31,15 @@ namespace InputUtils {
 	{
 	}
 
-	bool InputManager::KeyDown(SDL_Scancode scanCode) 
+	bool InputManager::key_down(SDL_Scancode scanCode) 
 	{
-		return mKeyBoardStates[scanCode];
+		return m_keyboard_states[scanCode];
 	}
 
-	void InputManager::Update() 
+	void InputManager::update() 
 	{
-		mKeyBoardStates = SDL_GetKeyboardState(NULL);
-		mouseState = SDL_GetMouseState(&mx, &my);
+		m_keyboard_states = SDL_GetKeyboardState(NULL);
+		mouse_state = SDL_GetMouseState(&m_x, &m_y);
 	}
 
 

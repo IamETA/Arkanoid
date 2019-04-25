@@ -15,8 +15,8 @@ Game::Game()
 void Game::exit() {
 	game_running = false;
 }
-Game::~Game() 
-{	
+Game::~Game()
+{
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	//Free the music
@@ -25,29 +25,31 @@ Game::~Game()
 	SDL_Quit();
 	std::cout << "Game destroyed" << std::endl;
 };
-void Game::run() 
+void Game::run()
 {
-	InputUtils::InputManager *input = InputUtils::InputManager::Instance();
+	InputUtils::InputManager* input = InputUtils::InputManager::Instance();
 
 	//Use chronos time library to control updates
 	timer = TimerUtils::Timer::Instance();
-	timer->Reset();
+	timer->reset();
 	float fps{ 0 };
 
 	//Used to calculate fps
 	int framecount{ 0 };
 
 	// set the initial scene for the game.
-	enterScene(std::make_shared<MenuScene>(*this));
+	enter_scene(std::make_shared<MenuScene>(*this));
 
 	//Play the music
 	Mix_PlayMusic(music, -1);
-	
-	while (game_running) {
-		timer->Tick();
-		if (timer->Delay() >= 100) {
-			input->Update();
-			timer->Reset();
+
+	while (game_running) 
+	{
+		timer->tick();
+		if (timer->delay() >= 100) 
+		{
+			input->update();
+			timer->reset();
 			framecount = 0;
 			handle_input_event();
 			update(timer->delta_time());
@@ -66,17 +68,20 @@ void Game::run()
 	input->Release();
 }
 bool Game::init_font(const std::string fontPath) {
+	std::cout << "initializing fonts..." << std::endl;
 
 	// initialize TTF system for text rendering.
-	if (TTF_Init() == -1) {
+	if (TTF_Init() == -1) 
+	{
 		std::cerr << "Unable to initialize TTF: " << TTF_GetError() << std::endl;
 		return false;
 	}
 
 
 	// initialize the selected font for the application.
-	mFont = TTF_OpenFont(fontPath.c_str(), 28);
-	if (mFont == nullptr) {
+	m_font = TTF_OpenFont(fontPath.c_str(), 28);
+	if (m_font == nullptr) 
+	{
 		std::cerr << "Unable to load font: " << TTF_GetError() << std::endl;
 		return false;
 	}
@@ -85,6 +90,7 @@ bool Game::init_font(const std::string fontPath) {
 
 bool Game::init_music()
 {
+	std::cout << "initializing audio..." << std::endl;
 	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
 	{
 		return false;
@@ -107,6 +113,7 @@ bool Game::init_music()
 //initialize sdl window 
 bool Game::init_window(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
+	std::cout << "initializing main window..." << std::endl;
 	Uint32 flags = 0;
 	if (fullscreen)
 	{
@@ -139,24 +146,29 @@ bool Game::init_window(const char* title, int xpos, int ypos, int width, int hei
 }
 void Game::handle_input_event()
 {
-	while (SDL_PollEvent(&event) != 0) {
-		switch (event.type) {
+	while (SDL_PollEvent(&event) != 0) 
+	{
+		switch (event.type) 
+		{
 		case SDL_QUIT:
 			game_running = false;
 			break;
 		case SDL_KEYDOWN:
-			if (mScene) {
-				mScene->keyDown(event.key);
+			if (m_scene)
+			{
+				m_scene->key_down(event.key);
 			}
 			break;
 		case SDL_KEYUP:
-			if (mScene) {
-				mScene->keyUp(event.key);
+			if (m_scene) 
+			{
+				m_scene->key_up(event.key);
 			}
 			break;
 		case SDL_MOUSEBUTTONDOWN:
-			if (mScene) {
-				mScene->mouseDown(event.key);
+			if (m_scene) 
+			{
+				m_scene->mouse_down(event.key);
 			}
 		default:
 			break;
@@ -167,44 +179,46 @@ void Game::handle_input_event()
 
 void Game::update(float delta)
 {
-	mScene->update(delta);
+	m_scene->update(delta);
 }
 
 
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	if (mScene != nullptr) {
-		mScene->render();
+	if (m_scene != nullptr) 
+	{
+		m_scene->render();
 	}
 	SDL_RenderPresent(renderer);
 }
 
-void Game::enterScene(std::shared_ptr<Scene> scene)
+void Game::enter_scene(std::shared_ptr<Scene> scene)
 {
 	if (scene) {
 		// perform a cleanup from the old scene (if any).
-		if (mScene) {
-			mScene->exit();
+		if (m_scene) 
+		{
+			m_scene->exit();
 		}
 
 		// apply the new scene and call the scene init (reset).
-		mScene = scene;
-		mScene->enter();
+		m_scene = scene;
+		m_scene->enter();
 	}
 }
 
-SDL_Renderer * Game::getRenderer()
+SDL_Renderer* Game::get_renderer()
 {
 	return renderer;
 }
 
-TTF_Font * Game::getFont()
+TTF_Font* Game::get_font()
 {
-	return mFont;
+	return m_font;
 }
 
-SDL_Window * Game::getWindow()
+SDL_Window* Game::get_window()
 {
 	return window;
 }

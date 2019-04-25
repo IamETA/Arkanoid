@@ -23,12 +23,12 @@ public:
 
 	void update(float delta) override;
 	void render() override;
-	void NextLevel(int round);
-	void CreateRound1();
-	void CreateRound2();
-	void CreateRound3();
+	void next_level(int round);
+	void create_round_one();
+	void create_round_two();
+	void create_round_three();
 
-	float brickoffsetx, brickoffsety;
+	float brick_offset_x, brick_offset_y;
 
 	// Define the two-dimensional array of bricks
 	Brick bricks[LEVEL_WIDTH][LEVEL_HEIGHT];
