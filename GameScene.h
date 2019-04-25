@@ -45,12 +45,12 @@ private:
 	void LevelUp();
 
 	//The sound effects that will be used
-	Mix_Chunk *cPaddle = NULL;
-	Mix_Chunk *cBrick = NULL;
-	Mix_Chunk *cBottom = NULL;
-	Mix_Chunk *cSides = NULL;
-	Mix_Chunk *cNextRound = NULL;
-	Mix_Chunk *cGameOver = NULL;
+	Mix_Chunk *cPaddle{ NULL };
+	Mix_Chunk *cBrick{ NULL };
+	Mix_Chunk *cBottom{ NULL };
+	Mix_Chunk *cSides{ NULL };
+	Mix_Chunk *cNextRound{ NULL };
+	Mix_Chunk *cGameOver{ NULL };
 
 public:
 	GameScene(Game& game);
