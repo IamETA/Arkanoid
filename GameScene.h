@@ -17,6 +17,10 @@ enum brick_hit_face { top, bottom, left, right };
 class GameScene final : public Scene
 {
 private:
+	const int stats_left_margin{ 60 };
+	const int stats_height_margin{ 70 };
+
+
 	int Life{ 3 };
 	int CurrentLevel{ 1 };
 	int Score{ 0 };
@@ -42,7 +46,14 @@ private:
 	SDL_Rect mDifficultyTextPosition;
 	SDL_Rect mLevelTextPosition;
 	SDL_Rect mLogoPosition;
-	void UpdateStats();
+
+	void update_stats_lives();
+	void update_stats_score();
+	void update_stats_difficulty();
+	void update_stats_level();
+	void update_logo();
+
+
 	void UpdatePaddlePosition();
 	void UpdateBallCheckReleased();
 	void UpdateMapCollisionDetection();
