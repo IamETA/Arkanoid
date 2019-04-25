@@ -15,7 +15,7 @@ public:
 	~Ball();
 	SDL_Color* color;
 
-	float ball_difficulty{ 0 };
+	float ball_difficulty{ 0.5f };
 	void update(float delta);
 	void render();
 	void set_direction(float diry, float dirx);

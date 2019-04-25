@@ -392,7 +392,18 @@ void GameScene::UpdatePaddleCollisionDetection() {
 }
 
 void GameScene::UpdatePaddlePosition() {
-	paddle->x = input->getX() - paddle->width / 2.0f;
+	static int oldx;
+	if (oldx != input->getX()) {
+		paddle->x = input->getX() - paddle->width / 2.0f;
+		oldx = input->getX();
+	}
+	if (move_left) {
+		paddle->x -= 0.5;
+	}
+	if (move_right) {
+		paddle->x+=0.5;
+	}
+
 	if (paddle->x < level->brickoffsetx) { paddle->x = level->brickoffsetx; }
 	if (paddle->x > (level->width - paddle->width + level->brickoffsetx)) {
 		paddle->x = (level->width - paddle->width + level->brickoffsetx);
@@ -447,7 +458,14 @@ void GameScene::exit()
 
 void GameScene::keyUp(SDL_KeyboardEvent & event)
 {
-
+	switch (event.keysym.sym) {
+	case SDLK_LEFT:
+		move_left = false;
+		break;
+	case SDLK_RIGHT:
+		move_right = false;
+		break;
+	}
 }
 
 void GameScene::keyDown(SDL_KeyboardEvent & event)
@@ -456,7 +474,14 @@ void GameScene::keyDown(SDL_KeyboardEvent & event)
 	case SDLK_ESCAPE:
 		mGame.enterScene(std::make_shared<MenuScene>(mGame));
 		break;
+	case SDLK_LEFT: 
+		move_left = true;
+		break;
+	case SDLK_RIGHT:
+		move_right = true;
+		break;
 	}
+
 
 }
 

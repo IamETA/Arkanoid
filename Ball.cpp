@@ -7,7 +7,6 @@ Ball::Ball(SDL_Renderer* renderer) : GameObject(".\\textures\\ball.png", rendere
 	width = 32;
 	height = 32;
 	set_direction(EASY_BALL_SPEED, 100);
-	
 }
 
 Ball::~Ball()
@@ -16,8 +15,8 @@ Ball::~Ball()
 }
 
 void Ball::update(float delta) {
-	x += (m_dirX * delta);
-	y -= (m_dirY * delta);
+	x += (m_dirX * delta) * ball_difficulty;
+	y -= (m_dirY * delta) * ball_difficulty;
 }
 
 void Ball::render() {

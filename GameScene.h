@@ -22,6 +22,9 @@ private:
 	int Score{ 0 };
 	int Difficulty{ 1 };
 
+	bool move_left{ false };
+	bool move_right{ false };
+
 	Paddle* paddle;
 	Ball* ball;
 	Level* level;
