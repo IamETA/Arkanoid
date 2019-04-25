@@ -120,9 +120,22 @@ void GameScene::UpdateLevelCollisionDetectionMove() {
 					}
 					else {
 						level->bricks[i][j].hp -= 1;
-						/*if (brick.type == 0) {
-							level->bricks[i][j].type = 2;
-						}*/
+						if (CurrentLevel == 1) {
+							if (brick.type == 3) {
+								level->bricks[i][j].type = 2;
+							}
+							if (brick.type == 2) {
+								level->bricks[i][j].type = 1;
+							}
+							if (brick.type == 1) {
+								level->bricks[i][j].type = 0;
+							}
+						}
+						if (CurrentLevel == 2) {
+							if (brick.type == 1) {
+								level->bricks[i][j].type = 3;
+							}
+						}
 					}
 
 					if (brick.hp >= 0) {
