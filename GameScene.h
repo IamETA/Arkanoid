@@ -11,11 +11,13 @@
 #include "Level.h"
 #include "Paddle.h"
 
+enum brick_hit_face { top, bottom, left, right };
+
 class GameScene final : public Scene
 {
 private:
 	int Life{ 3 };
-	int CurrentLevel{ 1 };
+	int CurrentLevel{ 3 };
 	int Score{ 0 };
 	int Difficulty{ 0 };
 
@@ -41,6 +43,7 @@ private:
 	void UpdateMapCollisionDetection();
 	void UpdatePaddleCollisionDetection();
 	void UpdateLevelCollisionDetection();
+	void UpdateLevelCollisionDetectionMove();
 	int GetBrickNum();
 	void LevelUp();
 
@@ -65,7 +68,7 @@ public:
 	void mouseDown(SDL_KeyboardEvent & event) override;
 
 	float GetReflection(float hitx); 
-	void BallBrickResponse(int dirindex);
+	void brick_hit(brick_hit_face face);
 	void ResetBall();
 };
 

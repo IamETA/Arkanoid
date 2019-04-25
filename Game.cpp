@@ -45,7 +45,7 @@ void Game::run()
 	
 	while (game_running) {
 		timer->Tick();
-		if (timer->Delay() >= 500) {
+		if (timer->Delay() >= 100) {
 			input->Update();
 			timer->Reset();
 			framecount = 0;
