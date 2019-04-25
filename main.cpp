@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 
 	const std::string fontPath = ".\\fonts\\arcade.ttf";
 
-	//initialize game
+	//initialize game --> Set last flag to true if you want fullscreen
 	if (game->init_window( "Arkanoid",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		SCREEN_WIDTH, SCREEN_HEIGHT, false)

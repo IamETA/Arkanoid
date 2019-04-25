@@ -112,7 +112,6 @@ void GameScene::update(float delta)
 void GameScene::ResetBall() {
 	//Remove 1 life
 	Life--;
-	// TODO
 	ball->released = false;
 	UpdateStats();
 	ball->set_direction(EASY_BALL_SPEED, 100);
@@ -125,7 +124,6 @@ void GameScene::LevelUp() {
 		highscore->readFile();
 		highscore->writeFile(Score);
 		// Rest the ball to paddle with next level
-		// TODO
 		ball->released = false;
 		ball->set_direction(EASY_BALL_SPEED, 100);
 		level->NextLevel(CurrentLevel);
@@ -422,7 +420,6 @@ void GameScene::render()
 	ball->render();
 	level->render();
 
-
 	//render stats
 	SDL_Renderer* renderer = mGame.getRenderer();
 	SDL_RenderCopy(renderer, mLivesText, nullptr, &mLivesTextPosition);
@@ -438,7 +435,7 @@ int GameScene::GetBrickNum() {
 	for (int i = 0; i < LEVEL_WIDTH; i++) {
 		for (int j = 0; j < LEVEL_HEIGHT; j++) {
 			Brick brick = level->bricks[i][j];
-			if (brick.state && brick.hp >= 0) {
+			if (brick.state && brick.hp >= 0) { // Does not count industribable bricks
 				bricknum++;
 			}
 		}
