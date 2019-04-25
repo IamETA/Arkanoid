@@ -84,9 +84,15 @@ void GameScene::reset_ball()
 }
 void GameScene::level_up() 
 {
+
 	int brick_count = get_brick_num();
-	if (brick_count== 0) 
+	if (brick_count == 0) 
 	{
+
+		if (ball->ball_difficulty == 2) {
+			ball->change_ball_color(new SDL_Color{ 255,0,0,1 }
+		};
+	}
 
 		// Rest the ball to paddle with next level
 		Mix_PlayChannel(-1, cNextRound, 0);
@@ -98,7 +104,7 @@ void GameScene::level_up()
 			current_level = 0; // reset level to loop
 			difficulty++; // increase Difficulty after next loop
 			update_stats_difficulty();
-			ball->ball_difficulty = 1 + (difficulty / 4);
+			ball->ball_difficulty = 1 + (difficulty / 20);
 		}
 		current_level++;
 		level->next_level(current_level);

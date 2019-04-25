@@ -28,6 +28,9 @@ void Ball::render()
 	m_rect.y = (int)(y + 0.5f);
 	m_rect.w = width;
 	m_rect.h = height;
+
+
+
 	SDL_SetRenderDrawColor(m_renderer, color->r, color->g, color->b, color->a);
 	SDL_RenderFillRect(m_renderer, &m_rect);
 	SDL_RenderCopy(m_renderer, m_object_texture, 0, &m_rect);
