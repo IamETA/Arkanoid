@@ -86,8 +86,7 @@ void GameScene::ResetBall() {
 void GameScene::LevelUp() {
 	int brick_count = GetBrickNum();
 	if (brick_count== 0) {
-		highscore->readFile();
-		highscore->writeFile(Score);
+
 		// Rest the ball to paddle with next level
 		Mix_PlayChannel(-1, cNextRound, 0);
 		ball->released = false;
@@ -303,13 +302,17 @@ void GameScene::UpdateMapCollisionDetection() {
 		ResetBall();
 		if (Life == 0) {
 			Mix_PlayChannel(-1, cGameOver, 0);
+
 			// TODO
 			// quit to highscore()
 			// Update Score()
 			// Temp solutions, quit to menu, did not work
 
-			//mGame.enterScene(std::make_shared<HighscoreScene>(mGame));
-			//return;
+			highscore->readFile();
+			highscore->writeFile(Score);
+
+			mGame.enterScene(std::make_shared<HighscoreScene>(mGame));
+			return;
 
 			
 		}

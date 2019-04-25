@@ -13,7 +13,7 @@ HighscoreScene::HighscoreScene(Game& game) : Scene(game)
 
 	SDL_Color selectedColor{ 0x0, 0xff, 0x0, 0xff };
 	// construct text textures used to render textual contents.
-	mHighscoresText = TextureManager::create_text("Your highscore: ", renderer, font, selectedColor);
+	mHighscoresText = TextureManager::create_text("Your highscore: " + highscore->readFile(), renderer, font, selectedColor);
 	//mPlayTextSelected = TextureManager::create_text("Play", renderer, font, selectedColor);
 
 	// query texture dimensions for each text texture.
