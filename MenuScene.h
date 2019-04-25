@@ -17,24 +17,24 @@ public:
 	void render() override;
 	void enter() override;
 	void exit() override;
-	void keyUp(SDL_KeyboardEvent& event) override;
-	void keyDown(SDL_KeyboardEvent& event) override;
+	void key_up(SDL_KeyboardEvent& event) override;
+	void key_down(SDL_KeyboardEvent& event) override;
 private:
-	SDL_Texture* mExitText{ nullptr };
-	SDL_Texture* mExitTextSelected{ nullptr };
-	SDL_Texture* mHighscoresText{ nullptr };
-	SDL_Texture* mHighscoresTextSelected{ nullptr };
-	SDL_Texture* mPlayText{ nullptr };
-	SDL_Texture* mPlayTextSelected{ nullptr };
+	SDL_Texture* m_exit_text{ nullptr };
+	SDL_Texture* m_exit_text_selected{ nullptr };
+	SDL_Texture* m_highscores_text{ nullptr };
+	SDL_Texture* m_highscore_text_selected{ nullptr };
+	SDL_Texture* m_play_text{ nullptr };
+	SDL_Texture* m_play_text_selected{ nullptr };
 
-	SDL_Texture* mLogo;
+	SDL_Texture* m_logo;
 
-	SDL_Rect mExitTextPosition{ 0,0,0,0 };
-	SDL_Rect mHighscoresTextPosition{ 0,0,0,0 };
-	SDL_Rect mPlayTextPosition{ 0,0,0,0 };
-	SDL_Rect mLogoPosition{ 0,0,0,0 };
+	SDL_Rect m_exit_text_pos{ 0,0,0,0 };
+	SDL_Rect m_highscore_text_pos{ 0,0,0,0 };
+	SDL_Rect m_play_text_pos{ 0,0,0,0 };
+	SDL_Rect m_logo_pos{ 0,0,0,0 };
 
 
-	void executeMenu(int selected);
-	int selectedItem{ 0 };
+	void execute_menu(int selected);
+	int selected_item{ 0 };
 };

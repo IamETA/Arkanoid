@@ -6,69 +6,69 @@
 #include <iostream>
 
 namespace TimerUtils {
-    Timer *Timer::sInstance = nullptr;
+	Timer* Timer::sInstance = nullptr;
 
-    Timer *Timer::Instance() {
+	Timer* Timer::Instance() {
 
-        if (sInstance == nullptr) 
+		if (sInstance == nullptr)
 		{
-            sInstance = new Timer();
-        }
-        return sInstance;
-    }
+			sInstance = new Timer();
+		}
+		return sInstance;
+	}
 
-    void Timer::Release() 
+	void Timer::Release()
 	{
-        delete sInstance;
-        sInstance = nullptr;
-    }
+		delete sInstance;
+		sInstance = nullptr;
+	}
 
-    Timer::Timer() 
+	Timer::Timer()
 	{
-        Reset();
-        m_time_scale = 1.0f;
-        m_delta_time = std::chrono::duration<float>(0.0f);
-    }
+		reset();
+		m_time_scale = 1.0f;
+		m_delta_time = std::chrono::duration<float>(0.0f);
+	}
 
-    Timer::~Timer() 
-	{	
-        std::cout << "Timer destroyed" << std::endl;
-    }
+	Timer::~Timer()
+	{
+		std::cout << "Timer destroyed" << std::endl;
+	}
 
 	std::chrono::steady_clock::time_point Timer::start_time() {
 		return m_start_time;
 	}
-    void Timer::Reset() 
+	void Timer::reset()
 	{
-        m_start_time = std::chrono::high_resolution_clock::now();
-    }
+		m_start_time = std::chrono::high_resolution_clock::now();
+	}
 
-    float Timer::delta_time()
+	float Timer::delta_time()
 	{
-        return m_delta_time.count();
-    }
+		return m_delta_time.count();
+	}
 
-    void Timer::time_scale(float t) 
+	void Timer::time_scale(float t)
 	{
-        m_time_scale = t;
-    }
+		m_time_scale = t;
+	}
 
-    float Timer::time_scale() 
+	float Timer::time_scale()
 	{
-        return m_time_scale;
-    }
+		return m_time_scale;
+	}
 
-    void Timer::Tick()
+	void Timer::tick()
 	{
-        m_delta_time = std::chrono::high_resolution_clock::now() - m_start_time;
-    }
-	float Timer::Delay() {
+		m_delta_time = std::chrono::high_resolution_clock::now() - m_start_time;
+	}
+	float Timer::delay() {
 		auto delay = std::chrono::high_resolution_clock::now() - m_start_time;
 		return delay.count();
 	}
 
-    float Timer::get_frame_rate()
+	float Timer::get_frame_rate()
 	{
-        return frame_rate;
-    }
+		return frame_rate;
+	}
 }

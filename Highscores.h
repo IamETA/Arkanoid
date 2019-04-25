@@ -10,8 +10,8 @@ public:
 	explicit Highscores() = default;
 	~Highscores() = default;
 
-	int readFile();
-	void writeFile(int score);
+	std::string read_file();
+	void write_file(int score);
 
 private:
 	std::ofstream file;
