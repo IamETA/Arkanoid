@@ -119,20 +119,23 @@ void GameScene::ResetBall() {
 }
 
 void GameScene::LevelUp() {
-	if (GetBrickNum() == 0) {
+	int brick_count = GetBrickNum();
+	std::cout << "Bricks left:" << brick_count << std::endl;
+	if (brick_count== 0) {
 		highscore->readFile();
 		highscore->writeFile(Score);
-		CurrentLevel++; //Next round in game.
 		// Rest the ball to paddle with next level
 		// TODO
 		ball->released = false;
-		ball->set_direction(1, 1);
+		ball->set_direction(EASY_BALL_SPEED, 100);
 		level->NextLevel(CurrentLevel);
 		if (CurrentLevel == 3) {
-			CurrentLevel = 1; 
-			Difficulty++;
+			CurrentLevel = 0; // reset level to loop
+			Difficulty++; // increase Difficulty after next loop
 			ball->ball_difficulty = 1 + (Difficulty / 4);
 		}
+		CurrentLevel++;
+		level->NextLevel(CurrentLevel);
 		Mix_PlayChannel(-1, cNextRound, 0);
 		
 		UpdateStats();
@@ -171,7 +174,7 @@ void GameScene::UpdateLevelCollisionDetectionMove() {
 						}
 					}
 
-					if (brick.hp != -1) {
+					if (brick.hp >= 0) {
 						Score++;
 						UpdateStats();
 					}
@@ -343,10 +346,10 @@ void GameScene::UpdateMapCollisionDetection() {
 	}
 
 	// Left and right collisions
-	if (ball->x <= level->x) {
+	if (ball->x <= level->x + level->brickoffsetx) {
 		// Left
 		// Keep the ball within the level and reflect the x-direction
-		ball->x = level->x;
+		ball->x = level->x + level->brickoffsetx;
 		ball->m_dirX *= -1;
 		Mix_PlayChannel(-1, cSides, 0);
 	}
@@ -390,9 +393,9 @@ void GameScene::UpdatePaddleCollisionDetection() {
 
 void GameScene::UpdatePaddlePosition() {
 	paddle->x = input->getX() - paddle->width / 2.0f;
-	if (paddle->x < 0) { paddle->x = 0; }
-	if (paddle->x > (level->width - paddle->width)) {
-		paddle->x = (level->width - paddle->width);
+	if (paddle->x < level->brickoffsetx) { paddle->x = level->brickoffsetx; }
+	if (paddle->x > (level->width - paddle->width + level->brickoffsetx)) {
+		paddle->x = (level->width - paddle->width + level->brickoffsetx);
 	}
 }
 
@@ -425,7 +428,7 @@ int GameScene::GetBrickNum() {
 	for (int i = 0; i < LEVEL_WIDTH; i++) {
 		for (int j = 0; j < LEVEL_HEIGHT; j++) {
 			Brick brick = level->bricks[i][j];
-			if (brick.state && brick.hp != -1) {
+			if (brick.state && brick.hp >= 0) {
 				bricknum++;
 			}
 		}

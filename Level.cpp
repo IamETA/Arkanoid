@@ -13,13 +13,13 @@ Level::Level(SDL_Renderer* renderer) : GameObject(".\\textures\\bricks.png",rend
 
 	srand(time(0));
 
+	brickoffsetx = 16;
+	brickoffsety = 10;
 	x = 0;
 	y = 0;
-	width = 768;
+	width = 800 - brickoffsetx;
 	height = 600;
 
-	brickoffsetx = 10;
-	brickoffsety = 10;
 }
 
 Level::~Level() {
@@ -88,7 +88,7 @@ void Level::NextLevel(int round) {
 }
 // Rainbow
 void Level::CreateRound1() {
-	for (int i = 0; i < LEVEL_WIDTH; i++) {
+	for (int i = 6; i < LEVEL_WIDTH; i++) {
 		for (int j = 6; j < LEVEL_HEIGHT; j++) {
 			if (j == 6) {
 				Brick brick;
@@ -123,8 +123,8 @@ void Level::CreateRound1() {
 }
 // Swedish flag
 void Level::CreateRound2() {
-	for (int i = 1; i < LEVEL_WIDTH; i++) {
-		for (int j = 1; j < LEVEL_HEIGHT; j++) {
+	for (int i = 6; i < LEVEL_WIDTH; i++) {
+		for (int j = 6; j < LEVEL_HEIGHT; j++) {
 
 			if (i == 4 || j == 5) {
 				Brick brick;
@@ -146,8 +146,8 @@ void Level::CreateRound2() {
 }
 // Steps with industritible(spell?) NOT DONE
 void Level::CreateRound3() {
-	for (int i = 0; i < LEVEL_WIDTH; i++) {
-		for (int j = 0; j < LEVEL_HEIGHT; j++) {
+	for (int i = 8; i < LEVEL_WIDTH; i++) {
+		for (int j = 8; j < LEVEL_HEIGHT; j++) {
 
 			if (j != 9 && i != 5) {
 				Brick brick;

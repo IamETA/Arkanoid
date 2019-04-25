@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Resource Files\textures">
-      <UniqueIdentifier>{5f43442a-d380-4a46-b3b1-a65ee6610085}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -107,35 +104,6 @@
     <ClCompile Include="HighscoreScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="textures\ball.png">
-      <Filter>Resource Files\textures</Filter>
-    </Image>
-    <Image Include="textures\blueBox.png">
-      <Filter>Resource Files\textures</Filter>
-    </Image>
-    <Image Include="textures\greenBox.png">
-      <Filter>Resource Files\textures</Filter>
-    </Image>
-    <Image Include="textures\greyBox.png">
-      <Filter>Resource Files\textures</Filter>
-    </Image>
-    <Image Include="textures\purpleBox.png">
-      <Filter>Resource Files\textures</Filter>
-    </Image>
-    <Image Include="textures\redBox.png">
-      <Filter>Resource Files\textures</Filter>
-    </Image>
-    <Image Include="textures\yellowBox.png">
-      <Filter>Resource Files\textures</Filter>
-    </Image>
-    <Image Include="textures\transparentball.png">
-      <Filter>Resource Files\textures</Filter>
-    </Image>
-    <Image Include="textures\paddle.png">
-      <Filter>Resource Files\textures</Filter>
-    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="highscore.txt" />

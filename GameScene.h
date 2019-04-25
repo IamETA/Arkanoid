@@ -18,9 +18,9 @@ class GameScene final : public Scene
 {
 private:
 	int Life{ 3 };
-	int CurrentLevel{ 3 };
+	int CurrentLevel{ 1 };
 	int Score{ 0 };
-	int Difficulty{ 0 };
+	int Difficulty{ 1 };
 
 	Paddle* paddle;
 	Ball* ball;
