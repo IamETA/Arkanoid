@@ -39,3 +39,4 @@
 *.tlog
 /Debug/ArkanoidGame.tlog/*
 highscores.txt
+highscore.txt
