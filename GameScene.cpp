@@ -59,7 +59,7 @@ GameScene::~GameScene()
 
 
 
-	std::cout << "GameScene destroyed";
+	std::cout << "GameScene destroyed" << std::endl;
 	
 }
 void GameScene::update(float delta)

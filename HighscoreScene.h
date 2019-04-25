@@ -23,12 +23,8 @@ private:
 	SDL_Texture* mHighscoresText{ nullptr };
 	SDL_Texture* mScoreText{ nullptr };
 	Highscores* highscore{ nullptr };
-
 	SDL_Texture* mLogo{ nullptr };
-
-	SDL_Rect mExitTextPosition{ 0,0,0,0 };
 	SDL_Rect mHighscoresTextPosition{ 0,0,0,0 };
-	SDL_Rect mPlayTextPosition{ 0,0,0,0 };
 	SDL_Rect mLogoPosition{ 0,0,0,0 };
 };
 

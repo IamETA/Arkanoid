@@ -4,6 +4,7 @@
 HighscoreScene::HighscoreScene(Game& game) : Scene(game)
 {
 
+	std::cout << "Initializing HighScore Scene..." << std::endl;
 	SDL_Renderer* renderer = game.getRenderer();
 	TTF_Font* font = game.getFont();
 
@@ -27,26 +28,19 @@ HighscoreScene::HighscoreScene(Game& game) : Scene(game)
 
 	// assign texts at the center of the screen.
 #define CENTER(rect) (rect.x = windowCenterX - (rect.w / 2));
-	CENTER(mExitTextPosition);
 	CENTER(mHighscoresTextPosition);
-	CENTER(mPlayTextPosition);
 	CENTER(mLogoPosition);
 
-	// assign vertical positions for each texture.
 	int slotHeight = (windowHeight / 10);
-	mPlayTextPosition.y = 4 * slotHeight;
-
 	mLogoPosition.y = slotHeight;
-	//mControlTextPosition.y = static_cast<int>(2.5 * slotHeight);
 	mHighscoresTextPosition.y = (5 * slotHeight);
-	mExitTextPosition.y = (6 * slotHeight);
 }
 
 
 HighscoreScene::~HighscoreScene()
 {
 #define RELEASE_TEXTURE(x) if (x != nullptr) { SDL_DestroyTexture(x); }
-
+	std::cout << "Highscore scene destroyed" << std::endl;
 	// release all reserved textures.
 	RELEASE_TEXTURE(mHighscoresText);
 	RELEASE_TEXTURE(mLogo);
