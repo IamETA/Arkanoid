@@ -77,12 +77,14 @@ void HighscoreScene::render()
 
 	while (std::getline(ss, highscore_value, delim) || (index < 3)) {
 		index++;
-		auto renderText = TextureManager::create_text(highscore_value,renderer,font);
-		SDL_Rect renderPosition{0,0,0,0};
-		SDL_QueryTexture(renderText, nullptr, nullptr, &renderPosition.w, &renderPosition.h);
-		renderPosition.x = windowCenterX - (renderPosition.w / 2);
-		renderPosition.y = 300 + (index * 60);
-		SDL_RenderCopy(renderer, renderText, nullptr, &renderPosition);
+		if (!highscore_value.empty()) {
+			auto renderText = TextureManager::create_text(highscore_value, renderer, font);
+			SDL_Rect renderPosition{ 0,0,0,0 };
+			SDL_QueryTexture(renderText, nullptr, nullptr, &renderPosition.w, &renderPosition.h);
+			renderPosition.x = windowCenterX - (renderPosition.w / 2);
+			renderPosition.y = 300 + (index * 60);
+			SDL_RenderCopy(renderer, renderText, nullptr, &renderPosition);
+		}
 		
 	}
 }
