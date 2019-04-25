@@ -574,6 +574,9 @@ void GameScene::key_up(SDL_KeyboardEvent & event)
 {
 	switch (event.keysym.sym) 
 	{
+	case SDLK_ESCAPE:
+		mGame.enter_scene(std::make_shared<MenuScene>(mGame));
+		break;
 	case SDLK_LEFT:
 		move_left = false;
 		break;
@@ -586,9 +589,6 @@ void GameScene::key_down(SDL_KeyboardEvent & event)
 {
 	switch (event.keysym.sym) 
 	{
-	case SDLK_ESCAPE:
-		mGame.enter_scene(std::make_shared<MenuScene>(mGame));
-		break;
 	case SDLK_LEFT: 
 		move_left = true;
 		break;
