@@ -22,7 +22,7 @@ private:
 
 
 	int Life{ 3 };
-	int CurrentLevel{ 1 };
+	int CurrentLevel{ 3 };
 	int Score{ 0 };
 	int Difficulty{ 1 };
 
