@@ -1,6 +1,6 @@
 #include "Highscores.h"
 
-int Highscores::readFile() const {
+int Highscores::readFile(){
 	std::string line;
 	std::string score;
 

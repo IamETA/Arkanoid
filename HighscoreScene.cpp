@@ -20,8 +20,8 @@ mPlayText(nullptr)
 	SDL_Color selectedColor{ 0x0, 0xff, 0x0, 0xff };
 	// construct text textures used to render textual contents.
 	mExitTextSelected = TextureManager::create_text("Exit game", renderer, font, selectedColor);
-	mHighscoresTextSelected = TextureManager::create_text("Highscores", renderer, font, selectedColor);
-	mPlayTextSelected = TextureManager::create_text("Play", renderer, font, selectedColor);
+	mHighscoresText = TextureManager::create_text("Your highscore: ", renderer, font, selectedColor);
+	//mPlayTextSelected = TextureManager::create_text("Play", renderer, font, selectedColor);
 
 	// query texture dimensions for each text texture.
 	SDL_QueryTexture(mExitText, nullptr, nullptr, &mExitTextPosition.w, &mExitTextPosition.h);
@@ -63,12 +63,30 @@ HighscoreScene::~HighscoreScene()
 	RELEASE_TEXTURE(mPlayText);
 }
 
-void HighscoreScene::update(float delta)
+void HighscoreScene::updateHighscore()
 {
+	auto mHighscoresText = "Highscore: " + (highscore->readFile());
+
 }
 
 void HighscoreScene::render()
 {
+	// get a reference to the SDL renderer.
+	SDL_Renderer* renderer = mGame.getRenderer();
+	if (selectedItem == 0) {
+		SDL_RenderCopy(renderer, mPlayTextSelected, nullptr, &mPlayTextPosition);
+	}
+	else {
+		SDL_RenderCopy(renderer, mPlayText, nullptr, &mPlayTextPosition);
+	}
+	if (selectedItem == 2) {
+		SDL_RenderCopy(renderer, mExitTextSelected, nullptr, &mExitTextPosition);
+	}
+	else {
+		SDL_RenderCopy(renderer, mExitText, nullptr, &mExitTextPosition);
+	}
+
+	SDL_RenderCopy(renderer, mLogo, nullptr, &mLogoPosition);
 }
 
 void HighscoreScene::enter()

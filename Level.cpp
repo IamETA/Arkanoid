@@ -88,7 +88,7 @@ void Level::NextLevel(int round) {
 }
 // Rainbow
 void Level::CreateRound1() {
-	for (int i = 6; i < LEVEL_WIDTH; i++) {
+	for (int i = 1; i < LEVEL_WIDTH+1; i++) {
 		for (int j = 6; j < LEVEL_HEIGHT; j++) {
 			if (j == 6) {
 				Brick brick;
@@ -123,8 +123,8 @@ void Level::CreateRound1() {
 }
 // Swedish flag
 void Level::CreateRound2() {
-	for (int i = 6; i < LEVEL_WIDTH; i++) {
-		for (int j = 6; j < LEVEL_HEIGHT; j++) {
+	for (int i = 1; i < LEVEL_WIDTH; i++) {
+		for (int j = 1; j < LEVEL_HEIGHT; j++) {
 
 			if (i == 4 || j == 5) {
 				Brick brick;
@@ -146,29 +146,44 @@ void Level::CreateRound2() {
 }
 // Steps with industritible(spell?) NOT DONE
 void Level::CreateRound3() {
-	for (int i = 8; i < LEVEL_WIDTH; i++) {
-		for (int j = 8; j < LEVEL_HEIGHT; j++) {
+	for (int i = 1; i < LEVEL_WIDTH; i++) {
+		for (int j = 1; j < LEVEL_HEIGHT; j++) {
 
-			if (j != 9 && i != 5) {
+			/*if (j != 9 && i != 5) {
 				Brick brick;
 
-				brick.type = 0;
+				brick.type = 0; // red
 				brick.state = true;
 				brick.hp = 1;
+				bricks[i][j] = brick;
+			}*/
+			
+			if (i == 3 && j != 1 && j != 8 && j != 9 ) {
+				Brick brick;
+				brick.type = 5; // grey (j != 2 || j != 3 || j != 8 || j != 9)
+				brick.state = true;
+				brick.hp = -1; // indestructible
+				bricks[i][j] = brick;
+			}
+			 else if (i == 8 && j != 1 && j != 8 && j != 9) {
+				Brick brick;
+				brick.type = 5; // grey (j != 2 || j != 3 || j != 8 || j != 9)
+				brick.state = true;
+				brick.hp = -1; // indestructible
+				bricks[i][j] = brick;
+			}
+			else if(j == 7 && i != 1 && i != 2 && i != 8 && i != 9) {
+				Brick brick;
+				brick.type = 5; // grey (i != 2 || i != 3 || i != 8 || i != 9)
+				brick.state = true;
+				brick.hp = -1; // indestructible
 				bricks[i][j] = brick;
 			}
 			else {
 				Brick brick;
-				brick.type = 2;
+				brick.type = 4; // pink
 				brick.state = true;
 				brick.hp = 0;
-				bricks[i][j] = brick;
-			}
-			if (j == 9 || (i == 5 && j == 1 && j == 2)) {
-				Brick brick;
-				brick.type = 3;
-				brick.state = true;
-				brick.hp = -1; // industritible
 				bricks[i][j] = brick;
 			}
 		}

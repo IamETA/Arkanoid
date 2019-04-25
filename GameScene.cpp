@@ -167,16 +167,15 @@ void GameScene::UpdateLevelCollisionDetectionMove() {
 					}
 					else {
 						level->bricks[i][j].hp -= 1;
-						if (brick.type == 0) {
+						/*if (brick.type == 0) {
 							level->bricks[i][j].type = 2;
-						}
+						}*/
 					}
 
 					if (brick.hp >= 0) {
 						Score++;
 						UpdateStats();
 					}
-					// Asume the ball goes slow enough to not skip through the bricks TODO:: Change with more powerups
 
 					// Calculate ysize
 					float ymin = 0;
@@ -336,6 +335,9 @@ void GameScene::UpdateMapCollisionDetection() {
 			// quit to highscore()
 			// Update Score()
 			// Temp solutions, quit to menu, did not work
+				
+
+			
 		}
 		else{
 			Mix_PlayChannel(-1, cBottom, 0);
