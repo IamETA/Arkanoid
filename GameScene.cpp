@@ -2,6 +2,7 @@
 #include "MenuScene.h"
 #include <iostream>
 
+
 GameScene::GameScene(Game& game) : Scene(game)
 {
 	std::cout << "Initializing GameScene...";
@@ -118,15 +119,15 @@ void GameScene::update(float delta)
 	//Collision detection
 	UpdateMapCollisionDetection();
 	UpdatePaddleCollisionDetection();
-	UpdateLevelCollisionDetection();
+	UpdateLevelCollisionDetectionMove();
 }
 void GameScene::ResetBall() {
 	//Remove 1 life
 	Life--;
 
 	ball->released = false;
-	ball->set_direction(1, 1);
 	UpdateStats();
+	ball->set_direction(EASY_BALL_SPEED, 100);
 }
 
 void GameScene::LevelUp() {
@@ -145,7 +146,7 @@ void GameScene::LevelUp() {
 	}
 }
 
-void GameScene::UpdateLevelCollisionDetection() {
+void GameScene::UpdateLevelCollisionDetectionMove() {
 	for (int i = 0; i < LEVEL_WIDTH; i++) {
 		for (int j = 0; j < LEVEL_HEIGHT; j++) {
 			Brick brick = level->bricks[i][j];
@@ -156,58 +157,105 @@ void GameScene::UpdateLevelCollisionDetection() {
 				float brickx = level->brickoffsetx + level->x + i * LEVEL_BRWIDTH;
 				float bricky = level->brickoffsety + level->y + j * LEVEL_BRHEIGHT;
 
-				// Check ball-brick collision
-				// Determine the collision using the half-widths of the rectangles
-				float w = 0.5f * (ball->width + LEVEL_BRWIDTH);
-				float h = 0.5f * (ball->height + LEVEL_BRHEIGHT);
-				float dx = (ball->x + 0.5f*ball->width) - (brickx + 0.5f*LEVEL_BRWIDTH);
-				float dy = (ball->y + 0.5f*ball->height) - (bricky + 0.5f*LEVEL_BRHEIGHT);
+				// Center of the ball x and y coordinates
+				float ballcenterx = ball->x + 0.5f*ball->width;
+				float ballcentery = ball->y + 0.5f*ball->height;
 
-				if (fabs(dx) <= w && fabs(dy) <= h) {
-					// Collision detected
-					Mix_PlayChannel(-1, cBrick, 0);
+				// Center of the brick x and y coordinates
+				float brickcenterx = brickx + 0.5f*LEVEL_BRWIDTH;
+				float brickcentery = bricky + 0.5f*LEVEL_BRHEIGHT;
+
+				if (ball->x <= brickx + LEVEL_BRWIDTH && ball->x + ball->width >= brickx && ball->y <= bricky + LEVEL_BRHEIGHT && ball->y + ball->height >= bricky) {
+					// Collision detected, remove the brick
+					//Mix_PlayChannel(-1, med, 0);
 					if (brick.hp == 0) {
 						level->bricks[i][j].state = false;
 					}
 					else {
 						level->bricks[i][j].hp -= 1;
-						/*if (brick.type == 0) {
-							level->bricks[i][j].type = 2; // Green Brick
-						}*/
+						if (brick.type == 0) {
+							level->bricks[i][j].type = 2;
+						}
 					}
-					Score++;
-					UpdateStats();
-					float wy = w * dy;
-					float hx = h * dx;
 
-					if (wy > hx) {
-						if (wy > -hx) {
-							// Bottom (y is flipped)
-							BallBrickResponse(3);
+					// Asume the ball goes slow enough to not skip through the bricks TODO:: Change with more powerups
+
+					// Calculate ysize
+					float ymin = 0;
+					if (bricky > ball->y) {
+						ymin = bricky;
+					}
+					else {
+						ymin = ball->y;
+					}
+
+					float ymax = 0;
+					if (bricky + LEVEL_BRHEIGHT < ball->y + ball->height) {
+						ymax = bricky + LEVEL_BRHEIGHT;
+					}
+					else {
+						ymax = ball->y + ball->height;
+					}
+
+					float ysize = ymax - ymin;
+
+					// Calculate xsize
+					float xmin = 0;
+					if (brickx > ball->x) {
+						xmin = brickx;
+					}
+					else {
+						xmin = ball->x;
+					}
+
+					float xmax = 0;
+					if (brickx + LEVEL_BRWIDTH < ball->x + ball->width) {
+						xmax = brickx + LEVEL_BRWIDTH;
+					}
+					else {
+						xmax = ball->x + ball->width;
+					}
+
+					float xsize = xmax - xmin;
+
+					// The origin is at the top-left corner of the screen!
+					// Set collision response
+					if (xsize > ysize) {
+						if (ballcentery > brickcentery) {
+							// Bottom
+							ball->y += ysize + 0.01f; // Move out of collision
+							brick_hit(brick_hit_face::bottom);
+							std::cout << "Brick hit bottom" << std::endl;
 						}
 						else {
-							// Left
-							BallBrickResponse(0);
+							// Top
+							ball->y -= ysize + 0.01f; // Move out of collision
+							brick_hit(brick_hit_face::top);
+							std::cout << "Brick hit top" << std::endl;
 						}
 					}
 					else {
-						if (wy > -hx) {
-							// Right
-							BallBrickResponse(2);
+						if (ballcenterx < brickcenterx) {
+							// Left
+							ball->x -= xsize + 0.01f; // Move out of collision
+							brick_hit(brick_hit_face::left);
+							std::cout << "Brick hit left" << std::endl;
 						}
 						else {
-							// Top (y is flipped)
-							BallBrickResponse(1);
+							// Right
+							ball->x += xsize + 0.01f; // Move out of collision
+							brick_hit(brick_hit_face::right);
+							std::cout << "Brick hit right" << std::endl;
 						}
 					}
+
 					return;
 				}
 			}
 		}
 	}
 }
-
-void GameScene::BallBrickResponse(int dirindex) {
+void GameScene::brick_hit(brick_hit_face face) {
 	// dirindex 0: Left, 1: Top, 2: Right, 3: Bottom
 
 	// Direction factors
@@ -219,7 +267,7 @@ void GameScene::BallBrickResponse(int dirindex) {
 		if (ball->m_dirY > 0) {
 			// Ball is moving in the positive y direction
 			// +1 +1
-			if (dirindex == 0 || dirindex == 3) {
+			if (face == brick_hit_face::left || face == brick_hit_face::right) {
 				mulx = -1;
 			}
 			else {
@@ -229,7 +277,7 @@ void GameScene::BallBrickResponse(int dirindex) {
 		else if (ball->m_dirY < 0) {
 			// Ball is moving in the negative y direction
 			// +1 -1
-			if (dirindex == 0 || dirindex == 1) {
+			if (face == brick_hit_face::left || face == brick_hit_face::right) {
 				mulx = -1;
 			}
 			else {
@@ -242,7 +290,8 @@ void GameScene::BallBrickResponse(int dirindex) {
 		if (ball->m_dirY > 0) {
 			// Ball is moving in the positive y direction
 			// -1 +1
-			if (dirindex == 2 || dirindex == 3) {
+			//
+			if (face == brick_hit_face::left || face == brick_hit_face::right) {
 				mulx = -1;
 			}
 			else {
@@ -252,7 +301,7 @@ void GameScene::BallBrickResponse(int dirindex) {
 		else if (ball->m_dirY < 0) {
 			// Ball is moving in the negative y direction
 			// -1 -1
-			if (dirindex == 1 || dirindex == 2) {
+			if (face == brick_hit_face::left || face == brick_hit_face::right) {
 				mulx = -1;
 			}
 			else {
@@ -263,8 +312,7 @@ void GameScene::BallBrickResponse(int dirindex) {
 
 	// Set the new direction of the ball, by multiplying the old direction
 	// with the determined direction factors
-	ball->set_direction(mulx*ball->m_dirX, muly*ball->m_dirY);
-	ball->update(0.0001);
+	ball->set_direction(muly*ball->m_dirY, mulx*ball->m_dirX);
 }
 void GameScene::UpdateMapCollisionDetection() {
 	// Top and bottom collisions
@@ -333,7 +381,7 @@ void GameScene::UpdatePaddleCollisionDetection() {
 	// Check player collision
 	if (ball->collision_with(paddle)) {
 		ball->y = paddle->y - ball->height;
-		ball->set_direction(1,GetReflection(ballcenterx - paddle->x));
+		ball->set_direction(EASY_BALL_SPEED,EASY_BALL_SPEED * GetReflection(ballcenterx - paddle->x));
 		Mix_PlayChannel(-1, cPaddle, 0);
 	}
 }
