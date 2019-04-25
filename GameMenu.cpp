@@ -1,6 +1,6 @@
 #include "GameMenu.h"
 
-//TODO fjerne GameMenu
+/*TODO fjerne GameMenu
 
 GameMenu::GameMenu()
 {
@@ -10,3 +10,4 @@ GameMenu::GameMenu()
 GameMenu::~GameMenu()
 {
 }
+*/

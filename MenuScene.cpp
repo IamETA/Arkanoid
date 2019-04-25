@@ -74,12 +74,11 @@ MenuScene::~MenuScene()
 
 void MenuScene::update(float delta)
 {
-	// ...
+
 }
 
 void MenuScene::render()
 {
-	// get a reference to the SDL renderer.
 	SDL_Renderer* renderer = mGame.get_renderer();
 	if (selected_item == 0)
 	{
@@ -112,12 +111,12 @@ void MenuScene::render()
 
 void MenuScene::enter()
 {
-	// ...
+
 }
 
 void MenuScene::exit()
 {
-	// ...
+
 }
 void MenuScene::execute_menu(int selection) 
 {

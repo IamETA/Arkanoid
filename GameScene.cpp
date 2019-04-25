@@ -463,7 +463,7 @@ void GameScene::render()
 	SDL_RenderCopy(renderer, m_difficulty_text, nullptr, &m_difficulty_text_pos);
 	SDL_RenderCopy(renderer, m_level_text, nullptr, &m_level_text_pos);
 	SDL_RenderCopy(renderer, m_logo, nullptr, &m_logo_pos);
-	//SDL_RenderCopy(renderer, mLogo, nullptr, &mLivesTextPosition);
+
 }
 int GameScene::get_brick_num() 
 {
@@ -474,13 +474,14 @@ int GameScene::get_brick_num()
 		{
 			Brick brick = level->bricks[i][j];
 			if (brick.state && brick.hp >= 0) 
-			{ // Does not count industribable bricks
+			{ // Does not count indestructible bricks
 				bricknum++;
 			}
 		}
 	}
 	return bricknum;
 }
+
 //Create/draw/update status
 void GameScene::update_stats_lives()
 {
@@ -509,6 +510,7 @@ void GameScene::update_stats_score()
 	m_score_text_pos.y = stats_height_margin * 5;
 	m_score_text_pos.x = level->width + stats_left_margin;
 }
+
 void GameScene::update_stats_difficulty() 
 {
 
@@ -524,9 +526,9 @@ void GameScene::update_stats_difficulty()
 	m_difficulty_text_pos.x = level->width + stats_left_margin;
 
 }
+
 void GameScene::update_stats_level()
 {
-
 	if (m_level_text) SDL_DestroyTexture(m_level_text);
 
 	TTF_Font* font = mGame.get_font();
@@ -537,8 +539,8 @@ void GameScene::update_stats_level()
 	SDL_QueryTexture(m_level_text, nullptr, nullptr, &m_level_text_pos.w, &m_level_text_pos.h);
 	m_level_text_pos.y = stats_height_margin * 7;
 	m_level_text_pos.x = level->width + stats_left_margin;
-
 }
+
 void GameScene::update_logo() 
 {
 
@@ -562,10 +564,12 @@ void GameScene::enter()
 	update_stats_score();
 	update_logo();
 }
+
 void GameScene::exit()
 {
 
 }
+
 void GameScene::key_up(SDL_KeyboardEvent & event)
 {
 	switch (event.keysym.sym) 

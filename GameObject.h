@@ -4,8 +4,7 @@
 #include "SDL_image.h"
 #include "TextureManager.h"
 
-/* Parent class to all the game objects 
-*/
+
 
 class GameObject
 {

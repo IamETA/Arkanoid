@@ -19,7 +19,6 @@ Level::Level(SDL_Renderer* renderer) : GameObject(".\\textures\\bricks.png",rend
 
 Level::~Level()
 {
-	// Clean resources
 	SDL_DestroyTexture(sidetexture);
 }
 
@@ -139,6 +138,7 @@ void Level::create_round_one()
 		}
 	}
 }
+
 // Swedish flag
 void Level::create_round_two() 
 {
@@ -166,7 +166,8 @@ void Level::create_round_two()
 		}
 	}
 }
-// U shape with indestructible bricks
+
+// U-shape with indestructible bricks
 void Level::create_round_three() 
 {
 	for (int i = 1; i < LEVEL_WIDTH; i++) 

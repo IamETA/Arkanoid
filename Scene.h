@@ -1,16 +1,9 @@
 #pragma once
 
-
-/*! An abstraction for all scenes in the Arkanoid game.
- *
- *  This class acts as an abstraction for all scenes in our Breakout game. Our
- *  implementation contains only two different scenes that inherit from this
- *  base class. Scenes also act as a high abstraction game states, which have a
- *  enter and exit functionality that is executed automatically when the scene
- *  is being entered or exited from.
- */
+// Abstract class for all game scenes
 
 struct SDL_KeyboardEvent;
+
 class Game;
 class Scene
 {
