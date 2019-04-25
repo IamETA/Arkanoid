@@ -29,53 +29,8 @@ GameScene::GameScene(Game& game) : Scene(game)
 
 	//Create start level
 	level->NextLevel(CurrentLevel);
-	UpdateStats();
-}
-
-//Update textures for stats
-void GameScene::UpdateStats() {
-	const int margin{ 60 };
-	const int hmargin{ 60 };
-	if (mLivesText) SDL_DestroyTexture(mLivesText);
-	if (mScoreText) SDL_DestroyTexture(mScoreText);
-	if (mDifficultyText) SDL_DestroyTexture(mDifficultyText);
-	if (mLevelText) SDL_DestroyTexture(mLevelText);
-	if (mLogo) SDL_DestroyTexture(mLogo);
 
 
-	TTF_Font* font = mGame.getFont();
-	SDL_Renderer* renderer = mGame.getRenderer();
-
-	auto sLivesText = "Lives: " + std::to_string(Life);
-	mLivesText = TextureManager::create_text(sLivesText, renderer, font);
-	SDL_QueryTexture(mLivesText, nullptr, nullptr, &mLivesTextPosition.w, &mLivesTextPosition.h);
-	mLivesTextPosition.y = hmargin * 4;
-	mLivesTextPosition.x = level->width + margin;
-	
-
-	auto sScoreText = "Score: " + std::to_string(Score);
-	mScoreText = TextureManager::create_text(sScoreText, renderer, font);
-	SDL_QueryTexture(mScoreText, nullptr, nullptr, &mScoreTextPosition.w, &mScoreTextPosition.h);
-	mScoreTextPosition.y = hmargin * 5;
-	mScoreTextPosition.x = level->width + margin;
-
-	auto sDifficultyText = "Difficulty: " + std::to_string(Difficulty);
-	mDifficultyText = TextureManager::create_text(sDifficultyText, renderer, font);
-	SDL_QueryTexture(mDifficultyText, nullptr, nullptr, &mDifficultyTextPosition.w, &mDifficultyTextPosition.h);
-	mDifficultyTextPosition.y = hmargin * 6;
-	mDifficultyTextPosition.x = level->width + margin;
-
-	auto sLevelText = "Level: " + std::to_string(CurrentLevel);
-	mLevelText = TextureManager::create_text(sLevelText, renderer, font);
-	SDL_QueryTexture(mLevelText, nullptr, nullptr, &mLevelTextPosition.w, &mLevelTextPosition.h);
-	mLevelTextPosition.y = hmargin * 7;
-	mLevelTextPosition.x = level->width + margin;
-
-	mLogo  = mLogo = TextureManager::load_texture(".\\textures\\logo.png", renderer);
-	mLogoPosition.h = 100; 
-	mLogoPosition.w = 200;
-	mLogoPosition.x = level->width + margin;
-	mLogoPosition.y = 30;
 }
 GameScene::~GameScene()
 {
@@ -94,7 +49,6 @@ GameScene::~GameScene()
 	std::cout << "GameScene destroyed";
 	
 }
-
 void GameScene::update(float delta)
 {
 	paddle->update(delta);
@@ -113,10 +67,9 @@ void GameScene::ResetBall() {
 	//Remove 1 life
 	Life--;
 	ball->released = false;
-	UpdateStats();
+	update_stats_lives();
 	ball->set_direction(EASY_BALL_SPEED, 100);
 }
-
 void GameScene::LevelUp() {
 	int brick_count = GetBrickNum();
 	std::cout << "Bricks left:" << brick_count << std::endl;
@@ -136,10 +89,9 @@ void GameScene::LevelUp() {
 		level->NextLevel(CurrentLevel);
 		Mix_PlayChannel(-1, cNextRound, 0);
 		
-		UpdateStats();
+		update_stats_level();
 	}
 }
-
 void GameScene::UpdateLevelCollisionDetectionMove() {
 	for (int i = 0; i < LEVEL_WIDTH; i++) {
 		for (int j = 0; j < LEVEL_HEIGHT; j++) {
@@ -174,7 +126,7 @@ void GameScene::UpdateLevelCollisionDetectionMove() {
 
 					if (brick.hp >= 0) {
 						Score++;
-						UpdateStats();
+						update_stats_score();
 					}
 
 					// Calculate ysize
@@ -360,7 +312,6 @@ void GameScene::UpdateMapCollisionDetection() {
 		Mix_PlayChannel(-1, cSides, 0);
 	}
 }
-
 float GameScene::GetReflection(float hitx) {
 	// Make sure the hitx variable is within the width of the player
 	if (hitx < 0) {
@@ -377,7 +328,6 @@ float GameScene::GetReflection(float hitx) {
 	// Scale the reflection, making it fall in the range -2.0f to 2.0f
 	return 2.0f * (hitx / (paddle->width / 2.0f));
 }
-
 void GameScene::UpdatePaddleCollisionDetection() {
 	// Get the center x-coordinate of the ball
 	float ballcenterx = ball->x + ball->width / 2.0f;
@@ -389,7 +339,6 @@ void GameScene::UpdatePaddleCollisionDetection() {
 		Mix_PlayChannel(-1, cPaddle, 0);
 	}
 }
-
 void GameScene::UpdatePaddlePosition() {
 	static int oldx;
 	if (oldx != input->getX()) {
@@ -408,14 +357,12 @@ void GameScene::UpdatePaddlePosition() {
 		paddle->x = (level->width - paddle->width + level->brickoffsetx);
 	}
 }
-
 void GameScene::UpdateBallCheckReleased() {
 	if (!ball->released) {
 		ball->x = paddle->x + paddle->width / 2 - ball->width / 2;
 		ball->y = paddle->y - ball->height;
 	}
 }
-
 void GameScene::render()
 {
 	paddle->render();
@@ -431,7 +378,6 @@ void GameScene::render()
 	SDL_RenderCopy(renderer, mLogo, nullptr, &mLogoPosition);
 	//SDL_RenderCopy(renderer, mLogo, nullptr, &mLivesTextPosition);
 }
-
 int GameScene::GetBrickNum() {
 	int bricknum = 0;
 	for (int i = 0; i < LEVEL_WIDTH; i++) {
@@ -444,16 +390,87 @@ int GameScene::GetBrickNum() {
 	}
 	return bricknum;
 }
+//Create/draw/update status
 
+void GameScene::update_stats_lives() {
+	if (mLivesText) SDL_DestroyTexture(mLivesText);
+
+	TTF_Font* font = mGame.getFont();
+	SDL_Renderer* renderer = mGame.getRenderer();
+
+	auto sLivesText = "Lives: " + std::to_string(Life);
+	mLivesText = TextureManager::create_text(sLivesText, renderer, font);
+	SDL_QueryTexture(mLivesText, nullptr, nullptr, &mLivesTextPosition.w, &mLivesTextPosition.h);
+	mLivesTextPosition.y = stats_height_margin * 4;
+	mLivesTextPosition.x = level->width + stats_left_margin;
+}
+void GameScene::update_stats_score() {
+
+	if (mScoreText) SDL_DestroyTexture(mScoreText);
+
+	TTF_Font* font = mGame.getFont();
+	SDL_Renderer* renderer = mGame.getRenderer();
+
+	auto sScoreText = "Score: " + std::to_string(Score);
+	mScoreText = TextureManager::create_text(sScoreText, renderer, font);
+	SDL_QueryTexture(mScoreText, nullptr, nullptr, &mScoreTextPosition.w, &mScoreTextPosition.h);
+	mScoreTextPosition.y = stats_height_margin * 5;
+	mScoreTextPosition.x = level->width + stats_left_margin;
+}
+void GameScene::update_stats_difficulty() {
+
+	if (mDifficultyText) SDL_DestroyTexture(mDifficultyText);
+
+	TTF_Font* font = mGame.getFont();
+	SDL_Renderer* renderer = mGame.getRenderer();
+
+	auto sDifficultyText = "Difficulty: " + std::to_string(Difficulty);
+	mDifficultyText = TextureManager::create_text(sDifficultyText, renderer, font);
+	SDL_QueryTexture(mDifficultyText, nullptr, nullptr, &mDifficultyTextPosition.w, &mDifficultyTextPosition.h);
+	mDifficultyTextPosition.y = stats_height_margin * 6;
+	mDifficultyTextPosition.x = level->width + stats_left_margin;
+
+}
+void GameScene::update_stats_level() {
+
+	if (mLevelText) SDL_DestroyTexture(mLevelText);
+
+	TTF_Font* font = mGame.getFont();
+	SDL_Renderer* renderer = mGame.getRenderer();
+
+	auto sLevelText = "Level: " + std::to_string(CurrentLevel);
+	mLevelText = TextureManager::create_text(sLevelText, renderer, font);
+	SDL_QueryTexture(mLevelText, nullptr, nullptr, &mLevelTextPosition.w, &mLevelTextPosition.h);
+	mLevelTextPosition.y = stats_height_margin * 7;
+	mLevelTextPosition.x = level->width + stats_left_margin;
+
+}
+void GameScene::update_logo() {
+
+	if (mLogo) SDL_DestroyTexture(mLogo);
+
+	SDL_Renderer* renderer = mGame.getRenderer();
+
+	mLogo = mLogo = TextureManager::load_texture(".\\textures\\logo.png", renderer);
+	mLogoPosition.h = 100;
+	mLogoPosition.w = 200;
+	mLogoPosition.x = level->width + stats_left_margin;
+	mLogoPosition.y = 30;
+}
+
+//Events
 void GameScene::enter()
 {
+	update_stats_difficulty();
+	update_stats_level();
+	update_stats_lives();
+	update_stats_score();
+	update_logo();
 }
-
-
 void GameScene::exit()
 {
-}
 
+}
 void GameScene::keyUp(SDL_KeyboardEvent & event)
 {
 	switch (event.keysym.sym) {
@@ -465,7 +482,6 @@ void GameScene::keyUp(SDL_KeyboardEvent & event)
 		break;
 	}
 }
-
 void GameScene::keyDown(SDL_KeyboardEvent & event)
 {
 	switch (event.keysym.sym) {
@@ -482,7 +498,6 @@ void GameScene::keyDown(SDL_KeyboardEvent & event)
 
 
 }
-
 void GameScene::mouseDown(SDL_KeyboardEvent & event)
 {
 	/*

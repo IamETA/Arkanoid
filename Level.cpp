@@ -3,9 +3,6 @@
 
 Level::Level(SDL_Renderer* renderer) : GameObject(".\\textures\\bricks.png",renderer) {
 	// Endre til mer dynamisk bricks, med background color
-	//SDL_Surface* surface = IMG_Load(".\\textures\\bricks.png");
-	//bricktexture = SDL_CreateTextureFromSurface(renderer, surface);
-	//SDL_FreeSurface(surface);
 	bricktexture = m_object_texture;
 
 	SDL_Surface* surface = IMG_Load(".\\textures\\purple_side.png");
