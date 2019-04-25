@@ -19,6 +19,7 @@ Game::~Game()
 {
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
+
 	//Free music
 	Mix_FreeMusic(music);
 	Mix_CloseAudio();
@@ -29,7 +30,6 @@ void Game::run()
 {
 	InputUtils::InputManager* input = InputUtils::InputManager::Instance();
 
-	//Use chronos time library to control updates
 	timer = TimerUtils::Timer::Instance();
 	timer->reset();
 	float fps{ 0 };
@@ -37,7 +37,7 @@ void Game::run()
 	//Used to calculate fps
 	int framecount{ 0 };
 
-	// set the initial scene for the game.
+	//Set the initial scene for the game.
 	enter_scene(std::make_shared<MenuScene>(*this));
 
 	//Play the music
@@ -53,14 +53,10 @@ void Game::run()
 			framecount = 0;
 			handle_input_event();
 			update(timer->delta_time());
-
-			//Debug delta time, remove later
-			//std::cout << "Delta time: " << timer->delta_time() << "\r\n";
-
-
 			render();
 		}
-		else {
+		else 
+		{
 			framecount++;
 		}
 	}
@@ -76,7 +72,6 @@ bool Game::init_font(const std::string fontPath) {
 		std::cerr << "Unable to initialize TTF: " << TTF_GetError() << std::endl;
 		return false;
 	}
-
 
 	// initialize the selected font for the application.
 	m_font = TTF_OpenFont(fontPath.c_str(), 28);
@@ -106,7 +101,7 @@ bool Game::init_music()
 	return true;
 }
 
-//initialize sdl window 
+//initialize SDL window 
 bool Game::init_window(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
 	std::cout << "initializing main window..." << std::endl;
@@ -140,6 +135,7 @@ bool Game::init_window(const char* title, int xpos, int ypos, int width, int hei
 	}
 	return game_running;
 }
+
 void Game::handle_input_event()
 {
 	while (SDL_PollEvent(&event) != 0) 
