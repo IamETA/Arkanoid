@@ -90,6 +90,7 @@ void GameScene::LevelUp() {
 		highscore->readFile();
 		highscore->writeFile(Score);
 		// Rest the ball to paddle with next level
+		Mix_PlayChannel(-1, cNextRound, 0);
 		ball->released = false;
 		ball->set_direction(EASY_BALL_SPEED, 100);
 		level->NextLevel(CurrentLevel);
@@ -100,7 +101,6 @@ void GameScene::LevelUp() {
 		}
 		CurrentLevel++;
 		level->NextLevel(CurrentLevel);
-		Mix_PlayChannel(-1, cNextRound, 0);
 		
 		update_stats_level();
 	}
