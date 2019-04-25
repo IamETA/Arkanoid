@@ -258,7 +258,6 @@ void GameScene::UpdateLevelCollisionDetectionMove() {
 void GameScene::brick_hit(brick_hit_face face) {
 	// dirindex 0: Left, 1: Top, 2: Right, 3: Bottom
 
-
 	// Direction factors
 	int mulx = 1;
 	int muly = 1;
