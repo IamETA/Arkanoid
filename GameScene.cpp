@@ -287,7 +287,9 @@ void GameScene::UpdateMapCollisionDetection() {
 			// quit to highscore()
 			// Update Score()
 			// Temp solutions, quit to menu, did not work
-				
+
+			mGame.enterScene(std::make_shared<HighscoreScene>(mGame));
+			return;
 
 			
 		}
