@@ -66,6 +66,7 @@ void Game::run()
 	input->Release();
 }
 bool Game::init_font(const std::string fontPath) {
+	std::cout << "initializing fonts..." << std::endl;
 
 	// initialize TTF system for text rendering.
 	if (TTF_Init() == -1) {
@@ -85,6 +86,7 @@ bool Game::init_font(const std::string fontPath) {
 
 bool Game::init_music()
 {
+	std::cout << "initializing audio..." << std::endl;
 	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
 	{
 		return false;
@@ -107,6 +109,7 @@ bool Game::init_music()
 //initialize sdl window 
 bool Game::init_window(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
+	std::cout << "initializing main window..." << std::endl;
 	Uint32 flags = 0;
 	if (fullscreen)
 	{
