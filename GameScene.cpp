@@ -6,7 +6,7 @@
 
 GameScene::GameScene(Game& game) : Scene(game)
 {
-	std::cout << "Initializing GameScene...";
+	std::cout << "Initializing GameScene..." << std::endl;
 
 	input = InputUtils::InputManager::Instance();
 	SDL_Renderer* renderer = game.getRenderer();

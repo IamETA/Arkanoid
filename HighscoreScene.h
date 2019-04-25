@@ -20,20 +20,16 @@ public:
 	void keyDown(SDL_KeyboardEvent& event) override;
 
 private:
-	SDL_Texture* mExitText;
-	SDL_Texture* mExitTextSelected;
-	SDL_Texture* mHighscoresText;
-	SDL_Texture* mPlayText;
-	SDL_Texture* mPlayTextSelected;
-	SDL_Texture* mScoreText;
-	Highscores* highscore;
+	SDL_Texture* mHighscoresText{ nullptr };
+	SDL_Texture* mScoreText{ nullptr };
+	Highscores* highscore{ nullptr };
 
-	SDL_Texture* mLogo;
+	SDL_Texture* mLogo{ nullptr };
 
-	SDL_Rect mExitTextPosition;
-	SDL_Rect mHighscoresTextPosition;
-	SDL_Rect mPlayTextPosition;
-	SDL_Rect mLogoPosition;
+	SDL_Rect mExitTextPosition{ 0,0,0,0 };
+	SDL_Rect mHighscoresTextPosition{ 0,0,0,0 };
+	SDL_Rect mPlayTextPosition{ 0,0,0,0 };
+	SDL_Rect mLogoPosition{ 0,0,0,0 };
 };
 
 

@@ -63,6 +63,9 @@ MenuScene::~MenuScene()
 	RELEASE_TEXTURE(mExitText);
 	RELEASE_TEXTURE(mHighscoresText);
 	RELEASE_TEXTURE(mPlayText);
+	RELEASE_TEXTURE(mExitTextSelected);
+	RELEASE_TEXTURE(mHighscoresTextSelected);
+	RELEASE_TEXTURE(mPlayTextSelected);
 	RELEASE_TEXTURE(mLogo);
 }
 

@@ -1,32 +1,22 @@
 #include "HighscoreScene.h"
 #include "MenuScene.h"
 
-HighscoreScene::HighscoreScene(Game& game) : Scene(game),
-mExitText(nullptr),
-mHighscoresText(nullptr),
-mPlayText(nullptr)
+HighscoreScene::HighscoreScene(Game& game) : Scene(game)
 {
 
 	SDL_Renderer* renderer = game.getRenderer();
 	TTF_Font* font = game.getFont();
 
-
-	// construct text textures used to render textual contents.
-	mExitText = TextureManager::create_text("Exit game", renderer, font);
 	mHighscoresText = TextureManager::create_text("Highscores", renderer, font);
-	mPlayText = TextureManager::create_text("Restart game", renderer, font);
 	mLogo = TextureManager::load_texture(".\\textures\\logo.png", renderer);
 
 	SDL_Color selectedColor{ 0x0, 0xff, 0x0, 0xff };
 	// construct text textures used to render textual contents.
-	mExitTextSelected = TextureManager::create_text("Exit game", renderer, font, selectedColor);
 	mHighscoresText = TextureManager::create_text("Your highscore: ", renderer, font, selectedColor);
 	//mPlayTextSelected = TextureManager::create_text("Play", renderer, font, selectedColor);
 
 	// query texture dimensions for each text texture.
-	SDL_QueryTexture(mExitText, nullptr, nullptr, &mExitTextPosition.w, &mExitTextPosition.h);
 	SDL_QueryTexture(mHighscoresText, nullptr, nullptr, &mHighscoresTextPosition.w, &mHighscoresTextPosition.h);
-	SDL_QueryTexture(mPlayText, nullptr, nullptr, &mPlayTextPosition.w, &mPlayTextPosition.h);
 	//SDL_QueryTexture(mLogo, nullptr, nullptr, &mLogoPosition.w, &mLogoPosition.h);
 	mLogoPosition.w = 400;
 	mLogoPosition.h = 200;
@@ -58,9 +48,7 @@ HighscoreScene::~HighscoreScene()
 #define RELEASE_TEXTURE(x) if (x != nullptr) { SDL_DestroyTexture(x); }
 
 	// release all reserved textures.
-	RELEASE_TEXTURE(mExitText);
 	RELEASE_TEXTURE(mHighscoresText);
-	RELEASE_TEXTURE(mPlayText);
 	RELEASE_TEXTURE(mLogo);
 }
 
@@ -73,8 +61,6 @@ void HighscoreScene::updateHighscore()
 void HighscoreScene::render()
 {
 	auto renderer = mGame.getRenderer();
-	SDL_RenderCopy(renderer, mPlayText, nullptr, &mPlayTextPosition);
-	SDL_RenderCopy(renderer, mExitText, nullptr, &mExitTextPosition);
 	SDL_RenderCopy(renderer, mLogo, nullptr, &mLogoPosition);
 	SDL_RenderCopy(renderer, mHighscoresText, nullptr, &mHighscoresTextPosition);
 }

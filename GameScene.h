@@ -41,11 +41,11 @@ private:
 	SDL_Texture* mLevelText{ nullptr };
 	SDL_Texture* mLogo{ nullptr };
 
-	SDL_Rect mLivesTextPosition;
-	SDL_Rect mScoreTextPosition;
-	SDL_Rect mDifficultyTextPosition;
-	SDL_Rect mLevelTextPosition;
-	SDL_Rect mLogoPosition;
+	SDL_Rect mLivesTextPosition{ 0,0,0,0 };
+	SDL_Rect mScoreTextPosition{ 0,0,0,0 };
+	SDL_Rect mDifficultyTextPosition{ 0,0,0,0 };
+	SDL_Rect mLevelTextPosition{ 0,0,0,0 };
+	SDL_Rect mLogoPosition{ 0,0,0,0 };
 
 	void update_stats_lives();
 	void update_stats_score();
