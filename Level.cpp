@@ -1,17 +1,13 @@
 #pragma once
 #include "Level.h"
-#include <iostream>
 
 Level::Level(SDL_Renderer* renderer) : GameObject(".\\textures\\bricks.png",renderer) 
 {
-	// Endre til mer dynamisk bricks, med background color
 	bricktexture = m_object_texture;
 
 	SDL_Surface* surface = IMG_Load(".\\textures\\purple_side.png");
 	sidetexture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
-
-	srand(time(0));
 
 	brick_offset_x = 16;
 	brick_offset_y = 10;
@@ -19,7 +15,6 @@ Level::Level(SDL_Renderer* renderer) : GameObject(".\\textures\\bricks.png",rend
 	y = 0;
 	width = 800 - brick_offset_x;
 	height = 600;
-
 }
 
 Level::~Level()
@@ -41,7 +36,7 @@ void Level::render() {
 		{
 			Brick brick = bricks[i][j];
 
-			// Check if the brick exists
+			// Check to draw the bricks or not
 			if (!brick.state)
 				continue;
 
@@ -62,7 +57,7 @@ void Level::render() {
 		}
 	}
 
-	// Render sides
+	// Render the sides
 	SDL_Rect dstrect;
 	dstrect.x = 0;
 	dstrect.y = 0;
@@ -93,10 +88,10 @@ void Level::next_level(int round)
 	}
 	
 }
+
 // Rainbow with tiered hit points bricks
 void Level::create_round_one()
 {
-	std::cout << "Level 1" << std::endl;
 	for (int i = 1; i < LEVEL_WIDTH; i++)
 	{
 		for (int j = 1; j < LEVEL_HEIGHT; j++)

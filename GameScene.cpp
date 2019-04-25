@@ -28,10 +28,8 @@ GameScene::GameScene(Game& game) : Scene(game)
 	//set paddle height to correct height
 	paddle->y = level->height - paddle->height;
 
-	//Create start level
+	//Create the start level
 	level->next_level(current_level);
-
-
 }
 GameScene::~GameScene()
 {
@@ -39,7 +37,7 @@ GameScene::~GameScene()
 	delete ball;
 	delete level;
 	delete highscore;
-	//Free the sound effects
+	//Free sound effects
 	Mix_FreeChunk(cBrick);
 	Mix_FreeChunk(cBottom);
 	Mix_FreeChunk(cPaddle);
@@ -146,6 +144,7 @@ void GameScene::update_level_collision_detection()
 					else 
 					{
 						level->bricks[i][j].hp -= 1;
+						// Change color of bricks depending on hit points
 						if (current_level == 1) 
 						{
 							if (brick.type == 3) 
@@ -169,7 +168,7 @@ void GameScene::update_level_collision_detection()
 							}
 						}
 					}
-
+					// Adds score on hit, not on removel of bricks
 					if (brick.hp >= 0) 
 					{
 						score++;
@@ -483,7 +482,6 @@ int GameScene::get_brick_num()
 	return bricknum;
 }
 //Create/draw/update status
-
 void GameScene::update_stats_lives()
 {
 	if (m_life_text) SDL_DestroyTexture(m_life_text);
@@ -594,8 +592,6 @@ void GameScene::key_down(SDL_KeyboardEvent & event)
 		move_right = true;
 		break;
 	}
-
-
 }
 void GameScene::mouse_down(SDL_KeyboardEvent & event)
 {
@@ -606,5 +602,4 @@ void GameScene::mouse_down(SDL_KeyboardEvent & event)
 		break;
 	}*/
 	ball->released = true;
-
 }

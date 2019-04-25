@@ -29,8 +29,6 @@ void Ball::render()
 	m_rect.w = width;
 	m_rect.h = height;
 
-
-
 	SDL_SetRenderDrawColor(m_renderer, color->r, color->g, color->b, color->a);
 	SDL_RenderFillRect(m_renderer, &m_rect);
 	SDL_RenderCopy(m_renderer, m_object_texture, 0, &m_rect);
@@ -46,8 +44,6 @@ void Ball::set_direction(float diry, float dirx)
 	this->m_dir_y = EASY_BALL_SPEED * (diry / length);
 }
 
-// Change color of ball
-// Example: ball->change_ball_color(new SDL_Color{ (Uint8)(rand() % 255),(Uint8)(rand() % 255),(Uint8)(rand() % 255), 1 });
 void Ball::change_ball_color(SDL_Color* new_color) 
 {
 	delete color;

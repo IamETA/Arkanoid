@@ -19,7 +19,7 @@ Game::~Game()
 {
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
-	//Free the music
+	//Free music
 	Mix_FreeMusic(music);
 	Mix_CloseAudio();
 	SDL_Quit();
@@ -96,11 +96,7 @@ bool Game::init_music()
 		return false;
 	}
 
-	//Load the music
 	music = Mix_LoadMUS(".\\sounds\\background.wav");
-
-
-	//If there was a problem loading the music
 	if (music == NULL)
 	{
 		return false;
