@@ -85,7 +85,6 @@ void GameScene::ResetBall() {
 }
 void GameScene::LevelUp() {
 	int brick_count = GetBrickNum();
-	std::cout << "Bricks left:" << brick_count << std::endl;
 	if (brick_count== 0) {
 		highscore->readFile();
 		highscore->writeFile(Score);
@@ -200,13 +199,11 @@ void GameScene::UpdateLevelCollisionDetectionMove() {
 							// Bottom
 							ball->y += ysize + 0.01f; // Move out of collision
 							brick_hit(brick_hit_face::bottom);
-							std::cout << "Brick hit bottom" << std::endl;
 						}
 						else {
 							// Top
 							ball->y -= ysize + 0.01f; // Move out of collision
 							brick_hit(brick_hit_face::top);
-							std::cout << "Brick hit top" << std::endl;
 						}
 					}
 					else {
@@ -214,13 +211,11 @@ void GameScene::UpdateLevelCollisionDetectionMove() {
 							// Left
 							ball->x -= xsize + 0.01f; // Move out of collision
 							brick_hit(brick_hit_face::left);
-							std::cout << "Brick hit left" << std::endl;
 						}
 						else {
 							// Right
 							ball->x += xsize + 0.01f; // Move out of collision
 							brick_hit(brick_hit_face::right);
-							std::cout << "Brick hit right" << std::endl;
 						}
 					}
 

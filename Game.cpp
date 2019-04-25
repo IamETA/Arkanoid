@@ -16,7 +16,7 @@ void Game::exit() {
 	game_running = false;
 }
 Game::~Game() 
-{
+{	
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	//Free the music

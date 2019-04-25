@@ -9,6 +9,7 @@ MenuScene::MenuScene(Game& game) : Scene(game),
 	mPlayText(nullptr)
 {
 
+	std::cout << "Initializing MenuScene..." << std::endl;
 	SDL_Renderer* renderer = game.getRenderer();
 	TTF_Font* font = game.getFont();
 
