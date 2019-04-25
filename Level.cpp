@@ -1,5 +1,6 @@
 #pragma once
 #include "Level.h"
+#include <iostream>
 
 Level::Level(SDL_Renderer* renderer) : GameObject(".\\textures\\bricks.png",renderer) 
 {
@@ -95,10 +96,19 @@ void Level::next_level(int round)
 // Rainbow with tiered hit points bricks
 void Level::create_round_one()
 {
+	std::cout << "Level 1" << std::endl;
 	for (int i = 1; i < LEVEL_WIDTH+1; i++)
 	{
 		for (int j = 6; j < LEVEL_HEIGHT; j++)
 		{
+			if (j < 6) 
+			{
+				Brick brick;
+				brick.type = 0; 
+				brick.state = true; // empty
+				brick.hp = 0;
+				bricks[i][j] = brick;
+			}
 			if (j == 6) 
 			{
 				Brick brick;
@@ -173,7 +183,7 @@ void Level::create_round_three()
 				Brick brick;
 				brick.type = 5; // grey
 				brick.state = true;
-				brick.hp = -1; // indestructible
+				brick.hp = 0;// -1; // indestructible
 				bricks[i][j] = brick;
 			}
 			 else if (i == 8 && j != 1 && j != 8 && j != 9)
@@ -181,7 +191,7 @@ void Level::create_round_three()
 				Brick brick;
 				brick.type = 5; // grey
 				brick.state = true;
-				brick.hp = -1; // indestructible
+				brick.hp = 0;// -1; // indestructible
 				bricks[i][j] = brick;
 			}
 			else if(j == 7 && i != 1 && i != 2 && i != 8 && i != 9) 
@@ -189,7 +199,7 @@ void Level::create_round_three()
 				Brick brick;
 				brick.type = 5; // grey
 				brick.state = true;
-				brick.hp = -1; // indestructible
+				brick.hp = 0;// -1; // indestructible
 				bricks[i][j] = brick;
 			}
 			else 
