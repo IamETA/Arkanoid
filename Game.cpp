@@ -43,9 +43,11 @@ void Game::run()
 	//Play the music
 	Mix_PlayMusic(music, -1);
 
-	while (game_running) {
+	while (game_running) 
+	{
 		timer->tick();
-		if (timer->delay() >= 100) {
+		if (timer->delay() >= 100) 
+		{
 			input->update();
 			timer->reset();
 			framecount = 0;
@@ -65,10 +67,12 @@ void Game::run()
 	timer->Release();
 	input->Release();
 }
-bool Game::init_font(const std::string fontPath) {
+bool Game::init_font(const std::string fontPath) 
+{
 
 	// initialize TTF system for text rendering.
-	if (TTF_Init() == -1) {
+	if (TTF_Init() == -1) 
+	{
 		std::cerr << "Unable to initialize TTF: " << TTF_GetError() << std::endl;
 		return false;
 	}
@@ -76,7 +80,8 @@ bool Game::init_font(const std::string fontPath) {
 
 	// initialize the selected font for the application.
 	m_font = TTF_OpenFont(fontPath.c_str(), 28);
-	if (m_font == nullptr) {
+	if (m_font == nullptr) 
+	{
 		std::cerr << "Unable to load font: " << TTF_GetError() << std::endl;
 		return false;
 	}
@@ -139,23 +144,28 @@ bool Game::init_window(const char* title, int xpos, int ypos, int width, int hei
 }
 void Game::handle_input_event()
 {
-	while (SDL_PollEvent(&event) != 0) {
-		switch (event.type) {
+	while (SDL_PollEvent(&event) != 0) 
+	{
+		switch (event.type) 
+		{
 		case SDL_QUIT:
 			game_running = false;
 			break;
 		case SDL_KEYDOWN:
-			if (m_scene) {
+			if (m_scene)
+			{
 				m_scene->key_down(event.key);
 			}
 			break;
 		case SDL_KEYUP:
-			if (m_scene) {
+			if (m_scene) 
+			{
 				m_scene->key_up(event.key);
 			}
 			break;
 		case SDL_MOUSEBUTTONDOWN:
-			if (m_scene) {
+			if (m_scene) 
+			{
 				m_scene->mouse_down(event.key);
 			}
 		default:
@@ -174,7 +184,8 @@ void Game::update(float delta)
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	if (m_scene != nullptr) {
+	if (m_scene != nullptr) 
+	{
 		m_scene->render();
 	}
 	SDL_RenderPresent(renderer);
@@ -184,7 +195,8 @@ void Game::enter_scene(std::shared_ptr<Scene> scene)
 {
 	if (scene) {
 		// perform a cleanup from the old scene (if any).
-		if (m_scene) {
+		if (m_scene) 
+		{
 			m_scene->exit();
 		}
 

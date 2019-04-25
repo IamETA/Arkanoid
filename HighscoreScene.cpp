@@ -13,7 +13,7 @@ HighscoreScene::HighscoreScene(Game& game) : Scene(game)
 
 	SDL_Color selectedColor{ 0x0, 0xff, 0x0, 0xff };
 	// construct text textures used to render textual contents.
-	m_highscores_text = TextureManager::create_text("Your highscore: " + highscore->read_file(), renderer, font, selectedColor);
+	m_highscores_text = TextureManager::create_text("Your score: " + highscore->read_file(), renderer, font, selectedColor);
 	//mPlayTextSelected = TextureManager::create_text("Play", renderer, font, selectedColor);
 
 	// query texture dimensions for each text texture.
@@ -73,7 +73,8 @@ void HighscoreScene::key_up(SDL_KeyboardEvent& event)
 
 void HighscoreScene::key_down(SDL_KeyboardEvent& event)
 {
-	switch (event.keysym.sym) {
+	switch (event.keysym.sym)
+	{
 	case SDLK_ESCAPE:
 		mGame.enter_scene(std::make_shared<MenuScene>(mGame));
 		break;

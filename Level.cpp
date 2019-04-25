@@ -1,7 +1,8 @@
 #pragma once
 #include "Level.h"
 
-Level::Level(SDL_Renderer* renderer) : GameObject(".\\textures\\bricks.png",renderer) {
+Level::Level(SDL_Renderer* renderer) : GameObject(".\\textures\\bricks.png",renderer) 
+{
 	// Endre til mer dynamisk bricks, med background color
 	bricktexture = m_object_texture;
 
@@ -20,19 +21,23 @@ Level::Level(SDL_Renderer* renderer) : GameObject(".\\textures\\bricks.png",rend
 
 }
 
-Level::~Level() {
+Level::~Level()
+{
 	// Clean resources
 	SDL_DestroyTexture(sidetexture);
 }
 
-void Level::update(float delta) {
+void Level::update(float delta)
+{
 
 }
 
 void Level::render() {
 	// Render bricks
-	for (int i = 0; i < LEVEL_WIDTH; i++) {
-		for (int j = 0; j < LEVEL_HEIGHT; j++) {
+	for (int i = 0; i < LEVEL_WIDTH; i++)
+	{
+		for (int j = 0; j < LEVEL_HEIGHT; j++)
+		{
 			Brick brick = bricks[i][j];
 
 			// Check if the brick exists
@@ -71,44 +76,55 @@ void Level::render() {
 	SDL_RenderCopy(m_renderer, sidetexture, 0, &dstrect);
 }
 
-void Level::next_level(int round) {
-	if (round == 1) {
+void Level::next_level(int round) 
+{
+	if (round == 1) 
+	{
 		create_round_one();
 	}
-	if (round == 2) {
+	if (round == 2)
+	{
 		create_round_two();
 	}
-	if (round == 3) {
+	if (round == 3)
+	{
 		create_round_three();
 	}
 	
 }
 // Rainbow with tiered hit points bricks
-void Level::create_round_one() {
-	for (int i = 1; i < LEVEL_WIDTH+1; i++) {
-		for (int j = 6; j < LEVEL_HEIGHT; j++) {
-			if (j == 6) {
+void Level::create_round_one()
+{
+	for (int i = 1; i < LEVEL_WIDTH+1; i++)
+	{
+		for (int j = 6; j < LEVEL_HEIGHT; j++)
+		{
+			if (j == 6) 
+			{
 				Brick brick;
 				brick.type = 3; // blue
 				brick.state = true;
 				brick.hp = 3;
 				bricks[i][j] = brick;
 			}
-			if (j == 7) {
+			if (j == 7) 
+			{
 				Brick brick;
 				brick.type = 2; // green
 				brick.state = true;
 				brick.hp = 2;
 				bricks[i][j] = brick;
 			}
-			if (j == 8) {
+			if (j == 8)
+			{
 				Brick brick;
 				brick.type = 1; // yellow
 				brick.state = true;
 				brick.hp = 1;
 				bricks[i][j] = brick;
 			}
-			if (j == 9) {
+			if (j == 9) 
+			{
 				Brick brick;
 				brick.type = 0; // red
 				brick.state = true;
@@ -119,11 +135,15 @@ void Level::create_round_one() {
 	}
 }
 // Swedish flag
-void Level::create_round_two() {
-	for (int i = 1; i < LEVEL_WIDTH; i++) {
-		for (int j = 1; j < LEVEL_HEIGHT; j++) {
+void Level::create_round_two() 
+{
+	for (int i = 1; i < LEVEL_WIDTH; i++) 
+	{
+		for (int j = 1; j < LEVEL_HEIGHT; j++) 
+		{
 
-			if (i == 4 || j == 5) {
+			if (i == 4 || j == 5) 
+			{
 				Brick brick;
 
 				brick.type = 1; // yellow
@@ -142,31 +162,38 @@ void Level::create_round_two() {
 	}
 }
 // U shape with indestructible bricks
-void Level::create_round_three() {
-	for (int i = 1; i < LEVEL_WIDTH; i++) {
-		for (int j = 1; j < LEVEL_HEIGHT; j++) {			
-			if (i == 3 && j != 1 && j != 8 && j != 9 ) {
+void Level::create_round_three() 
+{
+	for (int i = 1; i < LEVEL_WIDTH; i++) 
+	{
+		for (int j = 1; j < LEVEL_HEIGHT; j++) 
+		{			
+			if (i == 3 && j != 1 && j != 8 && j != 9 ) 
+			{
 				Brick brick;
 				brick.type = 5; // grey
 				brick.state = true;
 				brick.hp = -1; // indestructible
 				bricks[i][j] = brick;
 			}
-			 else if (i == 8 && j != 1 && j != 8 && j != 9) {
+			 else if (i == 8 && j != 1 && j != 8 && j != 9)
+			{
 				Brick brick;
 				brick.type = 5; // grey
 				brick.state = true;
 				brick.hp = -1; // indestructible
 				bricks[i][j] = brick;
 			}
-			else if(j == 7 && i != 1 && i != 2 && i != 8 && i != 9) {
+			else if(j == 7 && i != 1 && i != 2 && i != 8 && i != 9) 
+			{
 				Brick brick;
 				brick.type = 5; // grey
 				brick.state = true;
 				brick.hp = -1; // indestructible
 				bricks[i][j] = brick;
 			}
-			else {
+			else 
+			{
 				Brick brick;
 				brick.type = 4; // pink
 				brick.state = true;

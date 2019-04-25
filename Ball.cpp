@@ -16,12 +16,14 @@ Ball::~Ball()
 	SDL_DestroyTexture(m_object_texture);
 }
 
-void Ball::update(float delta) {
+void Ball::update(float delta) 
+{
 	x += (m_dir_x * delta) * ball_difficulty;
 	y -= (m_dir_y * delta) * ball_difficulty;
 }
 
-void Ball::render() {
+void Ball::render() 
+{
 	m_rect.x = (int)(x + 0.5f);
 	m_rect.y = (int)(y + 0.5f);
 	m_rect.w = width;
@@ -33,7 +35,8 @@ void Ball::render() {
 
 }
 
-void Ball::set_direction(float diry, float dirx) {
+void Ball::set_direction(float diry, float dirx) 
+{
 	// Normalize direction speed
 	float length = sqrt((dirx * dirx) + (diry * diry));
 	this->m_dir_x = EASY_BALL_SPEED * (dirx / length);
@@ -42,7 +45,8 @@ void Ball::set_direction(float diry, float dirx) {
 
 // Change color of ball
 // Example: ball->change_ball_color(new SDL_Color{ (Uint8)(rand() % 255),(Uint8)(rand() % 255),(Uint8)(rand() % 255), 1 });
-void Ball::change_ball_color(SDL_Color* new_color) {
+void Ball::change_ball_color(SDL_Color* new_color) 
+{
 	delete color;
 	color = new_color;
 }

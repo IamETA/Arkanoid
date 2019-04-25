@@ -81,22 +81,28 @@ void MenuScene::render()
 {
 	// get a reference to the SDL renderer.
 	SDL_Renderer* renderer = mGame.get_renderer();
-	if (selected_item == 0) {
+	if (selected_item == 0)
+	{
 		SDL_RenderCopy(renderer, m_play_text_selected, nullptr, &m_play_text_pos);
 	}
-	else {
+	else 
+	{
 		SDL_RenderCopy(renderer, m_play_text, nullptr, &m_play_text_pos);
 	}
-	if (selected_item == 1) {
+	if (selected_item == 1) 
+	{
 		SDL_RenderCopy(renderer, m_highscore_text_selected, nullptr, &m_highscore_text_pos);
 	}
-	else {
+	else 
+	{
 		SDL_RenderCopy(renderer, m_highscores_text, nullptr, &m_highscore_text_pos);
 	}
-	if (selected_item == 2) {
+	if (selected_item == 2)
+	{
 		SDL_RenderCopy(renderer, m_exit_text_selected, nullptr, &m_exit_text_pos);
 	}
-	else {
+	else
+	{
 		SDL_RenderCopy(renderer, m_exit_text, nullptr, &m_exit_text_pos);
 	}
 
@@ -113,8 +119,10 @@ void MenuScene::exit()
 {
 	// ...
 }
-void MenuScene::execute_menu(int selection) {
-	switch (selection) {
+void MenuScene::execute_menu(int selection) 
+{
+	switch (selection)
+	{
 	case 0:
 		mGame.enter_scene(std::make_shared<GameScene>(mGame));
 		break;
@@ -128,7 +136,8 @@ void MenuScene::execute_menu(int selection) {
 
 void MenuScene::key_up(SDL_KeyboardEvent& event)
 {
-	switch (event.keysym.sym) {
+	switch (event.keysym.sym)
+	{
 	case SDLK_DOWN:
 		selected_item++;
 		if (selected_item > 2)selected_item = 0;

@@ -57,8 +57,6 @@ GameScene::~GameScene()
 	RELEASE_TEXTURE(m_logo);
 	RELEASE_TEXTURE(m_level_text);
 
-
-
 	std::cout << "GameScene destroyed" << std::endl;
 	
 }
@@ -76,23 +74,27 @@ void GameScene::update(float delta)
 	update_level_collision_detection();
 	update_map_collision_detection();
 }
-void GameScene::reset_ball() {
+void GameScene::reset_ball() 
+{
 	//Remove 1 life
 	life_left--;
 	ball->released = false;
 	update_stats_lives();
 	ball->set_direction(EASY_BALL_SPEED, 100);
 }
-void GameScene::level_up() {
+void GameScene::level_up() 
+{
 	int brick_count = get_brick_num();
-	if (brick_count== 0) {
+	if (brick_count== 0) 
+	{
 
 		// Rest the ball to paddle with next level
 		Mix_PlayChannel(-1, cNextRound, 0);
 		ball->released = false;
 		ball->set_direction(EASY_BALL_SPEED, 100);
 		level->next_level(current_level);
-		if (current_level == 3) {
+		if (current_level == 3)
+		{
 			current_level = 0; // reset level to loop
 			difficulty++; // increase Difficulty after next loop
 			ball->ball_difficulty = 1 + (difficulty / 4);
@@ -103,9 +105,12 @@ void GameScene::level_up() {
 		update_stats_level();
 	}
 }
-void GameScene::update_level_collision_detection() {
-	for (int i = 0; i < LEVEL_WIDTH; i++) {
-		for (int j = 0; j < LEVEL_HEIGHT; j++) {
+void GameScene::update_level_collision_detection() 
+{
+	for (int i = 0; i < LEVEL_WIDTH; i++) 
+	{
+		for (int j = 0; j < LEVEL_HEIGHT; j++) 
+		{
 			Brick brick = level->bricks[i][j];
 
 			// Check if brick is present
@@ -122,51 +127,65 @@ void GameScene::update_level_collision_detection() {
 				float brickcenterx = brickx + 0.5f*LEVEL_BRWIDTH;
 				float brickcentery = bricky + 0.5f*LEVEL_BRHEIGHT;
 
-				if (ball->x <= brickx + LEVEL_BRWIDTH && ball->x + ball->width >= brickx && ball->y <= bricky + LEVEL_BRHEIGHT && ball->y + ball->height >= bricky) {
+				if (ball->x <= brickx + LEVEL_BRWIDTH && ball->x + ball->width >= brickx && ball->y <= bricky + LEVEL_BRHEIGHT && ball->y + ball->height >= bricky) 
+				{
 					// Collision detected, remove the brick
 					Mix_PlayChannel(-1, cBrick, 0);
-					if (brick.hp == 0) {
+					if (brick.hp == 0) 
+					{
 						level->bricks[i][j].state = false;
 					}
-					else {
+					else 
+					{
 						level->bricks[i][j].hp -= 1;
-						if (current_level == 1) {
-							if (brick.type == 3) {
+						if (current_level == 1) 
+						{
+							if (brick.type == 3) 
+							{
 								level->bricks[i][j].type = 2;
 							}
-							if (brick.type == 2) {
+							if (brick.type == 2) 
+							{
 								level->bricks[i][j].type = 1;
 							}
-							if (brick.type == 1) {
+							if (brick.type == 1) 
+							{
 								level->bricks[i][j].type = 0;
 							}
 						}
-						if (current_level == 2) {
-							if (brick.type == 1) {
+						if (current_level == 2) 
+						{
+							if (brick.type == 1) 
+							{
 								level->bricks[i][j].type = 3;
 							}
 						}
 					}
 
-					if (brick.hp >= 0) {
+					if (brick.hp >= 0) 
+					{
 						score++;
 						update_stats_score();
 					}
 
 					// Calculate ysize
 					float ymin = 0;
-					if (bricky > ball->y) {
+					if (bricky > ball->y) 
+					{
 						ymin = bricky;
 					}
-					else {
+					else 
+					{
 						ymin = ball->y;
 					}
 
 					float ymax = 0;
-					if (bricky + LEVEL_BRHEIGHT < ball->y + ball->height) {
+					if (bricky + LEVEL_BRHEIGHT < ball->y + ball->height)
+					{
 						ymax = bricky + LEVEL_BRHEIGHT;
 					}
-					else {
+					else
+					{
 						ymax = ball->y + ball->height;
 					}
 
@@ -174,7 +193,8 @@ void GameScene::update_level_collision_detection() {
 
 					// Calculate xsize
 					float xmin = 0;
-					if (brickx > ball->x) {
+					if (brickx > ball->x) 
+					{
 						xmin = brickx;
 					}
 					else {
@@ -182,10 +202,12 @@ void GameScene::update_level_collision_detection() {
 					}
 
 					float xmax = 0;
-					if (brickx + LEVEL_BRWIDTH < ball->x + ball->width) {
+					if (brickx + LEVEL_BRWIDTH < ball->x + ball->width) 
+					{
 						xmax = brickx + LEVEL_BRWIDTH;
 					}
-					else {
+					else
+					{
 						xmax = ball->x + ball->width;
 					}
 
@@ -193,25 +215,31 @@ void GameScene::update_level_collision_detection() {
 
 					// The origin is at the top-left corner of the screen!
 					// Set collision response
-					if (xsize > ysize) {
-						if (ballcentery > brickcentery) {
+					if (xsize > ysize) 
+					{
+						if (ballcentery > brickcentery) 
+						{
 							// Bottom
 							ball->y += ysize + 0.01f; // Move out of collision
 							brick_hit(brick_hit_face::bottom);
 						}
-						else {
+						else 
+						{
 							// Top
 							ball->y -= ysize + 0.01f; // Move out of collision
 							brick_hit(brick_hit_face::top);
 						}
 					}
-					else {
-						if (ballcenterx < brickcenterx) {
+					else 
+					{
+						if (ballcenterx < brickcenterx) 
+						{
 							// Left
 							ball->x -= xsize + 0.01f; // Move out of collision
 							brick_hit(brick_hit_face::left);
 						}
-						else {
+						else
+						{
 							// Right
 							ball->x += xsize + 0.01f; // Move out of collision
 							brick_hit(brick_hit_face::right);
@@ -224,56 +252,71 @@ void GameScene::update_level_collision_detection() {
 		}
 	}
 }
-void GameScene::brick_hit(brick_hit_face face) {
+void GameScene::brick_hit(brick_hit_face face) 
+{
 	// dirindex 0: Left, 1: Top, 2: Right, 3: Bottom
 
 	// Direction factors
 	int mulx = 1;
 	int muly = 1;
 
-	if (ball->m_dir_x > 0) {
+	if (ball->m_dir_x > 0) 
+	{
 		// Ball is moving in the positive x direction
-		if (ball->m_dir_y > 0) {
+		if (ball->m_dir_y > 0) 
+		{
 			// Ball is moving in the positive y direction
 			// +1 +1
-			if (face == brick_hit_face::left || face == brick_hit_face::right) {
+			if (face == brick_hit_face::left || face == brick_hit_face::right)
+			{
 				mulx = -1;
 			}
-			else {
+			else 
+			{
 				muly = -1;
 			}
 		}
-		else if (ball->m_dir_y < 0) {
+		else if (ball->m_dir_y < 0) 
+		{
 			// Ball is moving in the negative y direction
 			// +1 -1
-			if (face == brick_hit_face::left || face == brick_hit_face::right) {
+			if (face == brick_hit_face::left || face == brick_hit_face::right)
+			{
 				mulx = -1;
 			}
-			else {
+			else
+			{
 				muly = -1;
 			}
 		}
 	}
-	else if (ball->m_dir_x < 0) {
+	else if (ball->m_dir_x < 0) 
+	{
 		// Ball is moving in the negative x direction
-		if (ball->m_dir_y > 0) {
+		if (ball->m_dir_y > 0)
+		{
 			// Ball is moving in the positive y direction
 			// -1 +1
 			//
-			if (face == brick_hit_face::left || face == brick_hit_face::right) {
+			if (face == brick_hit_face::left || face == brick_hit_face::right)
+			{
 				mulx = -1;
 			}
-			else {
+			else 
+			{
 				muly = -1;
 			}
 		}
-		else if (ball->m_dir_y < 0) {
+		else if (ball->m_dir_y < 0) 
+		{
 			// Ball is moving in the negative y direction
 			// -1 -1
-			if (face == brick_hit_face::left || face == brick_hit_face::right) {
+			if (face == brick_hit_face::left || face == brick_hit_face::right)
+			{
 				mulx = -1;
 			}
-			else {
+			else 
+			{
 				muly = -1;
 			}
 		}
@@ -286,21 +329,25 @@ void GameScene::brick_hit(brick_hit_face face) {
 }
 
 // Contains gameover logic when ball hits bottom
-void GameScene::update_map_collision_detection() {
+void GameScene::update_map_collision_detection()
+{
 	// Top and bottom collisions
-	if (ball->y < level->y) {
+	if (ball->y < level->y) 
+	{
 		// Top
 		// Keep the ball within the level and reflect the y-direction
 		ball->y = level->y;
 		ball->m_dir_y *= -1;
 		Mix_PlayChannel(-1, cSides, 0);
 	}
-	else if (ball->y + ball->height > level->y + level->height) {
+	else if (ball->y + ball->height > level->y + level->height) 
+	{
 		// Bottom
 
 		// Ball lost
 		reset_ball();
-		if (life_left == 0) {
+		if (life_left == 0) 
+		{
 			Mix_PlayChannel(-1, cGameOver, 0);
 
 			// TODO
@@ -314,23 +361,25 @@ void GameScene::update_map_collision_detection() {
 			mGame.enter_scene(std::make_shared<HighscoreScene>(mGame));
 			return;
 
-			
 		}
-		else{
+		else
+		{
 			Mix_PlayChannel(-1, cBottom, 0);
 		}
 
 	}
 
 	// Left and right collisions
-	if (ball->x <= level->x + level->brick_offset_x) {
+	if (ball->x <= level->x + level->brick_offset_x) 
+	{
 		// Left
 		// Keep the ball within the level and reflect the x-direction
 		ball->x = level->x + level->brick_offset_x;
 		ball->m_dir_x *= -1;
 		Mix_PlayChannel(-1, cSides, 0);
 	}
-	else if (ball->x + ball->width >= level->x + level->width) {
+	else if (ball->x + ball->width >= level->x + level->width) 
+	{
 		// Right
 		// Keep the ball within the level and reflect the x-direction
 		ball->x = level->x + level->width - ball->width;
@@ -338,12 +387,15 @@ void GameScene::update_map_collision_detection() {
 		Mix_PlayChannel(-1, cSides, 0);
 	}
 }
-float GameScene::get_reflection(float hitx) {
+float GameScene::get_reflection(float hitx)
+{
 	// Make sure the hitx variable is within the width of the player
-	if (hitx < 0) {
+	if (hitx < 0)
+	{
 		hitx = 0;
 	}
-	else if (hitx > paddle->width) {
+	else if (hitx > paddle->width) 
+	{
 		hitx = paddle->width;
 	}
 
@@ -354,27 +406,33 @@ float GameScene::get_reflection(float hitx) {
 	// Scale the reflection, making it fall in the range -2.0f to 2.0f
 	return 2.0f * (hitx / (paddle->width / 2.0f));
 }
-void GameScene::update_paddle_collision_detection() {
+void GameScene::update_paddle_collision_detection() 
+{
 	// Get the center x-coordinate of the ball
 	float ballcenterx = ball->x + ball->width / 2.0f;
 
 	// Check player collision
-	if (ball->collision_with(paddle)) {
+	if (ball->collision_with(paddle)) 
+	{
 		ball->y = paddle->y - ball->height;
 		ball->set_direction(EASY_BALL_SPEED,EASY_BALL_SPEED * get_reflection(ballcenterx - paddle->x));
 		Mix_PlayChannel(-1, cPaddle, 0);
 	}
 }
-void GameScene::update_paddle_position() {
+void GameScene::update_paddle_position()
+{
 	static int oldx;
-	if (oldx != input->getX()) {
+	if (oldx != input->getX()) 
+	{
 		paddle->x = input->getX() - paddle->width / 2.0f;
 		oldx = input->getX();
 	}
-	if (move_left) {
+	if (move_left) 
+	{
 		paddle->x -= 0.5;
 	}
-	if (move_right) {
+	if (move_right)
+	{
 		paddle->x+=0.5;
 	}
 
@@ -383,8 +441,10 @@ void GameScene::update_paddle_position() {
 		paddle->x = (level->width - paddle->width + level->brick_offset_x);
 	}
 }
-void GameScene::update_ball_check_released() {
-	if (!ball->released) {
+void GameScene::update_ball_check_released()
+{
+	if (!ball->released)
+	{
 		ball->x = paddle->x + paddle->width / 2 - ball->width / 2;
 		ball->y = paddle->y - ball->height;
 	}
@@ -404,12 +464,16 @@ void GameScene::render()
 	SDL_RenderCopy(renderer, m_logo, nullptr, &m_logo_pos);
 	//SDL_RenderCopy(renderer, mLogo, nullptr, &mLivesTextPosition);
 }
-int GameScene::get_brick_num() {
+int GameScene::get_brick_num() 
+{
 	int bricknum = 0;
-	for (int i = 0; i < LEVEL_WIDTH; i++) {
-		for (int j = 0; j < LEVEL_HEIGHT; j++) {
+	for (int i = 0; i < LEVEL_WIDTH; i++)
+	{
+		for (int j = 0; j < LEVEL_HEIGHT; j++)
+		{
 			Brick brick = level->bricks[i][j];
-			if (brick.state && brick.hp >= 0) { // Does not count industribable bricks
+			if (brick.state && brick.hp >= 0) 
+			{ // Does not count industribable bricks
 				bricknum++;
 			}
 		}
@@ -418,7 +482,8 @@ int GameScene::get_brick_num() {
 }
 //Create/draw/update status
 
-void GameScene::update_stats_lives() {
+void GameScene::update_stats_lives()
+{
 	if (m_life_text) SDL_DestroyTexture(m_life_text);
 
 	TTF_Font* font = mGame.get_font();
@@ -430,7 +495,8 @@ void GameScene::update_stats_lives() {
 	m_life_text_pos.y = stats_height_margin * 4;
 	m_life_text_pos.x = level->width + stats_left_margin;
 }
-void GameScene::update_stats_score() {
+void GameScene::update_stats_score() 
+{
 
 	if (m_score_text) SDL_DestroyTexture(m_score_text);
 
@@ -443,7 +509,8 @@ void GameScene::update_stats_score() {
 	m_score_text_pos.y = stats_height_margin * 5;
 	m_score_text_pos.x = level->width + stats_left_margin;
 }
-void GameScene::update_stats_difficulty() {
+void GameScene::update_stats_difficulty() 
+{
 
 	if (m_difficulty_text) SDL_DestroyTexture(m_difficulty_text);
 
@@ -457,7 +524,8 @@ void GameScene::update_stats_difficulty() {
 	m_difficulty_text_pos.x = level->width + stats_left_margin;
 
 }
-void GameScene::update_stats_level() {
+void GameScene::update_stats_level()
+{
 
 	if (m_level_text) SDL_DestroyTexture(m_level_text);
 
@@ -471,7 +539,8 @@ void GameScene::update_stats_level() {
 	m_level_text_pos.x = level->width + stats_left_margin;
 
 }
-void GameScene::update_logo() {
+void GameScene::update_logo() 
+{
 
 	if (m_logo) SDL_DestroyTexture(m_logo);
 
@@ -499,7 +568,8 @@ void GameScene::exit()
 }
 void GameScene::key_up(SDL_KeyboardEvent & event)
 {
-	switch (event.keysym.sym) {
+	switch (event.keysym.sym) 
+	{
 	case SDLK_LEFT:
 		move_left = false;
 		break;
@@ -510,7 +580,8 @@ void GameScene::key_up(SDL_KeyboardEvent & event)
 }
 void GameScene::key_down(SDL_KeyboardEvent & event)
 {
-	switch (event.keysym.sym) {
+	switch (event.keysym.sym) 
+	{
 	case SDLK_ESCAPE:
 		mGame.enter_scene(std::make_shared<MenuScene>(mGame));
 		break;
