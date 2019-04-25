@@ -10,12 +10,6 @@ GameScene::GameScene(Game& game) : Scene(game)
 	input = InputUtils::InputManager::Instance();
 	SDL_Renderer* renderer = game.getRenderer();
 
-	/* Sounds
-	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
-	{
-		return false;
-	} */
-
 	//Load the sound effects
 	cPaddle = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (1).wav");
 	cBrick = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (2).wav");
@@ -23,13 +17,6 @@ GameScene::GameScene(Game& game) : Scene(game)
 	cSides = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (3).wav");
 	cNextRound = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (9).wav");
 	cGameOver = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (11).wav");
-
-	//If there was a problem loading the sound effects
-	/*
-	if ((cPaddle == NULL) || (cBrick == NULL) || (cBottom == NULL) || (cSides == NULL) || (cNextRound == NULL) || (cGameOver == NULL))
-	{
-		return false;
-	} */
 
 	//Game objects
 	paddle = new Paddle(renderer);
@@ -44,6 +31,8 @@ GameScene::GameScene(Game& game) : Scene(game)
 	level->NextLevel(CurrentLevel);
 	UpdateStats();
 }
+
+//Update textures for stats
 void GameScene::UpdateStats() {
 	const int margin{ 60 };
 	const int hmargin{ 60 };
@@ -108,7 +97,6 @@ GameScene::~GameScene()
 
 void GameScene::update(float delta)
 {
-	LevelUp();
 	paddle->update(delta);
 	ball->update(delta);
 	level->update(delta);
@@ -124,7 +112,7 @@ void GameScene::update(float delta)
 void GameScene::ResetBall() {
 	//Remove 1 life
 	Life--;
-
+	// TODO
 	ball->released = false;
 	UpdateStats();
 	ball->set_direction(EASY_BALL_SPEED, 100);
@@ -132,14 +120,19 @@ void GameScene::ResetBall() {
 
 void GameScene::LevelUp() {
 	if (GetBrickNum() == 0) {
-
 		highscore->readFile();
 		highscore->writeFile(Score);
 		CurrentLevel++; //Next round in game.
 		// Rest the ball to paddle with next level
+		// TODO
 		ball->released = false;
 		ball->set_direction(1, 1);
 		level->NextLevel(CurrentLevel);
+		if (CurrentLevel == 3) {
+			CurrentLevel = 1; 
+			Difficulty++;
+			ball->ball_difficulty = 1 + (Difficulty / 4);
+		}
 		Mix_PlayChannel(-1, cNextRound, 0);
 		
 		UpdateStats();
@@ -167,7 +160,7 @@ void GameScene::UpdateLevelCollisionDetectionMove() {
 
 				if (ball->x <= brickx + LEVEL_BRWIDTH && ball->x + ball->width >= brickx && ball->y <= bricky + LEVEL_BRHEIGHT && ball->y + ball->height >= bricky) {
 					// Collision detected, remove the brick
-					//Mix_PlayChannel(-1, med, 0);
+					Mix_PlayChannel(-1, cBrick, 0);
 					if (brick.hp == 0) {
 						level->bricks[i][j].state = false;
 					}
@@ -318,7 +311,10 @@ void GameScene::brick_hit(brick_hit_face face) {
 	// Set the new direction of the ball, by multiplying the old direction
 	// with the determined direction factors
 	ball->set_direction(muly*ball->m_dirY, mulx*ball->m_dirX);
+	LevelUp();
 }
+
+// Contains gameover logic when ball hits bottom
 void GameScene::UpdateMapCollisionDetection() {
 	// Top and bottom collisions
 	if (ball->y < level->y) {
@@ -335,6 +331,7 @@ void GameScene::UpdateMapCollisionDetection() {
 		ResetBall();
 		if (Life == 0) {
 			Mix_PlayChannel(-1, cGameOver, 0);
+			// TODO
 			// quit to highscore()
 			// Update Score()
 			// Temp solutions, quit to menu, did not work
@@ -428,7 +425,7 @@ int GameScene::GetBrickNum() {
 	for (int i = 0; i < LEVEL_WIDTH; i++) {
 		for (int j = 0; j < LEVEL_HEIGHT; j++) {
 			Brick brick = level->bricks[i][j];
-			if (brick.state) {
+			if (brick.state && brick.hp != -1) {
 				bricknum++;
 			}
 		}

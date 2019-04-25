@@ -84,6 +84,7 @@ void Level::NextLevel(int round) {
 	if (round == 3) {
 		CreateRound3();
 	}
+	
 }
 // Rainbow
 void Level::CreateRound1() {
@@ -148,7 +149,7 @@ void Level::CreateRound3() {
 	for (int i = 0; i < LEVEL_WIDTH; i++) {
 		for (int j = 0; j < LEVEL_HEIGHT; j++) {
 
-			if (i == 1 || i == LEVEL_WIDTH - 2 || j == 1 || j == LEVEL_HEIGHT - 2) {
+			if (j != 9 && i != 5) {
 				Brick brick;
 
 				brick.type = 0;
@@ -163,7 +164,7 @@ void Level::CreateRound3() {
 				brick.hp = 0;
 				bricks[i][j] = brick;
 			}
-			if (j == 9) {
+			if (j == 9 || (i == 5 && j == 1 && j == 2)) {
 				Brick brick;
 				brick.type = 3;
 				brick.state = true;
