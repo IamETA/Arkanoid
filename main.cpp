@@ -7,7 +7,7 @@
 #define SCREEN_HEIGHT 600
 #define SCREEN_WIDTH 1100
 
-#if(DEBUG) 
+#if(_DEBUG) 
 int main(int argc, char* argv[])
 {
 	std::unique_ptr<Game> game(new Game());
