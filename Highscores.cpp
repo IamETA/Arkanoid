@@ -10,7 +10,7 @@ std::string Highscores::read_file()
 	{
 		while (getline(file, line)) 
 		{
-			score = line;
+			score += line + "\n";
 		}
 		file.close();
 	}
@@ -25,11 +25,11 @@ std::string Highscores::read_file()
 
 void Highscores::write_file(int score) 
 {
-	file.open("highscore.txt");
+	file.open("highscore.txt", std::ios::out | std::ios::app);
 
 	if (file.is_open()) 
 	{
-		file << score;
+		file << score << std::endl;
 		file.close();
 	}
 }

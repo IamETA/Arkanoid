@@ -5,7 +5,7 @@
 //Variabler for å endre hastigheten til ballen -
 //TODO skal disse være her? )==))(())
 
-const float EASY_BALL_SPEED = 550;
+const float EASY_BALL_SPEED = 750;
 const float MEDIUM_BALL_SPEED = 650;
 const float HARD_BALL_SPEED = 750;
 class Ball : public GameObject
@@ -15,7 +15,7 @@ public:
 	~Ball();
 	SDL_Color* color;
 
-	float ball_difficulty{ 0.5f };
+	float ball_difficulty{ 1 };
 	void update(float delta);
 	void render();
 	void set_direction(float diry, float dirx);

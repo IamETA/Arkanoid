@@ -4,6 +4,11 @@
 #include "TextureManager.h"
 #include "Game.h"
 #include <SDL.h>
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <algorithm>
+#include <iterator>
 
 class HighscoreScene :
 	public Scene
@@ -20,6 +25,7 @@ public:
 	void key_down(SDL_KeyboardEvent& event) override;
 
 private:
+	std::string highscore_string{""};
 	SDL_Texture* m_highscores_text{ nullptr };
 	SDL_Texture* m_score_text{ nullptr };
 	Highscores* highscore{ nullptr };

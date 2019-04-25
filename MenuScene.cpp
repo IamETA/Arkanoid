@@ -1,7 +1,7 @@
 #include "MenuScene.h"
 #include "GameScene.h"
 #include "game.h"
-#include "Highscores.h"
+#include "HighscoreScene.h"
 
 MenuScene::MenuScene(Game& game) : Scene(game),
 	m_exit_text(nullptr),
@@ -127,6 +127,7 @@ void MenuScene::execute_menu(int selection)
 		mGame.enter_scene(std::make_shared<GameScene>(mGame));
 		break;
 	case 1:
+		mGame.enter_scene(std::make_shared<HighscoreScene>(mGame));
 		break;
 	case 2:
 		mGame.exit();
