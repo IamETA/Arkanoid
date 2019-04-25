@@ -548,7 +548,7 @@ void GameScene::update_logo()
 
 	m_logo = m_logo = TextureManager::load_texture(".\\textures\\logo.png", renderer);
 	m_logo_pos.h = 100;
-	m_logo_pos.w = 200;
+	m_logo_pos.w = 270;
 	m_logo_pos.x = level->width + stats_left_margin;
 	m_logo_pos.y = 30;
 }

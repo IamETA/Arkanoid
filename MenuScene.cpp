@@ -31,7 +31,7 @@ MenuScene::MenuScene(Game& game) : Scene(game),
 	SDL_QueryTexture(m_highscores_text, nullptr, nullptr, &m_highscore_text_pos.w, &m_highscore_text_pos.h);
 	SDL_QueryTexture(m_play_text, nullptr, nullptr, &m_play_text_pos.w, &m_play_text_pos.h);
 	//SDL_QueryTexture(mLogo, nullptr, nullptr, &mLogoPosition.w, &mLogoPosition.h);
-	m_logo_pos.w = 400; 
+	m_logo_pos.w = 500; 
 	m_logo_pos.h = 200;
 	// get the rendering window size and calculate the center position.
 	int windowWidth = 0, windowHeight = 0;
@@ -149,6 +149,9 @@ void MenuScene::key_up(SDL_KeyboardEvent& event)
 		break;
 	case SDLK_RETURN:
 		execute_menu(selected_item);
+		break;
+	case SDLK_ESCAPE:
+		execute_menu(2);
 		break;
 	}
 }

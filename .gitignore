@@ -36,4 +36,6 @@
 /**/x64/**/*
 /**/x86/**/*
 
+*.tlog
+/Debug/ArkanoidGame.tlog/*
 highscores.txt

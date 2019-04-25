@@ -16,8 +16,8 @@ enum brick_hit_face { top, bottom, left, right };
 class GameScene final : public Scene
 {
 private:
-	const int stats_left_margin{ 60 };
-	const int stats_height_margin{ 70 };
+	const int stats_left_margin{ 30 };
+	const int stats_height_margin{ 40 };
 
 
 	int life_left{ 3 };
