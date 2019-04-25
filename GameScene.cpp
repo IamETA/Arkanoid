@@ -90,9 +90,9 @@ void GameScene::level_up()
 	{
 
 		if (ball->ball_difficulty == 2) {
-			ball->change_ball_color(new SDL_Color{ 255,0,0,1 }
+			ball->change_ball_color(new SDL_Color{ 255,0,0,1 });
 		};
-	}
+	
 
 		// Rest the ball to paddle with next level
 		Mix_PlayChannel(-1, cNextRound, 0);
