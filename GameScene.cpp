@@ -9,7 +9,7 @@ GameScene::GameScene(Game& game) : Scene(game)
 	std::cout << "Initializing GameScene..." << std::endl;
 
 	input = InputUtils::InputManager::Instance();
-	SDL_Renderer* renderer = game.getRenderer();
+	SDL_Renderer* renderer = game.get_renderer();
 
 	//Load the sound effects
 	cPaddle = Mix_LoadWAV(".\\sounds\\Arkanoid SFX (1).wav");
@@ -29,7 +29,7 @@ GameScene::GameScene(Game& game) : Scene(game)
 	paddle->y = level->height - paddle->height;
 
 	//Create start level
-	level->NextLevel(CurrentLevel);
+	level->next_level(current_level);
 
 
 }
@@ -51,11 +51,11 @@ GameScene::~GameScene()
 	#define RELEASE_TEXTURE(x) if (x != nullptr) { SDL_DestroyTexture(x); }
 
 	// release all reserved textures.
-	RELEASE_TEXTURE(mScoreText);
-	RELEASE_TEXTURE(mLivesText);
-	RELEASE_TEXTURE(mDifficultyText);
-	RELEASE_TEXTURE(mLogo);
-	RELEASE_TEXTURE(mLevelText);
+	RELEASE_TEXTURE(m_score_text);
+	RELEASE_TEXTURE(m_life_text);
+	RELEASE_TEXTURE(m_difficulty_text);
+	RELEASE_TEXTURE(m_logo);
+	RELEASE_TEXTURE(m_level_text);
 
 
 
@@ -68,42 +68,42 @@ void GameScene::update(float delta)
 	ball->update(delta);
 	level->update(delta);
 
-	UpdatePaddlePosition();
-	UpdateBallCheckReleased();
+	update_paddle_position();
+	update_ball_check_released();
 
 	//Collision detection
-	UpdatePaddleCollisionDetection();
-	UpdateLevelCollisionDetectionMove();
-	UpdateMapCollisionDetection();
+	update_paddle_collision_detection();
+	update_level_collision_detection();
+	update_map_collision_detection();
 }
-void GameScene::ResetBall() {
+void GameScene::reset_ball() {
 	//Remove 1 life
-	Life--;
+	life_left--;
 	ball->released = false;
 	update_stats_lives();
 	ball->set_direction(EASY_BALL_SPEED, 100);
 }
-void GameScene::LevelUp() {
-	int brick_count = GetBrickNum();
+void GameScene::level_up() {
+	int brick_count = get_brick_num();
 	if (brick_count== 0) {
 
 		// Rest the ball to paddle with next level
 		Mix_PlayChannel(-1, cNextRound, 0);
 		ball->released = false;
 		ball->set_direction(EASY_BALL_SPEED, 100);
-		level->NextLevel(CurrentLevel);
-		if (CurrentLevel == 3) {
-			CurrentLevel = 0; // reset level to loop
-			Difficulty++; // increase Difficulty after next loop
-			ball->ball_difficulty = 1 + (Difficulty / 4);
+		level->next_level(current_level);
+		if (current_level == 3) {
+			current_level = 0; // reset level to loop
+			difficulty++; // increase Difficulty after next loop
+			ball->ball_difficulty = 1 + (difficulty / 4);
 		}
-		CurrentLevel++;
-		level->NextLevel(CurrentLevel);
+		current_level++;
+		level->next_level(current_level);
 		
 		update_stats_level();
 	}
 }
-void GameScene::UpdateLevelCollisionDetectionMove() {
+void GameScene::update_level_collision_detection() {
 	for (int i = 0; i < LEVEL_WIDTH; i++) {
 		for (int j = 0; j < LEVEL_HEIGHT; j++) {
 			Brick brick = level->bricks[i][j];
@@ -111,8 +111,8 @@ void GameScene::UpdateLevelCollisionDetectionMove() {
 			// Check if brick is present
 			if (brick.state) {
 				// Brick x and y coordinates
-				float brickx = level->brickoffsetx + level->x + i * LEVEL_BRWIDTH;
-				float bricky = level->brickoffsety + level->y + j * LEVEL_BRHEIGHT;
+				float brickx = level->brick_offset_x + level->x + i * LEVEL_BRWIDTH;
+				float bricky = level->brick_offset_y + level->y + j * LEVEL_BRHEIGHT;
 
 				// Center of the ball x and y coordinates
 				float ballcenterx = ball->x + 0.5f*ball->width;
@@ -130,7 +130,7 @@ void GameScene::UpdateLevelCollisionDetectionMove() {
 					}
 					else {
 						level->bricks[i][j].hp -= 1;
-						if (CurrentLevel == 1) {
+						if (current_level == 1) {
 							if (brick.type == 3) {
 								level->bricks[i][j].type = 2;
 							}
@@ -141,7 +141,7 @@ void GameScene::UpdateLevelCollisionDetectionMove() {
 								level->bricks[i][j].type = 0;
 							}
 						}
-						if (CurrentLevel == 2) {
+						if (current_level == 2) {
 							if (brick.type == 1) {
 								level->bricks[i][j].type = 3;
 							}
@@ -149,7 +149,7 @@ void GameScene::UpdateLevelCollisionDetectionMove() {
 					}
 
 					if (brick.hp >= 0) {
-						Score++;
+						score++;
 						update_stats_score();
 					}
 
@@ -231,9 +231,9 @@ void GameScene::brick_hit(brick_hit_face face) {
 	int mulx = 1;
 	int muly = 1;
 
-	if (ball->m_dirX > 0) {
+	if (ball->m_dir_x > 0) {
 		// Ball is moving in the positive x direction
-		if (ball->m_dirY > 0) {
+		if (ball->m_dir_y > 0) {
 			// Ball is moving in the positive y direction
 			// +1 +1
 			if (face == brick_hit_face::left || face == brick_hit_face::right) {
@@ -243,7 +243,7 @@ void GameScene::brick_hit(brick_hit_face face) {
 				muly = -1;
 			}
 		}
-		else if (ball->m_dirY < 0) {
+		else if (ball->m_dir_y < 0) {
 			// Ball is moving in the negative y direction
 			// +1 -1
 			if (face == brick_hit_face::left || face == brick_hit_face::right) {
@@ -254,9 +254,9 @@ void GameScene::brick_hit(brick_hit_face face) {
 			}
 		}
 	}
-	else if (ball->m_dirX < 0) {
+	else if (ball->m_dir_x < 0) {
 		// Ball is moving in the negative x direction
-		if (ball->m_dirY > 0) {
+		if (ball->m_dir_y > 0) {
 			// Ball is moving in the positive y direction
 			// -1 +1
 			//
@@ -267,7 +267,7 @@ void GameScene::brick_hit(brick_hit_face face) {
 				muly = -1;
 			}
 		}
-		else if (ball->m_dirY < 0) {
+		else if (ball->m_dir_y < 0) {
 			// Ball is moving in the negative y direction
 			// -1 -1
 			if (face == brick_hit_face::left || face == brick_hit_face::right) {
@@ -281,26 +281,26 @@ void GameScene::brick_hit(brick_hit_face face) {
 
 	// Set the new direction of the ball, by multiplying the old direction
 	// with the determined direction factors
-	ball->set_direction(muly*ball->m_dirY, mulx*ball->m_dirX);
-	LevelUp();
+	ball->set_direction(muly*ball->m_dir_y, mulx*ball->m_dir_x);
+	level_up();
 }
 
 // Contains gameover logic when ball hits bottom
-void GameScene::UpdateMapCollisionDetection() {
+void GameScene::update_map_collision_detection() {
 	// Top and bottom collisions
 	if (ball->y < level->y) {
 		// Top
 		// Keep the ball within the level and reflect the y-direction
 		ball->y = level->y;
-		ball->m_dirY *= -1;
+		ball->m_dir_y *= -1;
 		Mix_PlayChannel(-1, cSides, 0);
 	}
 	else if (ball->y + ball->height > level->y + level->height) {
 		// Bottom
 
 		// Ball lost
-		ResetBall();
-		if (Life == 0) {
+		reset_ball();
+		if (life_left == 0) {
 			Mix_PlayChannel(-1, cGameOver, 0);
 
 			// TODO
@@ -308,10 +308,10 @@ void GameScene::UpdateMapCollisionDetection() {
 			// Update Score()
 			// Temp solutions, quit to menu, did not work
 
-			highscore->readFile();
-			highscore->writeFile(Score);
+			highscore->read_file();
+			highscore->write_file(score);
 
-			mGame.enterScene(std::make_shared<HighscoreScene>(mGame));
+			mGame.enter_scene(std::make_shared<HighscoreScene>(mGame));
 			return;
 
 			
@@ -323,22 +323,22 @@ void GameScene::UpdateMapCollisionDetection() {
 	}
 
 	// Left and right collisions
-	if (ball->x <= level->x + level->brickoffsetx) {
+	if (ball->x <= level->x + level->brick_offset_x) {
 		// Left
 		// Keep the ball within the level and reflect the x-direction
-		ball->x = level->x + level->brickoffsetx;
-		ball->m_dirX *= -1;
+		ball->x = level->x + level->brick_offset_x;
+		ball->m_dir_x *= -1;
 		Mix_PlayChannel(-1, cSides, 0);
 	}
 	else if (ball->x + ball->width >= level->x + level->width) {
 		// Right
 		// Keep the ball within the level and reflect the x-direction
 		ball->x = level->x + level->width - ball->width;
-		ball->m_dirX *= -1;
+		ball->m_dir_x *= -1;
 		Mix_PlayChannel(-1, cSides, 0);
 	}
 }
-float GameScene::GetReflection(float hitx) {
+float GameScene::get_reflection(float hitx) {
 	// Make sure the hitx variable is within the width of the player
 	if (hitx < 0) {
 		hitx = 0;
@@ -354,18 +354,18 @@ float GameScene::GetReflection(float hitx) {
 	// Scale the reflection, making it fall in the range -2.0f to 2.0f
 	return 2.0f * (hitx / (paddle->width / 2.0f));
 }
-void GameScene::UpdatePaddleCollisionDetection() {
+void GameScene::update_paddle_collision_detection() {
 	// Get the center x-coordinate of the ball
 	float ballcenterx = ball->x + ball->width / 2.0f;
 
 	// Check player collision
 	if (ball->collision_with(paddle)) {
 		ball->y = paddle->y - ball->height;
-		ball->set_direction(EASY_BALL_SPEED,EASY_BALL_SPEED * GetReflection(ballcenterx - paddle->x));
+		ball->set_direction(EASY_BALL_SPEED,EASY_BALL_SPEED * get_reflection(ballcenterx - paddle->x));
 		Mix_PlayChannel(-1, cPaddle, 0);
 	}
 }
-void GameScene::UpdatePaddlePosition() {
+void GameScene::update_paddle_position() {
 	static int oldx;
 	if (oldx != input->getX()) {
 		paddle->x = input->getX() - paddle->width / 2.0f;
@@ -378,12 +378,12 @@ void GameScene::UpdatePaddlePosition() {
 		paddle->x+=0.5;
 	}
 
-	if (paddle->x < level->brickoffsetx) { paddle->x = level->brickoffsetx; }
-	if (paddle->x > (level->width - paddle->width + level->brickoffsetx)) {
-		paddle->x = (level->width - paddle->width + level->brickoffsetx);
+	if (paddle->x < level->brick_offset_x) { paddle->x = level->brick_offset_x; }
+	if (paddle->x > (level->width - paddle->width + level->brick_offset_x)) {
+		paddle->x = (level->width - paddle->width + level->brick_offset_x);
 	}
 }
-void GameScene::UpdateBallCheckReleased() {
+void GameScene::update_ball_check_released() {
 	if (!ball->released) {
 		ball->x = paddle->x + paddle->width / 2 - ball->width / 2;
 		ball->y = paddle->y - ball->height;
@@ -396,15 +396,15 @@ void GameScene::render()
 	level->render();
 
 	//render stats
-	SDL_Renderer* renderer = mGame.getRenderer();
-	SDL_RenderCopy(renderer, mLivesText, nullptr, &mLivesTextPosition);
-	SDL_RenderCopy(renderer, mScoreText, nullptr, &mScoreTextPosition);
-	SDL_RenderCopy(renderer, mDifficultyText, nullptr, &mDifficultyTextPosition);
-	SDL_RenderCopy(renderer, mLevelText, nullptr, &mLevelTextPosition);
-	SDL_RenderCopy(renderer, mLogo, nullptr, &mLogoPosition);
+	SDL_Renderer* renderer = mGame.get_renderer();
+	SDL_RenderCopy(renderer, m_life_text, nullptr, &m_life_text_pos);
+	SDL_RenderCopy(renderer, m_score_text, nullptr, &m_score_text_pos);
+	SDL_RenderCopy(renderer, m_difficulty_text, nullptr, &m_difficulty_text_pos);
+	SDL_RenderCopy(renderer, m_level_text, nullptr, &m_level_text_pos);
+	SDL_RenderCopy(renderer, m_logo, nullptr, &m_logo_pos);
 	//SDL_RenderCopy(renderer, mLogo, nullptr, &mLivesTextPosition);
 }
-int GameScene::GetBrickNum() {
+int GameScene::get_brick_num() {
 	int bricknum = 0;
 	for (int i = 0; i < LEVEL_WIDTH; i++) {
 		for (int j = 0; j < LEVEL_HEIGHT; j++) {
@@ -419,69 +419,69 @@ int GameScene::GetBrickNum() {
 //Create/draw/update status
 
 void GameScene::update_stats_lives() {
-	if (mLivesText) SDL_DestroyTexture(mLivesText);
+	if (m_life_text) SDL_DestroyTexture(m_life_text);
 
-	TTF_Font* font = mGame.getFont();
-	SDL_Renderer* renderer = mGame.getRenderer();
+	TTF_Font* font = mGame.get_font();
+	SDL_Renderer* renderer = mGame.get_renderer();
 
-	auto sLivesText = "Lives: " + std::to_string(Life);
-	mLivesText = TextureManager::create_text(sLivesText, renderer, font);
-	SDL_QueryTexture(mLivesText, nullptr, nullptr, &mLivesTextPosition.w, &mLivesTextPosition.h);
-	mLivesTextPosition.y = stats_height_margin * 4;
-	mLivesTextPosition.x = level->width + stats_left_margin;
+	auto sLivesText = "Lives: " + std::to_string(life_left);
+	m_life_text = TextureManager::create_text(sLivesText, renderer, font);
+	SDL_QueryTexture(m_life_text, nullptr, nullptr, &m_life_text_pos.w, &m_life_text_pos.h);
+	m_life_text_pos.y = stats_height_margin * 4;
+	m_life_text_pos.x = level->width + stats_left_margin;
 }
 void GameScene::update_stats_score() {
 
-	if (mScoreText) SDL_DestroyTexture(mScoreText);
+	if (m_score_text) SDL_DestroyTexture(m_score_text);
 
-	TTF_Font* font = mGame.getFont();
-	SDL_Renderer* renderer = mGame.getRenderer();
+	TTF_Font* font = mGame.get_font();
+	SDL_Renderer* renderer = mGame.get_renderer();
 
-	auto sScoreText = "Score: " + std::to_string(Score);
-	mScoreText = TextureManager::create_text(sScoreText, renderer, font);
-	SDL_QueryTexture(mScoreText, nullptr, nullptr, &mScoreTextPosition.w, &mScoreTextPosition.h);
-	mScoreTextPosition.y = stats_height_margin * 5;
-	mScoreTextPosition.x = level->width + stats_left_margin;
+	auto sScoreText = "Score: " + std::to_string(score);
+	m_score_text = TextureManager::create_text(sScoreText, renderer, font);
+	SDL_QueryTexture(m_score_text, nullptr, nullptr, &m_score_text_pos.w, &m_score_text_pos.h);
+	m_score_text_pos.y = stats_height_margin * 5;
+	m_score_text_pos.x = level->width + stats_left_margin;
 }
 void GameScene::update_stats_difficulty() {
 
-	if (mDifficultyText) SDL_DestroyTexture(mDifficultyText);
+	if (m_difficulty_text) SDL_DestroyTexture(m_difficulty_text);
 
-	TTF_Font* font = mGame.getFont();
-	SDL_Renderer* renderer = mGame.getRenderer();
+	TTF_Font* font = mGame.get_font();
+	SDL_Renderer* renderer = mGame.get_renderer();
 
-	auto sDifficultyText = "Difficulty: " + std::to_string(Difficulty);
-	mDifficultyText = TextureManager::create_text(sDifficultyText, renderer, font);
-	SDL_QueryTexture(mDifficultyText, nullptr, nullptr, &mDifficultyTextPosition.w, &mDifficultyTextPosition.h);
-	mDifficultyTextPosition.y = stats_height_margin * 6;
-	mDifficultyTextPosition.x = level->width + stats_left_margin;
+	auto sDifficultyText = "Difficulty: " + std::to_string(difficulty);
+	m_difficulty_text = TextureManager::create_text(sDifficultyText, renderer, font);
+	SDL_QueryTexture(m_difficulty_text, nullptr, nullptr, &m_difficulty_text_pos.w, &m_difficulty_text_pos.h);
+	m_difficulty_text_pos.y = stats_height_margin * 6;
+	m_difficulty_text_pos.x = level->width + stats_left_margin;
 
 }
 void GameScene::update_stats_level() {
 
-	if (mLevelText) SDL_DestroyTexture(mLevelText);
+	if (m_level_text) SDL_DestroyTexture(m_level_text);
 
-	TTF_Font* font = mGame.getFont();
-	SDL_Renderer* renderer = mGame.getRenderer();
+	TTF_Font* font = mGame.get_font();
+	SDL_Renderer* renderer = mGame.get_renderer();
 
-	auto sLevelText = "Level: " + std::to_string(CurrentLevel);
-	mLevelText = TextureManager::create_text(sLevelText, renderer, font);
-	SDL_QueryTexture(mLevelText, nullptr, nullptr, &mLevelTextPosition.w, &mLevelTextPosition.h);
-	mLevelTextPosition.y = stats_height_margin * 7;
-	mLevelTextPosition.x = level->width + stats_left_margin;
+	auto sLevelText = "Level: " + std::to_string(current_level);
+	m_level_text = TextureManager::create_text(sLevelText, renderer, font);
+	SDL_QueryTexture(m_level_text, nullptr, nullptr, &m_level_text_pos.w, &m_level_text_pos.h);
+	m_level_text_pos.y = stats_height_margin * 7;
+	m_level_text_pos.x = level->width + stats_left_margin;
 
 }
 void GameScene::update_logo() {
 
-	if (mLogo) SDL_DestroyTexture(mLogo);
+	if (m_logo) SDL_DestroyTexture(m_logo);
 
-	SDL_Renderer* renderer = mGame.getRenderer();
+	SDL_Renderer* renderer = mGame.get_renderer();
 
-	mLogo = mLogo = TextureManager::load_texture(".\\textures\\logo.png", renderer);
-	mLogoPosition.h = 100;
-	mLogoPosition.w = 200;
-	mLogoPosition.x = level->width + stats_left_margin;
-	mLogoPosition.y = 30;
+	m_logo = m_logo = TextureManager::load_texture(".\\textures\\logo.png", renderer);
+	m_logo_pos.h = 100;
+	m_logo_pos.w = 200;
+	m_logo_pos.x = level->width + stats_left_margin;
+	m_logo_pos.y = 30;
 }
 
 //Events
@@ -497,7 +497,7 @@ void GameScene::exit()
 {
 
 }
-void GameScene::keyUp(SDL_KeyboardEvent & event)
+void GameScene::key_up(SDL_KeyboardEvent & event)
 {
 	switch (event.keysym.sym) {
 	case SDLK_LEFT:
@@ -508,11 +508,11 @@ void GameScene::keyUp(SDL_KeyboardEvent & event)
 		break;
 	}
 }
-void GameScene::keyDown(SDL_KeyboardEvent & event)
+void GameScene::key_down(SDL_KeyboardEvent & event)
 {
 	switch (event.keysym.sym) {
 	case SDLK_ESCAPE:
-		mGame.enterScene(std::make_shared<MenuScene>(mGame));
+		mGame.enter_scene(std::make_shared<MenuScene>(mGame));
 		break;
 	case SDLK_LEFT: 
 		move_left = true;
@@ -524,7 +524,7 @@ void GameScene::keyDown(SDL_KeyboardEvent & event)
 
 
 }
-void GameScene::mouseDown(SDL_KeyboardEvent & event)
+void GameScene::mouse_down(SDL_KeyboardEvent & event)
 {
 	/*
 	switch (event.keysym.sym) {

@@ -11,11 +11,11 @@ Level::Level(SDL_Renderer* renderer) : GameObject(".\\textures\\bricks.png",rend
 
 	srand(time(0));
 
-	brickoffsetx = 16;
-	brickoffsety = 10;
+	brick_offset_x = 16;
+	brick_offset_y = 10;
 	x = 0;
 	y = 0;
-	width = 800 - brickoffsetx;
+	width = 800 - brick_offset_x;
 	height = 600;
 
 }
@@ -47,8 +47,8 @@ void Level::render() {
 			srcrect.h = LEVEL_BRHEIGHT;
 
 			SDL_Rect dstrect;
-			dstrect.x = brickoffsetx + x + i * LEVEL_BRWIDTH;
-			dstrect.y = brickoffsety + y + j * LEVEL_BRHEIGHT;
+			dstrect.x = brick_offset_x + x + i * LEVEL_BRWIDTH;
+			dstrect.y = brick_offset_y + y + j * LEVEL_BRHEIGHT;
 			dstrect.w = LEVEL_BRWIDTH;
 			dstrect.h = LEVEL_BRHEIGHT;
 
@@ -71,20 +71,20 @@ void Level::render() {
 	SDL_RenderCopy(m_renderer, sidetexture, 0, &dstrect);
 }
 
-void Level::NextLevel(int round) {
+void Level::next_level(int round) {
 	if (round == 1) {
-		CreateRound1();
+		create_round_one();
 	}
 	if (round == 2) {
-		CreateRound2();
+		create_round_two();
 	}
 	if (round == 3) {
-		CreateRound3();
+		create_round_three();
 	}
 	
 }
 // Rainbow with tiered hit points bricks
-void Level::CreateRound1() {
+void Level::create_round_one() {
 	for (int i = 1; i < LEVEL_WIDTH+1; i++) {
 		for (int j = 6; j < LEVEL_HEIGHT; j++) {
 			if (j == 6) {
@@ -119,7 +119,7 @@ void Level::CreateRound1() {
 	}
 }
 // Swedish flag
-void Level::CreateRound2() {
+void Level::create_round_two() {
 	for (int i = 1; i < LEVEL_WIDTH; i++) {
 		for (int j = 1; j < LEVEL_HEIGHT; j++) {
 
@@ -142,7 +142,7 @@ void Level::CreateRound2() {
 	}
 }
 // U shape with indestructible bricks
-void Level::CreateRound3() {
+void Level::create_round_three() {
 	for (int i = 1; i < LEVEL_WIDTH; i++) {
 		for (int j = 1; j < LEVEL_HEIGHT; j++) {			
 			if (i == 3 && j != 1 && j != 8 && j != 9 ) {

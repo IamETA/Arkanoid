@@ -17,8 +17,8 @@ Ball::~Ball()
 }
 
 void Ball::update(float delta) {
-	x += (m_dirX * delta) * ball_difficulty;
-	y -= (m_dirY * delta) * ball_difficulty;
+	x += (m_dir_x * delta) * ball_difficulty;
+	y -= (m_dir_y * delta) * ball_difficulty;
 }
 
 void Ball::render() {
@@ -36,8 +36,8 @@ void Ball::render() {
 void Ball::set_direction(float diry, float dirx) {
 	// Normalize direction speed
 	float length = sqrt((dirx * dirx) + (diry * diry));
-	this->m_dirX = EASY_BALL_SPEED * (dirx / length);
-	this->m_dirY = EASY_BALL_SPEED * (diry / length);
+	this->m_dir_x = EASY_BALL_SPEED * (dirx / length);
+	this->m_dir_y = EASY_BALL_SPEED * (diry / length);
 }
 
 // Change color of ball

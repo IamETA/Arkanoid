@@ -23,9 +23,9 @@ class Scene
 		virtual void render() {}
 		virtual void enter() {}
 		virtual void exit() {}
-		virtual void keyDown(SDL_KeyboardEvent& event) {}
-		virtual void keyUp(SDL_KeyboardEvent& event) {}
-		virtual void mouseDown(SDL_KeyboardEvent& event) {}
+		virtual void key_down(SDL_KeyboardEvent& event) {}
+		virtual void key_up(SDL_KeyboardEvent& event) {}
+		virtual void mouse_down(SDL_KeyboardEvent& event) {}
 	protected:
 		Game& mGame;
 };

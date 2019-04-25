@@ -1,6 +1,6 @@
 #include "Highscores.h"
 
-std::string Highscores::readFile(){
+std::string Highscores::read_file(){
 	std::string line;
 	std::string score;
 
@@ -15,18 +15,12 @@ std::string Highscores::readFile(){
 		std::cout << "Failed to open" << std::endl;
 	}
 
-	/*
-		int converted_score = atoi(score.c_str());
-	return converted_score;
-	
-	*/
-
 	return score;
 
 }
 
 
-void Highscores::writeFile(int score) {
+void Highscores::write_file(int score) {
 	file.open("highscore.txt");
 
 	if (file.is_open()) {
