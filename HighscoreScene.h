@@ -17,7 +17,7 @@ public:
 	HighscoreScene(Game& game);
 	~HighscoreScene();
 
-	void update_highscore();
+	void update_highscore(SDL_Renderer* renderer);
 	void render() override;
 	void enter() override;
 	void exit() override;

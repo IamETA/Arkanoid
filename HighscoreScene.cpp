@@ -48,19 +48,10 @@ HighscoreScene::~HighscoreScene()
 	RELEASE_TEXTURE(m_logo);
 }
 
-void HighscoreScene::update_highscore()
+void HighscoreScene::update_highscore(SDL_Renderer* renderer)
 {
-	auto m_highscores_text = "Highscore: " + (highscore->read_file());
 
-}
-
-void HighscoreScene::render()
-{
-	auto renderer = mGame.get_renderer();
 	auto font = mGame.get_font();
-
-	SDL_RenderCopy(renderer, m_logo, nullptr, &m_logo_pos);
-	SDL_RenderCopy(renderer, m_highscores_text, nullptr, &m_highscore_text_pos);
 
 	std::stringstream highscore_list(highscore_string);
 	const char delim = '\n';
@@ -84,9 +75,19 @@ void HighscoreScene::render()
 			renderPosition.x = windowCenterX - (renderPosition.w / 2);
 			renderPosition.y = 300 + (index * 60);
 			SDL_RenderCopy(renderer, renderText, nullptr, &renderPosition);
+			SDL_DestroyTexture(renderText);
 		}
-		
+
 	}
+}
+
+void HighscoreScene::render()
+{
+	auto renderer = mGame.get_renderer();
+	update_highscore(renderer);
+	SDL_RenderCopy(renderer, m_logo, nullptr, &m_logo_pos);
+	SDL_RenderCopy(renderer, m_highscores_text, nullptr, &m_highscore_text_pos);
+
 }
 
 void HighscoreScene::enter()
@@ -99,15 +100,15 @@ void HighscoreScene::exit()
 
 void HighscoreScene::key_up(SDL_KeyboardEvent& event)
 {
-}
-
-void HighscoreScene::key_down(SDL_KeyboardEvent& event)
-{
 	switch (event.keysym.sym)
 	{
 	case SDLK_ESCAPE:
 		mGame.enter_scene(std::make_shared<MenuScene>(mGame));
 		break;
 	}
+}
+
+void HighscoreScene::key_down(SDL_KeyboardEvent& event)
+{
 	
 }
