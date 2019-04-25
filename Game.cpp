@@ -16,7 +16,7 @@ void Game::exit() {
 	game_running = false;
 }
 Game::~Game() 
-{
+{	
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	//Free the music
@@ -174,7 +174,9 @@ void Game::update(float delta)
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	mScene->render();
+	if (mScene != nullptr) {
+		mScene->render();
+	}
 	SDL_RenderPresent(renderer);
 }
 

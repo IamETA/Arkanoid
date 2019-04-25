@@ -9,6 +9,7 @@ MenuScene::MenuScene(Game& game) : Scene(game),
 	mPlayText(nullptr)
 {
 
+	std::cout << "Initializing MenuScene..." << std::endl;
 	SDL_Renderer* renderer = game.getRenderer();
 	TTF_Font* font = game.getFont();
 
@@ -67,6 +68,8 @@ MenuScene::~MenuScene()
 	RELEASE_TEXTURE(mHighscoresTextSelected);
 	RELEASE_TEXTURE(mPlayTextSelected);
 	RELEASE_TEXTURE(mLogo);
+
+	std::cout << "MenuScene destroyed" << std::endl;
 }
 
 void MenuScene::update(float delta)
