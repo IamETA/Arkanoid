@@ -23,6 +23,7 @@ SDL_Texture* TextureManager::create_text(const std::string& text, SDL_Renderer* 
 	SDL_Color color{ 0xff, 0xff, 0xff, 0xff };
 	return create_text(text, ren, font, color);
 }
+
 //Custom color function for text surfaces
 SDL_Texture* TextureManager::create_text(const std::string& text, SDL_Renderer* ren, TTF_Font* font, SDL_Color color)
 {
