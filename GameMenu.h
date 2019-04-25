@@ -1,8 +1,8 @@
 #pragma once
-class GameMenu
+/*class GameMenu
 {
 public:
 	GameMenu();
 	~GameMenu();
-};
+}; */
 

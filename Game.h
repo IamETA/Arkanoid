@@ -2,7 +2,6 @@
 
 #include <iosfwd>
 #include <SDL.h>
-#include <SDL_image.h>
 #include "TextureManager.h"
 #include "Timer.h"
 #include "Scene.h"
@@ -17,14 +16,8 @@ private:
 	std::shared_ptr<Scene> m_scene{ nullptr };
 	std::shared_ptr<Scene> m_high_scene{ nullptr };
 	TextureManager* texture_manager{ nullptr };
-
-	//Use chronos to keep track of time
 	TimerUtils::Timer *timer;
 	TTF_Font*  m_font{ nullptr };
-
-	//Game definitions
-
-	//Other definitions
 	bool game_running{};
 	int counter{ 0 };
 	Mix_Music *music{ nullptr };
