@@ -71,22 +71,11 @@ void HighscoreScene::updateHighscore()
 
 void HighscoreScene::render()
 {
-	// get a reference to the SDL renderer.
-	SDL_Renderer* renderer = mGame.getRenderer();
-	if (selectedItem == 0) {
-		SDL_RenderCopy(renderer, mPlayTextSelected, nullptr, &mPlayTextPosition);
-	}
-	else {
-		SDL_RenderCopy(renderer, mPlayText, nullptr, &mPlayTextPosition);
-	}
-	if (selectedItem == 2) {
-		SDL_RenderCopy(renderer, mExitTextSelected, nullptr, &mExitTextPosition);
-	}
-	else {
-		SDL_RenderCopy(renderer, mExitText, nullptr, &mExitTextPosition);
-	}
-
+	auto renderer = mGame.getRenderer();
+	SDL_RenderCopy(renderer, mPlayText, nullptr, &mPlayTextPosition);
+	SDL_RenderCopy(renderer, mExitText, nullptr, &mExitTextPosition);
 	SDL_RenderCopy(renderer, mLogo, nullptr, &mLogoPosition);
+	SDL_RenderCopy(renderer, mHighscoresText, nullptr, &mHighscoresTextPosition);
 }
 
 void HighscoreScene::enter()
