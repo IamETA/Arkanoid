@@ -1,17 +1,13 @@
 #pragma once
 #include "Level.h"
-#include <iostream>
 
 Level::Level(SDL_Renderer* renderer) : GameObject(".\\textures\\bricks.png",renderer) 
 {
-	// Endre til mer dynamisk bricks, med background color
 	bricktexture = m_object_texture;
 
 	SDL_Surface* surface = IMG_Load(".\\textures\\purple_side.png");
 	sidetexture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
-
-	srand(time(0));
 
 	brick_offset_x = 16;
 	brick_offset_y = 10;
@@ -19,7 +15,6 @@ Level::Level(SDL_Renderer* renderer) : GameObject(".\\textures\\bricks.png",rend
 	y = 0;
 	width = 800 - brick_offset_x;
 	height = 600;
-
 }
 
 Level::~Level()
@@ -41,7 +36,7 @@ void Level::render() {
 		{
 			Brick brick = bricks[i][j];
 
-			// Check if the brick exists
+			// Check to draw the bricks or not
 			if (!brick.state)
 				continue;
 
@@ -62,7 +57,7 @@ void Level::render() {
 		}
 	}
 
-	// Render sides
+	// Render the sides
 	SDL_Rect dstrect;
 	dstrect.x = 0;
 	dstrect.y = 0;
@@ -93,19 +88,19 @@ void Level::next_level(int round)
 	}
 	
 }
+
 // Rainbow with tiered hit points bricks
 void Level::create_round_one()
 {
-	std::cout << "Level 1" << std::endl;
-	for (int i = 1; i < LEVEL_WIDTH+1; i++)
+	for (int i = 1; i < LEVEL_WIDTH; i++)
 	{
-		for (int j = 6; j < LEVEL_HEIGHT; j++)
+		for (int j = 1; j < LEVEL_HEIGHT; j++)
 		{
-			if (j < 6) 
+			if (j <= 5) 
 			{
 				Brick brick;
 				brick.type = 0; 
-				brick.state = true; // empty
+				brick.state = false; // empty
 				brick.hp = 0;
 				bricks[i][j] = brick;
 			}
@@ -183,7 +178,7 @@ void Level::create_round_three()
 				Brick brick;
 				brick.type = 5; // grey
 				brick.state = true;
-				brick.hp = 0;// -1; // indestructible
+				brick.hp = -1; // indestructible
 				bricks[i][j] = brick;
 			}
 			 else if (i == 8 && j != 1 && j != 8 && j != 9)
@@ -191,7 +186,7 @@ void Level::create_round_three()
 				Brick brick;
 				brick.type = 5; // grey
 				brick.state = true;
-				brick.hp = 0;// -1; // indestructible
+				brick.hp = -1; // indestructible
 				bricks[i][j] = brick;
 			}
 			else if(j == 7 && i != 1 && i != 2 && i != 8 && i != 9) 
@@ -199,7 +194,7 @@ void Level::create_round_three()
 				Brick brick;
 				brick.type = 5; // grey
 				brick.state = true;
-				brick.hp = 0;// -1; // indestructible
+				brick.hp = -1; // indestructible
 				bricks[i][j] = brick;
 			}
 			else 

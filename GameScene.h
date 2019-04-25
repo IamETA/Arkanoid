@@ -21,7 +21,7 @@ private:
 
 
 	int life_left{ 3 };
-	int current_level{ 3 };
+	int current_level{ 1 };
 	int score{ 0 };
 	int difficulty{ 1 };
 
