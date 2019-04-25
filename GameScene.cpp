@@ -143,7 +143,7 @@ void GameScene::UpdateLevelCollisionDetectionMove() {
 								level->bricks[i][j].type = 0;
 							}
 						}
-						if (CurrentLevel == 1) {
+						if (CurrentLevel == 2) {
 							if (brick.type == 1) {
 								level->bricks[i][j].type = 3;
 							}
