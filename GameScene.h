@@ -10,6 +10,7 @@
 #include "Ball.h"
 #include "Level.h"
 #include "Paddle.h"
+#include "Highscores.h"
 
 class GameScene final : public Scene
 {
@@ -22,6 +23,7 @@ private:
 	Paddle* paddle;
 	Ball* ball;
 	Level* level;
+	Highscores* highscore;
 	InputUtils::InputManager*  input{ nullptr };
 
 	SDL_Texture* mLivesText{ nullptr };

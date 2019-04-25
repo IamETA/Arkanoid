@@ -34,6 +34,7 @@ GameScene::GameScene(Game& game) : Scene(game)
 	paddle = new Paddle(renderer);
 	ball = new Ball(renderer);
 	level = new Level(renderer);
+	highscore = new Highscores();
 
 	//set paddle height to correct height
 	paddle->y = level->height - paddle->height;
@@ -129,12 +130,16 @@ void GameScene::ResetBall() {
 
 void GameScene::LevelUp() {
 	if (GetBrickNum() == 0) {
+
+		highscore->readFile();
+		highscore->writeFile(Score);
 		CurrentLevel++; //Next round in game.
 		// Rest the ball to paddle with next level
 		ball->released = false;
 		ball->set_direction(1, 1);
 		level->NextLevel(CurrentLevel);
 		Mix_PlayChannel(-1, cNextRound, 0);
+		
 		UpdateStats();
 	}
 }

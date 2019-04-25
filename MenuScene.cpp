@@ -1,6 +1,7 @@
 #include "MenuScene.h"
 #include "GameScene.h"
 #include "game.h"
+#include "Highscores.h"
 
 MenuScene::MenuScene(Game& game) : Scene(game),
 	mExitText(nullptr),
